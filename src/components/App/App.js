@@ -10,23 +10,27 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
+import NotFound from "../NotFound/NotFound";
 
 export default function App() {
   return (
     <div className="page">
-      <Header />
       <main>
       <Switch>
         <Route exact path="/">
+          <Header />
           <Main />
         </Route>
         <Route exact path="/movies">
+          <Header />
           <Movies />
         </Route>
         <Route exact path="/saved-movies">
+          <Header />
           <SavedMovies />
         </Route>
         <Route exact path="/profile">
+          <Header />
           <Profile />
         </Route>
         <Route exact path="/sign-up">
@@ -34,6 +38,9 @@ export default function App() {
         </Route>
         <Route exact path="/sign-in">
           <Login />
+        </Route>
+        <Route path="*">
+          <NotFound />
         </Route>
       </Switch>
       </main>
