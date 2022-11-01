@@ -1,0 +1,77 @@
+.header {
+  max-width: 1140px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px auto;
+  padding: 18px 0px;
+}
+
+.header__logo {
+  max-height: 38px;
+  max-width: 38px;
+}
+
+.header__link {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header__link:first-child {
+  font-weight: 500;
+}
+
+.header__nav-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 50px;
+}
+
+.header__nav-container_place_main-page {
+  gap: 30px;
+}
+
+.header__links-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.header__button {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 0px;
+  background-color: inherit;
+  border: none;
+  text-decoration: none;
+}
+
+.header__button_name_login {
+  border-radius: 3px;
+  background-color: #3ddc84;
+  padding: 8px 20px;
+  color: #000
+}
+
+.header__button_name_profile {
+  display: flex;
+  text-align: center;
+  gap: 7px;
+  font-size: 14px;
+  color: #fff;
+  padding: 6px 10px;
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  border-radius: 50px;
+}
+
+.header__profile-icon {
+    max-height: 14px;
+}
