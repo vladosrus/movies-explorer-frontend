@@ -1,0 +1,21 @@
+.nav-tab__list {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  min-height: 36px;
+}
+
+.nav-tab__link {
+  text-decoration: none;
+  color: #fff;
+  background-color: #303030;
+  padding: 11px 17px;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
