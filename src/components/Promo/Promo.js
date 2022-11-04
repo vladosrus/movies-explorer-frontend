@@ -1,10 +1,12 @@
-import NavTab from "../NavTab/NavTab";
 import './Promo.css'
+import LargeText from "../LargeText/LargeText";
+import NavTab from "../NavTab/NavTab";
+
 
 export default function Promo() {
   return <section className="promo">
     <div className="promo__container">
-      <h1 className="promo__title">Учебный проект студента факультета Веб-разработки.</h1>
+      <LargeText isMainHeading={true} className={"promo__title"} text={"Учебный проект студента факультета Веб-разработки."} />
       <NavTab />
     </div>
   </section>;
