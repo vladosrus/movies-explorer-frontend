@@ -1,12 +1,13 @@
 import "./Techs.css";
 import TabTitle from "../TabTitle/TabTitle";
+import LargeText from "../LargeText/LargeText";
 
 export default function Techs() {
   return (
     <section className="techs" id="techs">
       <div className="techs__container">
         <TabTitle text={"Технологии"} />
-        <h2 className="techs__title">7 технологий</h2>
+        <LargeText isMainHeading={false} className={"techs__title"} text={"7 технологий"} />
         <p className="techs__text">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
         <ul className="techs__technologies-list">
           <li className="techs__technologies-item">HTML</li>
