@@ -1,6 +1,7 @@
 import "./Header.css";
 import logo from "../../images/header__logo.svg";
 import profileIcon from "../../images/header__profile-icon.svg";
+import React from "react";
 import { Link, Route, Switch } from "react-router-dom";
 
 export default function Header() {
@@ -25,27 +26,29 @@ export default function Header() {
             </Link>
           </nav>
         </Route>
-        <nav className="header__nav-container">
-          <div className="header__links-container">
-            <Link to={"/movies"} className="header__link">
-              Фильмы
+        <React.Fragment>
+          <nav className="header__nav-container">
+            <div className="header__links-container">
+              <Link to={"/movies"} className="header__link">
+                Фильмы
+              </Link>
+              <Link to={"/saved-movies"} className="header__link">
+                Сохранённые фильмы
+              </Link>
+            </div>
+            <Link
+              to={"/profile"}
+              className="header__button header__button_name_profile"
+            >
+              <img
+                src={profileIcon}
+                alt="Иконка профиля"
+                className="header__profile-icon"
+              ></img>
+              Аккаунт
             </Link>
-            <Link to={"/saved-movies"} className="header__link">
-              Сохранённые фильмы
-            </Link>
-          </div>
-          <Link
-            to={"/profile"}
-            className="header__button header__button_name_profile"
-          >
-            <img
-              src={profileIcon}
-              alt="Иконка профиля"
-              className="header__profile-icon"
-            ></img>
-            Аккаунт
-          </Link>
-        </nav>
+          </nav>
+        </React.Fragment>
       </Switch>
     </header>
   );

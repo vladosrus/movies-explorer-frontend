@@ -4,8 +4,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 0px auto;
-  padding: 18px 0px;
+  margin: 0px auto 88px;
+  padding: 18px 0px 0px;
 }
 
 .header__logo {

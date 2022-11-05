@@ -15,7 +15,7 @@
   border: none;
   border-bottom: 1px solid #424242;
   margin: 0px;
-  padding: 0px 0px 15px 6px;
+  padding: 0px 0px 15px 0px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -36,6 +36,7 @@
   background-position: center;
   border: 1px solid #424242;
   border-radius: 48px;
+  margin-left: 6px;
 }
 
 .search-form__film-name-input {
