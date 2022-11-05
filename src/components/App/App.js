@@ -20,14 +20,17 @@ export default function App() {
         <Route exact path="/">
           <Header />
           <Main />
+          <Footer />
         </Route>
         <Route exact path="/movies">
           <Header />
           <Movies />
+          <Footer />
         </Route>
         <Route exact path="/saved-movies">
           <Header />
           <SavedMovies />
+          <Footer />
         </Route>
         <Route exact path="/profile">
           <Header />
@@ -44,7 +47,6 @@ export default function App() {
         </Route>
       </Switch>
       </main>
-      <Footer />
     </div>
   );
 }
