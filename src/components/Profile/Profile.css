@@ -1,0 +1,84 @@
+.profile-page {
+  max-width: 410px;
+  margin: 0px auto;
+  padding-top: 74px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-page__title {
+  margin: 0px 0px 123px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.profile-page__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.profile-page__input-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #424242;
+  padding-bottom: 16px;
+}
+
+.profile-page__input-container:nth-child(2) {
+  margin-bottom: 220px;
+  padding: 17px 0px 0px;
+  border: none;
+}
+
+.profile-page__input-name {
+  margin: 0px;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  color: #fff;
+}
+
+.profile-page__input {
+  width: 80%;
+  text-align: end;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  padding: 0px;
+  border: none;
+  background-color: inherit;
+  color: #fff;
+  cursor: pointer;
+  outline: none;
+}
+
+.profile-page__submit-button {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 0px;
+  border: none;
+  background-color: inherit;
+  color: #fff;
+  cursor: pointer;
+}
+
+.profile-page__logout-button {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 0px;
+  border: none;
+  background-color: inherit;
+  color: #EE3465;
+  cursor: pointer;
+  margin-bottom: 70px;
+}
