@@ -325,40 +325,46 @@ export default function App() {
         updated_at: "2020-12-02T20:37:23.499Z",
       },
     },
-  ]; 
+  ];
+  // Временное решение поступающих от API имени и email пользователя
+  const exampleProgileData = {
+    name: "Виталий",
+    email: "pochta@yandex.ru",
+  };
+
   return (
     <div className="page">
       <main>
-      <Switch>
-        <Route exact path="/">
-          <Header />
-          <Main />
-          <Footer />
-        </Route>
-        <Route exact path="/movies">
-          <Header />
-          <Movies movies={exampleApiMovies} />
-          <Footer />
-        </Route>
-        <Route exact path="/saved-movies">
-          <Header />
-          <SavedMovies movies={exampleApiMovies} />
-          <Footer />
-        </Route>
-        <Route exact path="/profile">
-          <Header />
-          <Profile />
-        </Route>
-        <Route exact path="/sign-up">
-          <Register />
-        </Route>
-        <Route exact path="/sign-in">
-          <Login />
-        </Route>
-        <Route path="*">
-          <NotFound />
-        </Route>
-      </Switch>
+        <Switch>
+          <Route exact path="/">
+            <Header />
+            <Main />
+            <Footer />
+          </Route>
+          <Route exact path="/movies">
+            <Header />
+            <Movies movies={exampleApiMovies} />
+            <Footer />
+          </Route>
+          <Route exact path="/saved-movies">
+            <Header />
+            <SavedMovies movies={exampleApiMovies} />
+            <Footer />
+          </Route>
+          <Route exact path="/profile">
+            <Header />
+            <Profile profileData={exampleProgileData} />
+          </Route>
+          <Route exact path="/sign-up">
+            <Register />
+          </Route>
+          <Route exact path="/sign-in">
+            <Login />
+          </Route>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
       </main>
     </div>
   );
