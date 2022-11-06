@@ -8,11 +8,6 @@
   padding: 18px 0px 0px;
 }
 
-.header__logo {
-  max-height: 38px;
-  max-width: 38px;
-}
-
 .header__link {
   font-weight: 400;
   font-size: 12px;
