@@ -1,3 +1,5 @@
+import EntrancePage from "../EntrancePage/EntrancePage";
+
 export default function Login() {
-  return <article className="login-page"></article>;
+  return <EntrancePage name={"login"} />;
 }
