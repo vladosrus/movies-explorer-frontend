@@ -1,15 +1,13 @@
 import "./Header.css";
-import logo from "../../images/header__logo.svg";
 import profileIcon from "../../images/header__profile-icon.svg";
 import React from "react";
 import { Link, Route, Switch } from "react-router-dom";
+import Logo from "../Logo/Logo";
 
 export default function Header() {
   return (
     <header className="header">
-      <a href="/" className="header__logo">
-        <img src={logo} alt="Логотип дипломного проекта" />
-      </a>
+      <Logo />
       <Switch>
         <Route exact path="/">
           <nav className="header__nav-container header__nav-container_place_main-page">
