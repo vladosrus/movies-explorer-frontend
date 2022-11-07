@@ -46,6 +46,7 @@ export default function Header() {
               Аккаунт
             </Link>
           </nav>
+          <button type="button" className="header__menu-button" />
         </React.Fragment>
       </Switch>
     </header>
