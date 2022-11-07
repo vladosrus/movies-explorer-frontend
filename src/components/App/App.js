@@ -11,6 +11,8 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
 import NotFound from "../NotFound/NotFound";
+import Navigation from "../Navigation/Navigation";
+import { useState } from "react";
 
 export default function App() {
   // Временное решение поступающих фильмов от API
@@ -332,27 +334,36 @@ export default function App() {
     email: "pochta@yandex.ru",
   };
 
+  const [isNavigationMenuOpen, setIsNavigationMenuOpen] = useState(false);
+
+  function closeNavigationMenu() {
+    setIsNavigationMenuOpen(false);
+  }
+  function handleNavigationBottomClick() {
+    setIsNavigationMenuOpen(true);
+  }
+
   return (
     <div className="page">
       <main>
         <Switch>
           <Route exact path="/">
-            <Header />
+            <Header onNavigationBottomClick={handleNavigationBottomClick} />
             <Main />
             <Footer />
           </Route>
           <Route exact path="/movies">
-            <Header />
+            <Header onNavigationBottomClick={handleNavigationBottomClick} />
             <Movies movies={exampleApiMovies} />
             <Footer />
           </Route>
           <Route exact path="/saved-movies">
-            <Header />
+            <Header onNavigationBottomClick={handleNavigationBottomClick} />
             <SavedMovies movies={exampleApiMovies} />
             <Footer />
           </Route>
           <Route exact path="/profile">
-            <Header />
+            <Header onNavigationBottomClick={handleNavigationBottomClick} />
             <Profile profileData={exampleProgileData} />
           </Route>
           <Route exact path="/sign-up">
@@ -365,6 +376,10 @@ export default function App() {
             <NotFound />
           </Route>
         </Switch>
+        <Navigation
+          isOpen={isNavigationMenuOpen}
+          onClose={closeNavigationMenu}
+        />
       </main>
     </div>
   );
