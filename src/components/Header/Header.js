@@ -1,10 +1,10 @@
 import "./Header.css";
-import profileIcon from "../../images/header__profile-icon.svg";
 import React from "react";
 import { Link, Route, Switch } from "react-router-dom";
 import Logo from "../Logo/Logo";
+import ProfileButton from "../ProfileButton/ProfileButton";
 
-export default function Header() {
+export default function Header(props) {
   return (
     <header className="header">
       <Logo />
@@ -34,19 +34,9 @@ export default function Header() {
                 Сохранённые фильмы
               </Link>
             </div>
-            <Link
-              to={"/profile"}
-              className="header__button header__button_name_profile"
-            >
-              <img
-                src={profileIcon}
-                alt="Иконка профиля"
-                className="header__profile-icon"
-              ></img>
-              Аккаунт
-            </Link>
+            <ProfileButton />
           </nav>
-          <button type="button" className="header__menu-button" />
+          <button type="button" className="header__menu-button" onClick={props.onNavigationBottomClick} />
         </React.Fragment>
       </Switch>
     </header>

@@ -56,21 +56,6 @@
   color: #000;
 }
 
-.header__button_name_profile {
-  display: flex;
-  text-align: center;
-  gap: 7px;
-  font-size: 14px;
-  color: #fff;
-  padding: 6px 10px;
-  border: 2px solid rgba(170, 170, 170, 0.2);
-  border-radius: 50px;
-}
-
-.header__profile-icon {
-  max-height: 14px;
-}
-
 .header__menu-button {
   min-width: 28px;
   min-height: 23px;
