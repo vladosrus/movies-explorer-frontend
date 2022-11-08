@@ -13,13 +13,18 @@
 
 .portfolio__links-list {
   list-style: none;
-  margin: 0px 0px 100px;
+  margin: 0px;
   padding: 0px;
 }
 
 .portfolio__links-list-item {
   border-bottom: 1px solid #424242;
   margin-bottom: 20px;
+}
+
+.portfolio__links-list-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0px;
 }
 
 .portfolio__link {
@@ -39,4 +44,26 @@
 .portfolio__arrow {
   width: 18px;
   height: 17px;
+}
+
+@media (max-width: 1240px) {
+  .portfolio {
+    margin: 0px 50px 169px;
+  }
+  .portfolio__link {
+    font-size: 28px;
+  }
+}
+@media (max-width: 600px) {
+  .portfolio {
+    margin: 0px 14px 149px;
+  }
+  .portfolio__tab-title {
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+  .portfolio__link {
+    font-size: 18px;
+    line-height: 28px;
+  }
 }

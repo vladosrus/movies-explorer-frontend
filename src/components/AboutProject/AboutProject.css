@@ -11,11 +11,27 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, auto);
+  grid-template-areas:
+    "A B"
+    "C E";
   row-gap: 26px;
+  column-gap: 40px;
 }
 
 .about-project__stages-grid-container-list-item {
   margin: 0px;
+}
+.about-project__stages-grid-container-list-item:nth-child(1) {
+  grid-area: A;
+}
+.about-project__stages-grid-container-list-item:nth-child(2) {
+  grid-area: C;
+}
+.about-project__stages-grid-container-list-item:nth-child(3) {
+  grid-area: B;
+}
+.about-project__stages-grid-container-list-item:nth-child(4) {
+  grid-area: E;
 }
 
 .about-project__stage-title {
@@ -34,14 +50,13 @@
 
 .about-project__stages-map-grid-container {
   list-style: none;
-  margin: 0px 0px 110px;
+  margin: 0px 0px 100.5px;
   padding: 0px;
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 228px 1fr;
   grid-template-rows: repeat(2, 36px);
   align-items: center;
   justify-items: center;
-  row-gap: 5px;
 }
 
 .about-project__stages-map-grid-container-list-item {
@@ -54,7 +69,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #8B8B8B;
+  color: #8b8b8b;
 }
 
 .about-project__stages-map-grid-container-list-item:nth-child(1) {
@@ -64,4 +79,52 @@
 .about-project__stages-map-grid-container-list-item:nth-child(2) {
   background-color: #303030;
   color: #fff;
+}
+
+@media (max-width: 1240px) {
+  .about-project {
+    margin: 0px 50px;
+    padding-top: 90px;
+  }
+  .about-project__stages-map-grid-container {
+    margin-bottom: 80.5px;
+    grid-template-columns: 140px 1fr;
+  }
+  .about-project__stages-grid-container {
+    row-gap: 22px;
+    column-gap: 30px;
+    margin-bottom: 93px;
+  }
+}
+@media (max-width: 600px) {
+  .about-project {
+    margin: 0px 18px;
+    padding-top: 70px;
+  }
+  .about-project__stages-grid-container {
+    grid-template-columns: none;
+    grid-template-rows: none;
+    row-gap: 0px;
+    column-gap: 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 60px;
+    margin-bottom: 60px;
+  }
+  .about-project__stage-title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .about-project__stage-text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .about-project__stages-grid-container-list-item:nth-child(2) {
+    margin-bottom: 40px;
+  }
+  .about-project__stages-map-grid-container {
+    margin-bottom: 60.5px;
+    grid-template-columns: 100px 1fr;
+  }
 }
