@@ -7,7 +7,7 @@ export default function Footer() {
         Учебный проект Яндекс.Практикум х BeatFilm.
       </p>
       <div className="footer__container">
-        <p className="footer__copyright">&copy; 2022.</p>
+        <p className="footer__copyright">&copy; 2022</p>
         <ul className="footer__links-list">
           <li>
             <a

@@ -12,15 +12,15 @@ export default function AboutProject() {
           </h3>
         </li>
         <li className="about-project__stages-grid-container-list-item">
-          <h3 className="about-project__stage-title">
-            На выполнение диплома ушло 5 недель
-          </h3>
-        </li>
-        <li className="about-project__stages-grid-container-list-item">
           <p className="about-project__stage-text">
             Составление плана, работу над бэкендом, вёрстку, добавление
             функциональности и финальные доработки.
           </p>
+        </li>
+        <li className="about-project__stages-grid-container-list-item">
+          <h3 className="about-project__stage-title">
+            На выполнение диплома ушло 5 недель
+          </h3>
         </li>
         <li className="about-project__stages-grid-container-list-item">
           <p className="about-project__stage-text">

@@ -69,6 +69,12 @@
   cursor: pointer;
 }
 
+@media (max-width: 1200px) {
+  .header {
+    margin: 0px 30px 18px;
+  }
+}
+
 @media (max-width: 768px) {
   .header__menu-button {
     display: block;
@@ -78,5 +84,21 @@
   }
   .header__nav-container_place_main-page {
     display: flex;
+  }
+}
+
+@media (max-width: 320px) {
+  .header {
+    margin: 0px 14px 18px;
+  }
+  .header__nav-container_place_main-page {
+    gap: 14px;
+  }
+  .header__link {
+    font-size: 10px;
+  }
+  .header__button_name_login {
+    padding: 5px 12px;
+    font-size: 10px;
   }
 }
