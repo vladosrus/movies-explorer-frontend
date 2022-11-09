@@ -5,7 +5,9 @@ import "./Navigation.css";
 export default function Navigation(props) {
   return (
     <div
-      className={`navigation-menu ${props.isOpen && "navigation-menu_opened"}`}
+      className={`navigation-menu ${
+        props.isOpen ? "navigation-menu_opened" : ""
+      }`}
     >
       <div className="navigation-menu__container">
         <button
@@ -42,7 +44,9 @@ export default function Navigation(props) {
             Сохранённые фильмы
           </NavLink>
         </div>
-        <ProfileButton marginBottomClass={"profile-button_place_navigation-menu"} />
+        <ProfileButton
+          marginBottomClass={"profile-button_place_navigation-menu"}
+        />
       </div>
     </div>
   );
