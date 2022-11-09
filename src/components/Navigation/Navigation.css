@@ -8,8 +8,12 @@
   height: 100%;
   transition: visibility 0.5s, opacity 0.5s ease-in-out;
 }
-.navigation-menu::before {
-  content: "";
+
+.navigation-menu_opened {
+  visibility: visible;
+  opacity: 1;
+}
+.navigation-menu__overlay {
   background-color: #000000;
   position: fixed;
   top: 0;
@@ -17,10 +21,6 @@
   width: 100%;
   height: 100%;
   opacity: 0.3;
-}
-.navigation-menu_opened {
-  visibility: visible;
-  opacity: 1;
 }
 
 .navigation-menu__container {

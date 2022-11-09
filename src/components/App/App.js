@@ -379,6 +379,7 @@ export default function App() {
         <Navigation
           isOpen={isNavigationMenuOpen}
           onClose={closeNavigationMenu}
+          onOverlayClick={closeNavigationMenu}
         />
       </main>
     </div>
