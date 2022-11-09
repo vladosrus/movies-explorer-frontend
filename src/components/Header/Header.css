@@ -67,6 +67,7 @@
   background-image: url(../../images/header__menu-button.svg);
   background-repeat: no-repeat;
   cursor: pointer;
+  outline: none;
 }
 
 @media (max-width: 1200px) {

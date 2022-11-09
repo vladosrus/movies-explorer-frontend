@@ -3,12 +3,29 @@ import ProfileButton from "../ProfileButton/ProfileButton";
 import "./Navigation.css";
 
 export default function Navigation(props) {
+  // Закрытие меню на esc
+  if (props.isOpen) {
+    document.addEventListener(
+      "keydown",
+      (evt) => {
+        if (evt.key === "Escape") {
+          props.onClose();
+        }
+      },
+      { once: true }
+    );
+  }
+
   return (
     <div
       className={`navigation-menu ${
         props.isOpen ? "navigation-menu_opened" : ""
       }`}
     >
+      <div
+        className="navigation-menu__overlay"
+        onClick={props.onOverlayClick}
+      ></div>
       <div className="navigation-menu__container">
         <button
           className="navigation-menu__close-icon"
