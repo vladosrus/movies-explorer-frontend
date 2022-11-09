@@ -78,7 +78,41 @@
   padding: 0px;
   border: none;
   background-color: inherit;
-  color: #EE3465;
+  color: #ee3465;
   cursor: pointer;
   margin-bottom: 70px;
+}
+
+@media (max-width: 768px) {
+  .profile-page {
+    padding-top: 236px;
+  }
+  .profile-page__title {
+    margin-bottom: 96px;
+  }
+  .profile-page__input-container:nth-child(2) {
+    margin-bottom: 210px;
+  }
+  .profile-page__logout-button {
+    margin-bottom: 269px;
+  }
+}
+@media (max-width: 470px) {
+  .profile-page {
+    margin: 0px 30px;
+    padding-top: 70px;
+  }
+  .profile-page__title {
+    margin-bottom: 80px;
+  }
+  .profile-page__input-container:nth-child(2) {
+    margin-bottom: 379px;
+  }
+  .profile-page__submit-button {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .profile-page__logout-button {
+    margin-bottom: 40px;
+  }
 }
