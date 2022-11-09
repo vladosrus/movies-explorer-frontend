@@ -24,7 +24,8 @@
   justify-content: flex-end;
   background-color: #202020;
   border-radius: 50px;
-  box-shadow: 0px 4px 4px rgba(50, 50, 71, .08), 0px 4px 8px rgba(50, 50, 71, .06);
+  box-shadow: 0px 4px 4px rgba(50, 50, 71, 0.08),
+    0px 4px 8px rgba(50, 50, 71, 0.06);
   width: 36px;
   height: 20px;
   cursor: pointer;
@@ -36,11 +37,19 @@
   border-radius: 50%;
   margin-right: 2px;
   background-color: #3ddc84;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .checkbox__new-indicator_selected {
   background-color: #bbc1e1;
   transform: translate(-16px, 0px);
-  transition: all .3s ease;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  .checkbox {
+    gap: 13px;
+    font-size: 11px;
+    line-height: 18px;
+  }
 }

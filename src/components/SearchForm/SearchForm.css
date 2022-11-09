@@ -19,7 +19,7 @@
   padding: 0px 0px 15px 0px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 10px;
 }
 
 .search-form__short-film {
@@ -29,8 +29,8 @@
 }
 
 .search-form__search-icon {
-  min-width: 34px;
-  min-height: 34px;
+  min-width: 32px;
+  min-height: 32px;
   background-image: url(../../images/search-form__search-icon.svg);
   background-repeat: no-repeat;
   background-size: 15px 15px;
@@ -41,7 +41,7 @@
 }
 
 .search-form__film-name-input {
-  width: 85%;
+  width: 100%;
   border: none;
   cursor: pointer;
   padding: 0px;
@@ -66,4 +66,37 @@
   background-size: 15px 15px;
   background-position: center;
   background-color: #4285f4;
+}
+
+@media (max-width: 1200px) {
+  .search-form {
+    margin: 0px 30px 132px;
+    padding-top: 86px;
+  }
+}
+@media (max-width: 600px) {
+  .search-form {
+    padding-top: 92px;
+    margin-bottom: 91px;
+  }
+  .search-form__form {
+    gap: 42px;
+  }
+  .search-form__search-icon {
+    display: none;
+  }
+  .search-form__film-name-input {
+    text-align: left;
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .search-form__film-name {
+    padding-bottom: 9px;
+  }
+}
+@media (max-width: 320px) {
+  .search-form {
+    margin: 0px 14px 90px;
+    padding-top: 98px;
+  }
 }
