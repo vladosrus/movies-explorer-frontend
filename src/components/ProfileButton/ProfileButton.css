@@ -21,3 +21,9 @@
 .profile-button__profile-icon {
   max-height: 14px;
 }
+
+@media (max-width: 590px) {
+  .profile-button_place_navigation-menu {
+    margin-bottom: 46px;
+  }
+}
