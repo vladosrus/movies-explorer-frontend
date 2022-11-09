@@ -120,11 +120,16 @@
     font-size: 11px;
     line-height: 16px;
   }
+  .about-project__stages-map-grid-container-list-item {
+    font-size: 11px;
+    line-height: 13px;
+  }
   .about-project__stages-grid-container-list-item:nth-child(2) {
     margin-bottom: 40px;
   }
   .about-project__stages-map-grid-container {
     margin-bottom: 60.5px;
     grid-template-columns: 100px 1fr;
+    grid-template-rows: repeat(2, 35px);
   }
 }

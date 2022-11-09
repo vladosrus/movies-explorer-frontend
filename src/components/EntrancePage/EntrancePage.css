@@ -69,38 +69,74 @@
 
 .entrance-page__submit-button {
   width: 100%;
-  margin-top: 152px;
+  margin-top: 134px;
   min-height: 45px;
   border: none;
   border-radius: 3px;
   cursor: pointer;
   padding: 0px;
   background-color: #4285f4;
+  font-size: 14px;
+  line-height: 17px;
   color: #fff;
 }
 
 .entrance-page__submit-button_margin_large {
-    margin-top: 221px;
-  }
+  margin-top: 203px;
+}
 
 .entrance-page__caption-container {
   display: flex;
   margin: 0px auto 70px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
 }
 
 .entrance-page__caption {
   margin: 0;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
   color: #8b8b8b;
 }
 
 .entrance-page__link {
   padding-left: 6px;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
   text-decoration: none;
   color: #4285f4;
+}
+
+@media (max-width: 768px) {
+  .entrance-page {
+    padding-top: 232px;
+  }
+  .entrance-page__caption-container {
+    margin-bottom: 232px;
+  }
+}
+@media (max-width: 456px) {
+  .entrance-page {
+    padding-top: 56px;
+    margin: 0px 30px;
+    min-width: 260px;
+    align-items: center;
+  }
+  .entrance-page__title {
+    margin: 50px 0px 80px;
+  }
+  .entrance-page__form {
+    width: 100%;
+    margin-bottom: 14px;
+  }
+  .entrance-page__submit-button {
+    margin-top: 222px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .entrance-page__submit-button_margin_large {
+    margin-top: 291px;
+  }
+  .entrance-page__caption-container {
+    margin-bottom: 30px;
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

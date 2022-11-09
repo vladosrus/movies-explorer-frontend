@@ -38,8 +38,9 @@ export default function EntrancePage(props) {
         <button
           type="submit"
           className={`entrance-page__submit-button ${
-            props.name === "login" &&
-            "entrance-page__submit-button_margin_large"
+            props.name === "login"
+              ? "entrance-page__submit-button_margin_large"
+              : ""
           }`}
         >
           {props.name === "register" ? "Зарегистрироваться" : "Войти"}

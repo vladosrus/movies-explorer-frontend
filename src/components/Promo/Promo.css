@@ -67,7 +67,6 @@
 @media (max-width: 390px) {
   .promo__container {
     padding-bottom: 17px;
-    gap: 212px;
   }
 }
 @media (max-width: 330px) {
