@@ -30,3 +30,32 @@
   line-height: 17px;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .not-found-page {
+    padding-top: 408px;
+  }
+  .not-found-page__go-back-button {
+    margin-bottom: 222px;
+  }
+}
+@media (max-width: 450px) {
+  .not-found-page {
+    padding-top: 329px;
+  }
+  .not-found-page__error-code {
+    margin-bottom: 10px;
+    font-size: 80px;
+    line-height: 97px;
+  }
+  .not-found-page__message {
+    margin-bottom: 284px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .not-found-page__go-back-button {
+    margin-bottom: 30px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
