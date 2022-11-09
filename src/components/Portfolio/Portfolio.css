@@ -41,6 +41,10 @@
   align-items: center;
 }
 
+.portfolio__link:hover {
+  opacity: .8;
+}
+
 .portfolio__arrow {
   width: 18px;
   height: 17px;

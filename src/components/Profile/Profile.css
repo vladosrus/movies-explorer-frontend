@@ -60,6 +60,10 @@
   outline: none;
 }
 
+.profile-page__input:hover {
+  opacity: .8;
+}
+
 .profile-page__submit-button {
   font-weight: 400;
   font-size: 13px;
@@ -69,6 +73,10 @@
   background-color: inherit;
   color: #fff;
   cursor: pointer;
+}
+
+.profile-page__submit-button:hover {
+  opacity: .8;
 }
 
 .profile-page__logout-button {
@@ -81,6 +89,10 @@
   color: #ee3465;
   cursor: pointer;
   margin-bottom: 70px;
+}
+
+.profile-page__logout-button:hover {
+  opacity: .8;
 }
 
 @media (max-width: 768px) {

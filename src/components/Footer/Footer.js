@@ -11,7 +11,7 @@ export default function Footer() {
         <ul className="footer__links-list">
           <li>
             <a
-              href="/"
+              href="https://practicum.yandex.ru/"
               target="_blank"
               rel="noreferrer"
               className="footer__link"
@@ -21,7 +21,7 @@ export default function Footer() {
           </li>
           <li>
             <a
-              href="/"
+              href="https://github.com/"
               target="_blank"
               rel="noreferrer"
               className="footer__link"

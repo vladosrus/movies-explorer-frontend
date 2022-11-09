@@ -47,6 +47,10 @@
   line-height: 16px;
 }
 
+.footer__link:hover {
+  opacity: .8;
+}
+
 @media (max-width: 1200px) {
   .footer {
     margin: 0px 30px;

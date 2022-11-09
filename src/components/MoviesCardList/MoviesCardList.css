@@ -42,6 +42,10 @@
   cursor: pointer;
 }
 
+.movies-cards__more-movies-card-button:hover {
+  opacity: .8;
+}
+
 @media (max-width: 1200px) {
   .movies-cards {
     margin: 0px 30px;

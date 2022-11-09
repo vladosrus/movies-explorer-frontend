@@ -30,6 +30,9 @@
   line-height: 17px;
   cursor: pointer;
 }
+.not-found-page__go-back-button:hover {
+  opacity: .8;
+}
 
 @media (max-width: 768px) {
   .not-found-page {

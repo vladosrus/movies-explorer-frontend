@@ -15,6 +15,10 @@
   gap: 7px;
 }
 
+.profile-button:hover {
+  opacity: .8;
+}
+
 .profile-button_place_navigation-menu {
   margin-bottom: 90px;
 }

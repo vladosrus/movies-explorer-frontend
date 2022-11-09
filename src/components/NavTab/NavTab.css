@@ -20,6 +20,10 @@
   line-height: 16px;
 }
 
+.nav-tab__link:hover {
+  opacity: .8;
+}
+
 @media (max-width: 390px) {
   .nav-tab__list {
     gap: 6px;
