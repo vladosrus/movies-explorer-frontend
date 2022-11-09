@@ -81,6 +81,10 @@
   color: #fff;
 }
 
+.entrance-page__submit-button:hover {
+  opacity: .8;
+}
+
 .entrance-page__submit-button_margin_large {
   margin-top: 203px;
 }
@@ -102,6 +106,10 @@
   padding-left: 6px;
   text-decoration: none;
   color: #4285f4;
+}
+
+.entrance-page__link:hover {
+  opacity: .8;
 }
 
 @media (max-width: 768px) {
