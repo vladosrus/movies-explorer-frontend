@@ -12,14 +12,24 @@ export default function EntrancePage(props) {
         {props.name === "register" && (
           <div className="entrance-page__input-container">
             <label className="entrance-page__input-name">Имя</label>
-            <input type="text" required minLength="2" maxLength="30" className="entrance-page__input"></input>
+            <input
+              type="text"
+              required
+              minLength="2"
+              maxLength="30"
+              className="entrance-page__input"
+            ></input>
             <span className="entrance-page__error-message"></span>
           </div>
         )}
         <div className="entrance-page__input-container">
           <label className="entrance-page__input-name">
             E-mail
-            <input type="email" required className="entrance-page__input"></input>
+            <input
+              type="email"
+              required
+              className="entrance-page__input"
+            ></input>
           </label>
           <span className="entrance-page__error-message"></span>
         </div>

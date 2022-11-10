@@ -47,7 +47,7 @@
   padding: 0px;
   outline: none;
   text-align: center;
-  background-color: inherit;
+  background-color: transparent;
   font-weight: 500;
   font-size: 28px;
   line-height: 34px;
@@ -55,7 +55,7 @@
 }
 
 .search-form__film-name-input:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .search-form__submit-button {
@@ -73,7 +73,7 @@
 }
 
 .search-form__submit-button:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 @media (max-width: 1200px) {

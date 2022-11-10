@@ -37,7 +37,7 @@
   margin: 0;
   border: none;
   border-bottom: 1px solid #424242;
-  background-color: inherit;
+  background-color: transparent;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
@@ -82,7 +82,7 @@
 }
 
 .entrance-page__submit-button:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .entrance-page__submit-button_margin_large {
@@ -109,7 +109,7 @@
 }
 
 .entrance-page__link:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 @media (max-width: 768px) {

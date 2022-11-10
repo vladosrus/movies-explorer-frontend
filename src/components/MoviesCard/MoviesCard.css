@@ -11,7 +11,7 @@
 }
 
 .movies-card__trailer-link:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .movies-card__image {
@@ -25,7 +25,7 @@
   margin: 0px 12px;
   display: flex;
   align-items: flex-start;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .movies-card__caption-container {
@@ -65,7 +65,7 @@
 }
 
 .movies-card__favourites-button:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .movies-card__favourites-button_active {

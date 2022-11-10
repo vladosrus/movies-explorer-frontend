@@ -23,7 +23,7 @@
   margin: 0px 0px 60px;
   padding: 0px;
   border: none;
-  background-color: inherit;
+  background-color: transparent;
   color: #4285f4;
   font-weight: 400;
   font-size: 14px;
@@ -31,7 +31,7 @@
   cursor: pointer;
 }
 .not-found-page__go-back-button:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 @media (max-width: 768px) {

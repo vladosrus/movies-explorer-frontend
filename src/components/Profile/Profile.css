@@ -54,14 +54,14 @@
   line-height: 13px;
   padding: 0px;
   border: none;
-  background-color: inherit;
+  background-color: transparent;
   color: #fff;
   cursor: pointer;
   outline: none;
 }
 
 .profile-page__input:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .profile-page__submit-button {
@@ -70,13 +70,13 @@
   line-height: 16px;
   padding: 0px;
   border: none;
-  background-color: inherit;
+  background-color: transparent;
   color: #fff;
   cursor: pointer;
 }
 
 .profile-page__submit-button:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .profile-page__logout-button {
@@ -85,14 +85,14 @@
   line-height: 16px;
   padding: 0px;
   border: none;
-  background-color: inherit;
+  background-color: transparent;
   color: #ee3465;
   cursor: pointer;
   margin-bottom: 70px;
 }
 
 .profile-page__logout-button:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 @media (max-width: 768px) {

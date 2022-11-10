@@ -36,7 +36,11 @@ export default function Header(props) {
             </div>
             <ProfileButton />
           </nav>
-          <button type="button" className="header__menu-button" onClick={props.onNavigationBottomClick} />
+          <button
+            type="button"
+            className="header__menu-button"
+            onClick={props.onNavigationBottomClick}
+          />
         </React.Fragment>
       </Switch>
     </header>

@@ -35,7 +35,7 @@
 .request-status-popup__close-icon {
   border: none;
   padding: 0;
-  background: inherit;
+  background: transparent;
   position: absolute;
   top: -29px;
   right: -29px;
@@ -52,7 +52,7 @@
 }
 .request-status-popup__success-icon {
   margin-top: 40px;
-  background: inherit;
+  background: transparent;
   width: 100px;
   height: 100px;
   background-color: transparent;
@@ -62,7 +62,7 @@
 }
 .request-status-popup__unsuccess-icon {
   margin-top: 40px;
-  background: inherit;
+  background: transparent;
   width: 100px;
   height: 100px;
   background-color: transparent;

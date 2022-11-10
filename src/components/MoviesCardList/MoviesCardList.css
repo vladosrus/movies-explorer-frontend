@@ -34,7 +34,7 @@
   padding: 0px;
   border: 1px solid #424242;
   border-radius: 5px;
-  background-color: inherit;
+  background-color: transparent;
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
@@ -43,7 +43,7 @@
 }
 
 .movies-cards__more-movies-card-button:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 @media (max-width: 1200px) {
