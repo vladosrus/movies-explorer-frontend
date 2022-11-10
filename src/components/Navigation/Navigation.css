@@ -37,7 +37,7 @@
 .navigation-menu__close-icon {
   border: none;
   padding: 0;
-  background: inherit;
+  background: transparent;
   position: absolute;
   top: 29px;
   right: 29px;
@@ -50,7 +50,7 @@
 }
 
 .navigation-menu__close-icon:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .navigation-menu__nav-links-container {
@@ -72,11 +72,11 @@
 }
 
 .navigation-menu__nav-link:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .navigation-menu__nav-link_active {
-    border-bottom: 2px solid #fff;
+  border-bottom: 2px solid #fff;
 }
 
 @media (max-width: 590px) {

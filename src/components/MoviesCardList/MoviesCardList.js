@@ -9,7 +9,6 @@ export default function MoviesCardList(props) {
           return (
             <li className="movies-cards__list-item" key={newMovie.id}>
               <MoviesCard
-                
                 imgLink={`https://api.nomoreparties.co${newMovie.image.formats.thumbnail.url}`}
                 trailerLink={newMovie.trailerLink}
                 name={newMovie.nameRU}
@@ -19,7 +18,9 @@ export default function MoviesCardList(props) {
           );
         })}
       </ul>
-      <button type="button" className="movies-cards__more-movies-card-button">Ещё</button>
+      <button type="button" className="movies-cards__more-movies-card-button">
+        Ещё
+      </button>
     </section>
   );
 }

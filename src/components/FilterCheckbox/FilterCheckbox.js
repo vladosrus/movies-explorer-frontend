@@ -12,7 +12,11 @@ export default function FilterCheckbox() {
     <label className="checkbox">
       <input type="checkbox" className="checkbox__default" />
       <span className="checkbox__new-box" onClick={onSelectShortMovie}>
-        <span className={`checkbox__new-indicator ${isSelectedShortMovie ? "checkbox__new-indicator_selected" : ""}`}></span>
+        <span
+          className={`checkbox__new-indicator ${
+            isSelectedShortMovie ? "checkbox__new-indicator_selected" : ""
+          }`}
+        ></span>
       </span>
       Короткометражки
     </label>

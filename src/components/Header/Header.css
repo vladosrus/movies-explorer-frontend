@@ -18,7 +18,7 @@
 }
 
 .header__link:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .header__link:first-child {
@@ -48,13 +48,13 @@
   font-size: 12px;
   line-height: 16px;
   padding: 0px;
-  background-color: inherit;
+  background-color: transparent;
   border: none;
   text-decoration: none;
 }
 
 .header__button:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .header__button_name_login {
@@ -71,7 +71,7 @@
   border: none;
   margin: 0;
   padding: 0;
-  background-color: inherit;
+  background-color: transparent;
   background-image: url(../../images/header__menu-button.svg);
   background-repeat: no-repeat;
   cursor: pointer;
@@ -79,7 +79,7 @@
 }
 
 .header__menu-button:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 @media (max-width: 1200px) {

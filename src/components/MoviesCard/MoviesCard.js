@@ -15,7 +15,7 @@ export default function MoviesCard(props) {
     let hours = Math.floor(min / 60);
     let minutes = min % 60;
     return `${hours}ч${minutes}м`;
-  }
+  };
 
   return (
     <article className="movies-card">
@@ -35,7 +35,9 @@ export default function MoviesCard(props) {
       <div className="movies-card__caption">
         <div className="movies-card__caption-container">
           <h2 className="movies-card__title">{props.name}</h2>
-          <p className="movies-card__duration">{convertMinutes(props.duration)}</p>
+          <p className="movies-card__duration">
+            {convertMinutes(props.duration)}
+          </p>
         </div>
         <button
           className={moviesCardFavouritesButtonClassName}
