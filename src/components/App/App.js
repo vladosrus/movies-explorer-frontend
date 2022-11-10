@@ -13,6 +13,7 @@ import Footer from "../Footer/Footer";
 import NotFound from "../NotFound/NotFound";
 import Navigation from "../Navigation/Navigation";
 import { useState } from "react";
+import RequestStatusPopup from "../RequestStatusPopup/RequestStatusPopup";
 
 export default function App() {
   // Временное решение поступающих фильмов от API
@@ -335,9 +336,12 @@ export default function App() {
   };
 
   const [isNavigationMenuOpen, setIsNavigationMenuOpen] = useState(false);
+  const [isRequestStatusPopupOpen, setIsRequestStatusPopupOpen] =
+    useState(false);
 
-  function closeNavigationMenu() {
+  function closeAllWindows() {
     setIsNavigationMenuOpen(false);
+    setIsRequestStatusPopupOpen(false);
   }
   function handleNavigationBottomClick() {
     setIsNavigationMenuOpen(true);
@@ -378,8 +382,15 @@ export default function App() {
         </Switch>
         <Navigation
           isOpen={isNavigationMenuOpen}
-          onClose={closeNavigationMenu}
-          onOverlayClick={closeNavigationMenu}
+          onClose={closeAllWindows}
+          onOverlayClick={closeAllWindows}
+        />
+        <RequestStatusPopup
+          isOpen={isRequestStatusPopupOpen}
+          onClose={closeAllWindows}
+          onOverlayClick={closeAllWindows}
+          code={200}
+          message={"Фильм удалён"}
         />
       </main>
     </div>
