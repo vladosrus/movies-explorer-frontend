@@ -32,7 +32,7 @@ export default function Navigation(props) {
           type="button"
           onClick={props.onClose}
         />
-        <div className="navigation-menu__nav-links-container">
+        <nav className="navigation-menu__nav-links-container">
           <NavLink
             exact
             to="/"
@@ -60,7 +60,7 @@ export default function Navigation(props) {
           >
             Сохранённые фильмы
           </NavLink>
-        </div>
+        </nav>
         <ProfileButton
           marginBottomClass={"profile-button_place_navigation-menu"}
         />
