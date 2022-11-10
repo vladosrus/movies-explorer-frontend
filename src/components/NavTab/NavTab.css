@@ -9,19 +9,19 @@
   min-height: 36px;
 }
 
-.nav-tab__link {
-  text-decoration: none;
+.nav-tab__button {
   color: #fff;
   background-color: #303030;
   padding: 11px 17px;
+  border: none;
   border-radius: 10px;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
 }
 
-.nav-tab__link:hover {
-  opacity: .8;
+.nav-tab__button:hover {
+  opacity: 0.8;
 }
 
 @media (max-width: 390px) {
@@ -29,10 +29,9 @@
     gap: 6px;
     min-height: 26px;
   }
-  .nav-tab__link {
+  .nav-tab__button {
     padding: 5px 15.5px;
     font-size: 10px;
     border-radius: 6px;
   }
-
 }
