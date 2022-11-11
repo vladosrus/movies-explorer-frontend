@@ -1,15 +1,12 @@
 import "./NavTab.css";
 
 export default function NavTab() {
-  const aboutProject = document.querySelector("#about-project");
-  const techs = document.querySelector("#techs");
-  const aboutMe = document.querySelector("#about-me");
 
   function scrollTo(element) {
     window.scroll({
       behavior: "smooth",
       left: 0,
-      top: element.offsetTop,
+      top: document.getElementById(element).offsetTop,
     });
   }
 
@@ -19,7 +16,7 @@ export default function NavTab() {
         <li className="nav-tab__list-item">
           <button
             type="button"
-            onClick={() => scrollTo(aboutProject)}
+            onClick={() => scrollTo("about-project")}
             className="nav-tab__button"
           >
             О проекте
@@ -28,7 +25,7 @@ export default function NavTab() {
         <li className="nav-tab__list-item">
           <button
             type="button"
-            onClick={() => scrollTo(techs)}
+            onClick={() => scrollTo("techs")}
             className="nav-tab__button"
           >
             Технологии
@@ -37,7 +34,7 @@ export default function NavTab() {
         <li className="nav-tab__list-item">
           <button
             type="button"
-            onClick={() => scrollTo(aboutMe)}
+            onClick={() => scrollTo("about-me")}
             className="nav-tab__button"
           >
             Студент
