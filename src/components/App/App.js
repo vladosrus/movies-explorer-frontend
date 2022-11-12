@@ -349,50 +349,100 @@ export default function App() {
 
   return (
     <div className="page">
-      <main>
-        <Switch>
-          <Route exact path="/">
-            <Header onNavigationBottomClick={handleNavigationBottomClick} />
+      <Switch>
+        <Route exact path="/">
+          <Header onNavigationBottomClick={handleNavigationBottomClick} />
+          <main>
             <Main />
-            <Footer />
-          </Route>
-          <Route exact path="/movies">
-            <Header onNavigationBottomClick={handleNavigationBottomClick} />
+          </main>
+          <Footer />
+        </Route>
+        <Route exact path="/movies">
+          <Header onNavigationBottomClick={handleNavigationBottomClick} />
+          <main>
             <Movies movies={exampleApiMovies} />
-            <Footer />
-          </Route>
-          <Route exact path="/saved-movies">
-            <Header onNavigationBottomClick={handleNavigationBottomClick} />
+            <Navigation
+              isOpen={isNavigationMenuOpen}
+              onClose={closeAllWindows}
+              onOverlayClick={closeAllWindows}
+            />
+            <RequestStatusPopup
+              isOpen={isRequestStatusPopupOpen}
+              onClose={closeAllWindows}
+              onOverlayClick={closeAllWindows}
+              code={200}
+              message={"Фильм удалён"}
+            />
+          </main>
+          <Footer />
+        </Route>
+        <Route exact path="/saved-movies">
+          <Header onNavigationBottomClick={handleNavigationBottomClick} />
+          <main>
             <SavedMovies movies={exampleApiMovies} />
-            <Footer />
-          </Route>
-          <Route exact path="/profile">
-            <Header onNavigationBottomClick={handleNavigationBottomClick} />
+            <Navigation
+              isOpen={isNavigationMenuOpen}
+              onClose={closeAllWindows}
+              onOverlayClick={closeAllWindows}
+            />
+            <RequestStatusPopup
+              isOpen={isRequestStatusPopupOpen}
+              onClose={closeAllWindows}
+              onOverlayClick={closeAllWindows}
+              code={200}
+              message={"Фильм удалён"}
+            />
+          </main>
+          <Footer />
+        </Route>
+        <Route exact path="/profile">
+          <Header onNavigationBottomClick={handleNavigationBottomClick} />
+          <main>
             <Profile profileData={exampleProgileData} />
-          </Route>
-          <Route exact path="/sign-up">
+            <Navigation
+              isOpen={isNavigationMenuOpen}
+              onClose={closeAllWindows}
+              onOverlayClick={closeAllWindows}
+            />
+            <RequestStatusPopup
+              isOpen={isRequestStatusPopupOpen}
+              onClose={closeAllWindows}
+              onOverlayClick={closeAllWindows}
+              code={200}
+              message={"Фильм удалён"}
+            />
+          </main>
+        </Route>
+        <Route exact path="/sign-up">
+          <main>
             <Register />
-          </Route>
-          <Route exact path="/sign-in">
+            <RequestStatusPopup
+              isOpen={isRequestStatusPopupOpen}
+              onClose={closeAllWindows}
+              onOverlayClick={closeAllWindows}
+              code={200}
+              message={"Фильм удалён"}
+            />
+          </main>
+        </Route>
+        <Route exact path="/sign-in">
+          <main>
             <Login />
-          </Route>
-          <Route path="*">
+            <RequestStatusPopup
+              isOpen={isRequestStatusPopupOpen}
+              onClose={closeAllWindows}
+              onOverlayClick={closeAllWindows}
+              code={200}
+              message={"Фильм удалён"}
+            />
+          </main>
+        </Route>
+        <Route path="*">
+          <main>
             <NotFound />
-          </Route>
-        </Switch>
-        <Navigation
-          isOpen={isNavigationMenuOpen}
-          onClose={closeAllWindows}
-          onOverlayClick={closeAllWindows}
-        />
-        <RequestStatusPopup
-          isOpen={isRequestStatusPopupOpen}
-          onClose={closeAllWindows}
-          onOverlayClick={closeAllWindows}
-          code={200}
-          message={"Фильм удалён"}
-        />
-      </main>
+          </main>
+        </Route>
+      </Switch>
     </div>
   );
 }
