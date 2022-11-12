@@ -13,6 +13,7 @@
 
 .search-form__film-name {
   width: 100%;
+  max-height: 34px;
   border: none;
   border-bottom: 1px solid #424242;
   margin: 0px;
@@ -52,6 +53,10 @@
   font-size: 28px;
   line-height: 34px;
   color: #8b8b8b;
+}
+
+.search-form__film-name-input:focus {
+  border-bottom: 1px solid #4285f4;
 }
 
 .search-form__film-name-input:hover {
