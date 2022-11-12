@@ -72,6 +72,23 @@
   background: #2be080;
 }
 
+.movies-card__delete-button {
+  min-width: 16px;
+  min-height: 16px;
+  background-color: transparent;
+  border: none;
+  padding: 0px;
+  background-image: url(../../images/delete-movie-card-icon.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.movies-card__delete-button:hover {
+  opacity: 0.8;
+}
+
 @media (max-width: 1200px) {
   .movies-card__trailer-link {
     width: 339px;
