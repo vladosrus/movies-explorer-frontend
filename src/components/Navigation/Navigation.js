@@ -63,6 +63,7 @@ export default function Navigation(props) {
         </nav>
         <ProfileButton
           marginBottomClass={"profile-button_place_navigation-menu"}
+          onClose={props.onClose}
         />
       </div>
     </div>
