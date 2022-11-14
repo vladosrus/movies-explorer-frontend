@@ -11,6 +11,7 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function App() {
   // Временное решение поступающих фильмов от API
@@ -326,13 +327,12 @@ export default function App() {
       },
     },
   ];
-  // Временное решение поступающих от API имени и email пользователя
-  const exampleProgileData = {
+
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [currentUser, setCurrentUser] = useState({
     name: "Виталий",
     email: "pochta@yandex.ru",
-  };
-
-  const [loggedIn, setLoggedIn] = useState(false);
+  });
   const [isNavigationMenuOpen, setIsNavigationMenuOpen] = useState(false);
   const [isRequestStatusPopupOpen, setIsRequestStatusPopupOpen] =
     useState(false);
@@ -346,63 +346,64 @@ export default function App() {
   }
 
   return (
-    <div className="page">
-      <Switch>
-        <Route exact path="/">
-          <Main loggedIn={loggedIn} />
-        </Route>
-        <ProtectedRoute
-          exact
-          path="/movies"
-          loggedIn={loggedIn}
-          component={Movies}
-          movies={exampleApiMovies}
-          onNavBottonClick={handleNavigationBottomClick}
-          onClose={closeAllWindows}
-          isNavigationMenuOpen={isNavigationMenuOpen}
-          isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-        />
-        <ProtectedRoute
-          exact
-          path="/saved-movies"
-          loggedIn={loggedIn}
-          component={SavedMovies}
-          movies={exampleApiMovies}
-          onNavBottonClick={handleNavigationBottomClick}
-          onClose={closeAllWindows}
-          isNavigationMenuOpen={isNavigationMenuOpen}
-          isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-        />
-        <ProtectedRoute
-          exact
-          path="/profile"
-          loggedIn={loggedIn}
-          component={Profile}
-          profileData={exampleProgileData}
-          onNavBottonClick={handleNavigationBottomClick}
-          onClose={closeAllWindows}
-          isNavigationMenuOpen={isNavigationMenuOpen}
-          isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-        />
-        <Route exact path="/sign-up">
-          <Register
-            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <Switch>
+          <Route exact path="/">
+            <Main loggedIn={loggedIn} />
+          </Route>
+          <ProtectedRoute
+            exact
+            path="/movies"
+            loggedIn={loggedIn}
+            component={Movies}
+            movies={exampleApiMovies}
+            onNavBottonClick={handleNavigationBottomClick}
             onClose={closeAllWindows}
-          />
-        </Route>
-        <Route exact path="/sign-in">
-          <Login
+            isNavigationMenuOpen={isNavigationMenuOpen}
             isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-            onClose={closeAllWindows}
           />
-        </Route>
-        <Route path="*">
-          <NotFound />
-        </Route>
-        <Route path="/">
+          <ProtectedRoute
+            exact
+            path="/saved-movies"
+            loggedIn={loggedIn}
+            component={SavedMovies}
+            movies={exampleApiMovies}
+            onNavBottonClick={handleNavigationBottomClick}
+            onClose={closeAllWindows}
+            isNavigationMenuOpen={isNavigationMenuOpen}
+            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+          />
+          <ProtectedRoute
+            exact
+            path="/profile"
+            loggedIn={loggedIn}
+            component={Profile}
+            onNavBottonClick={handleNavigationBottomClick}
+            onClose={closeAllWindows}
+            isNavigationMenuOpen={isNavigationMenuOpen}
+            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+          />
+          <Route exact path="/sign-up">
+            <Register
+              isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+              onClose={closeAllWindows}
+            />
+          </Route>
+          <Route exact path="/sign-in">
+            <Login
+              isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+              onClose={closeAllWindows}
+            />
+          </Route>
+          <Route path="*">
+            <NotFound />
+          </Route>
+          <Route path="/">
             {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
           </Route>
-      </Switch>
-    </div>
+        </Switch>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }

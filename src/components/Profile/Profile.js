@@ -2,11 +2,13 @@ import "./Profile.css";
 import Header from "../Header/Header";
 import Navigation from "../Navigation/Navigation";
 import RequestStatusPopup from "../RequestStatusPopup/RequestStatusPopup";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function Profile(props) {
-  const [name, setName] = useState(props.profileData.name);
-  const [email, setEmail] = useState(props.profileData.email);
+  const currentUser = useContext(CurrentUserContext);
+  const [name, setName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);
 
   function handleChange(evt) {
     if (evt.target.id === "name") {
@@ -18,10 +20,10 @@ export default function Profile(props) {
 
   return (
     <>
-      <Header onNavigationBottomClick={props.onNavBottonClick} />
+      <Header onNavigationBottomClick={props.onNavBottonClick} loggedIn={props.loggedIn} />
       <main>
         <article className="profile-page">
-          <h2 className="profile-page__title">{`Привет, ${props.profileData.name}!`}</h2>
+          <h2 className="profile-page__title">{`Привет, ${currentUser.name}!`}</h2>
           <form className="profile-page__form">
             <div className="profile-page__input-container">
               <p className="profile-page__input-name">Имя</p>

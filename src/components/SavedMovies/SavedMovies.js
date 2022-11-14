@@ -9,7 +9,7 @@ import Footer from "../Footer/Footer";
 export default function SavedMovies(props) {
   return (
     <>
-      <Header onNavigationBottomClick={props.onNavBottonClick} />
+      <Header onNavigationBottomClick={props.onNavBottonClick} loggedIn={props.loggedIn} />
       <main>
         <article className="saved-movies-page">
           <SearchForm />
