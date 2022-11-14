@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { useState } from "react";
 
 // Импорты компонентов
@@ -10,6 +10,7 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 export default function App() {
   // Временное решение поступающих фильмов от API
@@ -331,6 +332,7 @@ export default function App() {
     email: "pochta@yandex.ru",
   };
 
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isNavigationMenuOpen, setIsNavigationMenuOpen] = useState(false);
   const [isRequestStatusPopupOpen, setIsRequestStatusPopupOpen] =
     useState(false);
@@ -349,33 +351,39 @@ export default function App() {
         <Route exact path="/">
           <Main />
         </Route>
-        <Route exact path="/movies">
-          <Movies
-            movies={exampleApiMovies}
-            onNavBottonClick={handleNavigationBottomClick}
-            onClose={closeAllWindows}
-            isNavigationMenuOpen={isNavigationMenuOpen}
-            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-          />
-        </Route>
-        <Route exact path="/saved-movies">
-          <SavedMovies
-            movies={exampleApiMovies}
-            onNavBottonClick={handleNavigationBottomClick}
-            onClose={closeAllWindows}
-            isNavigationMenuOpen={isNavigationMenuOpen}
-            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-          />
-        </Route>
-        <Route exact path="/profile">
-          <Profile
-            profileData={exampleProgileData}
-            onNavBottonClick={handleNavigationBottomClick}
-            onClose={closeAllWindows}
-            isNavigationMenuOpen={isNavigationMenuOpen}
-            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-          />
-        </Route>
+        <ProtectedRoute
+          exact
+          path="/movies"
+          loggedIn={loggedIn}
+          component={Movies}
+          movies={exampleApiMovies}
+          onNavBottonClick={handleNavigationBottomClick}
+          onClose={closeAllWindows}
+          isNavigationMenuOpen={isNavigationMenuOpen}
+          isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+        />
+        <ProtectedRoute
+          exact
+          path="/saved-movies"
+          loggedIn={loggedIn}
+          component={SavedMovies}
+          movies={exampleApiMovies}
+          onNavBottonClick={handleNavigationBottomClick}
+          onClose={closeAllWindows}
+          isNavigationMenuOpen={isNavigationMenuOpen}
+          isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+        />
+        <ProtectedRoute
+          exact
+          path="/profile"
+          loggedIn={loggedIn}
+          component={Profile}
+          profileData={exampleProgileData}
+          onNavBottonClick={handleNavigationBottomClick}
+          onClose={closeAllWindows}
+          isNavigationMenuOpen={isNavigationMenuOpen}
+          isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+        />
         <Route exact path="/sign-up">
           <Register
             isRequestStatusPopupOpen={isRequestStatusPopupOpen}
@@ -391,6 +399,9 @@ export default function App() {
         <Route path="*">
           <NotFound />
         </Route>
+        <Route path="/">
+            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+          </Route>
       </Switch>
     </div>
   );
