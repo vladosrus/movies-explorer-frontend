@@ -349,7 +349,7 @@ export default function App() {
     <div className="page">
       <Switch>
         <Route exact path="/">
-          <Main />
+          <Main loggedIn={loggedIn} />
         </Route>
         <ProtectedRoute
           exact
