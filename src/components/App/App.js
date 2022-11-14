@@ -1,19 +1,15 @@
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
+import { useState } from "react";
 
 // Импорты компонентов
-import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
-import Footer from "../Footer/Footer";
 import NotFound from "../NotFound/NotFound";
-import Navigation from "../Navigation/Navigation";
-import { useState } from "react";
-import RequestStatusPopup from "../RequestStatusPopup/RequestStatusPopup";
 
 export default function App() {
   // Временное решение поступающих фильмов от API
@@ -351,96 +347,49 @@ export default function App() {
     <div className="page">
       <Switch>
         <Route exact path="/">
-          <Header onNavigationBottomClick={handleNavigationBottomClick} />
-          <main>
-            <Main />
-          </main>
-          <Footer />
+          <Main />
         </Route>
         <Route exact path="/movies">
-          <Header onNavigationBottomClick={handleNavigationBottomClick} />
-          <main>
-            <Movies movies={exampleApiMovies} />
-            <Navigation
-              isOpen={isNavigationMenuOpen}
-              onClose={closeAllWindows}
-              onOverlayClick={closeAllWindows}
-            />
-            <RequestStatusPopup
-              isOpen={isRequestStatusPopupOpen}
-              onClose={closeAllWindows}
-              onOverlayClick={closeAllWindows}
-              code={200}
-              message={"Фильм удалён"}
-            />
-          </main>
-          <Footer />
+          <Movies
+            movies={exampleApiMovies}
+            onNavBottonClick={handleNavigationBottomClick}
+            onClose={closeAllWindows}
+            isNavigationMenuOpen={isNavigationMenuOpen}
+            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+          />
         </Route>
         <Route exact path="/saved-movies">
-          <Header onNavigationBottomClick={handleNavigationBottomClick} />
-          <main>
-            <SavedMovies movies={exampleApiMovies} />
-            <Navigation
-              isOpen={isNavigationMenuOpen}
-              onClose={closeAllWindows}
-              onOverlayClick={closeAllWindows}
-            />
-            <RequestStatusPopup
-              isOpen={isRequestStatusPopupOpen}
-              onClose={closeAllWindows}
-              onOverlayClick={closeAllWindows}
-              code={200}
-              message={"Фильм удалён"}
-            />
-          </main>
-          <Footer />
+          <SavedMovies
+            movies={exampleApiMovies}
+            onNavBottonClick={handleNavigationBottomClick}
+            onClose={closeAllWindows}
+            isNavigationMenuOpen={isNavigationMenuOpen}
+            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+          />
         </Route>
         <Route exact path="/profile">
-          <Header onNavigationBottomClick={handleNavigationBottomClick} />
-          <main>
-            <Profile profileData={exampleProgileData} />
-            <Navigation
-              isOpen={isNavigationMenuOpen}
-              onClose={closeAllWindows}
-              onOverlayClick={closeAllWindows}
-            />
-            <RequestStatusPopup
-              isOpen={isRequestStatusPopupOpen}
-              onClose={closeAllWindows}
-              onOverlayClick={closeAllWindows}
-              code={200}
-              message={"Фильм удалён"}
-            />
-          </main>
+          <Profile
+            profileData={exampleProgileData}
+            onNavBottonClick={handleNavigationBottomClick}
+            onClose={closeAllWindows}
+            isNavigationMenuOpen={isNavigationMenuOpen}
+            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+          />
         </Route>
         <Route exact path="/sign-up">
-          <main>
-            <Register />
-            <RequestStatusPopup
-              isOpen={isRequestStatusPopupOpen}
-              onClose={closeAllWindows}
-              onOverlayClick={closeAllWindows}
-              code={200}
-              message={"Фильм удалён"}
-            />
-          </main>
+          <Register
+            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+            onClose={closeAllWindows}
+          />
         </Route>
         <Route exact path="/sign-in">
-          <main>
-            <Login />
-            <RequestStatusPopup
-              isOpen={isRequestStatusPopupOpen}
-              onClose={closeAllWindows}
-              onOverlayClick={closeAllWindows}
-              code={200}
-              message={"Фильм удалён"}
-            />
-          </main>
+          <Login
+            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+            onClose={closeAllWindows}
+          />
         </Route>
         <Route path="*">
-          <main>
-            <NotFound />
-          </main>
+          <NotFound />
         </Route>
       </Switch>
     </div>
