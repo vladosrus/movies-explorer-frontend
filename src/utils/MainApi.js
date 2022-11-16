@@ -44,3 +44,11 @@ export function getProfileInfo() {
     credentials: credentials,
   }).then(checkResponse);
 }
+export function updateProfileInfo(name, email) {
+  return fetch(`${devUrl}/users/me`, {
+    method: "PATCH",
+    headers: headers,
+    credentials: credentials,
+    body: JSON.stringify({ name, email }),
+  }).then(checkResponse);
+}

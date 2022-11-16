@@ -43,6 +43,7 @@ export default function App() {
     const token = localStorage.getItem("token");
     if (token) {
       setLoggedIn(true);
+      history.push("/movies")
     }
   }
 
@@ -65,6 +66,15 @@ export default function App() {
       })
       .catch((err) => {
         unsuccessAction();
+        console.log(err);
+      });
+  }
+  function updateProfileInfo(name, email) {
+    MainApi.updateProfileInfo(name, email)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -139,6 +149,7 @@ export default function App() {
             isNavigationMenuOpen={isNavigationMenuOpen}
             isRequestStatusPopupOpen={isRequestStatusPopupOpen}
             onLogout={handleLogout}
+            onUpdateProfileInfo={updateProfileInfo}
           />
           <Route exact path="/sign-up">
             <Register

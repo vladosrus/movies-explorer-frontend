@@ -4,7 +4,7 @@ import Logo from "../Logo/Logo";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 export default function EntrancePage(props) {
-  const formInputs = useFormWithValidation();
+  const formInputs = useFormWithValidation({});
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -99,7 +99,7 @@ export default function EntrancePage(props) {
         </div>
         <button
           type="submit"
-          disabled={!formInputs.isValid}
+          disabled={false}
           className={`entrance-page__submit-button ${
             props.name === "login"
               ? "entrance-page__submit-button_margin_large"

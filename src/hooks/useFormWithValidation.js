@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 
 //хук управления формой и валидации формы
-function useFormWithValidation() {
-  const [values, setValues] = useState({});
+function useFormWithValidation(value) {
+  const [values, setValues] = useState(value);
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
 
@@ -16,12 +16,12 @@ function useFormWithValidation() {
   };
 
   const resetForm = useCallback(
-    (newValues = {}, newErrors = {}, newIsValid = false) => {
+    (newValues = values, newErrors = {}, newIsValid = false) => {
       setValues(newValues);
       setErrors(newErrors);
       setIsValid(newIsValid);
     },
-    [setValues, setErrors, setIsValid]
+    [setValues, setErrors, setIsValid, values]
   );
   return { values, handleChange, errors, isValid, resetForm };
 }
