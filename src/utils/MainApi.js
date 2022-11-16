@@ -1,5 +1,5 @@
 // const mainApiUrl = "https://movies-explorer.chikov.nomoredomains.icu/api";
-const devUrl = "http://localhost:3001/api"
+const devUrl = "http://localhost:3001/api";
 const headers = {
   "Content-Type": "application/json",
   origin: devUrl,
@@ -12,4 +12,11 @@ function checkResponse(res) {
   } else {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
+}
+export function getProfileInfo() {
+  return fetch(`${devUrl}/users/me`, {
+    method: "GET",
+    headers: headers,
+    credentials: credentials,
+  }).then(checkResponse);
 }
