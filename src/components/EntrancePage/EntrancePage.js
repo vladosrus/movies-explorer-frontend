@@ -1,32 +1,23 @@
 import "./EntrancePage.css";
 import Logo from "../Logo/Logo";
-import { useState } from "react";
+//import { useState } from "react";
+import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 export default function EntrancePage(props) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const formInputs = useFormWithValidation();
 
-  function handleChange(evt) {
-    if (evt.target.id === "name") {
-      setName(evt.target.value);
-    } else if (evt.target.id === "email") {
-      setEmail(evt.target.value);
-    } else {
-      setPassword(evt.target.value);
-    }
-  }
   function handleSubmit(evt) {
     evt.preventDefault();
     if (props.name === "register") {
-      props.onRegistration(name, email, password);
-      setName("");
-      setEmail("");
-      setPassword("");
+      props.onRegistration(
+        formInputs.values.name,
+        formInputs.values.email,
+        formInputs.values.password
+      );
+      formInputs.resetForm();
     } else {
-      props.onLogin(email, password);
-      setEmail("");
-      setPassword("");
+      props.onLogin(formInputs.values.email, formInputs.values.password);
+      formInputs.resetForm();
     }
   }
 
@@ -36,59 +27,85 @@ export default function EntrancePage(props) {
       <h2 className="entrance-page__title">
         {props.name === "register" ? "Добро пожаловать!" : "Рады видеть!"}
       </h2>
-      <form className="entrance-page__form" onSubmit={handleSubmit}>
+      <form className="entrance-page__form" onSubmit={handleSubmit} noValidate>
         {props.name === "register" && (
           <div className="entrance-page__input-container">
             <label className="entrance-page__input-name">Имя</label>
             <input
-              id="name"
+              name="name"
               type="text"
               required
               minLength="2"
               maxLength="30"
-              className="entrance-page__input"
-              value={name || ""}
-              onChange={handleChange}
+              className={`entrance-page__input ${
+                formInputs.errors.name && "entrance-page__input_type_error"
+              }`}
+              value={formInputs.values.name || ""}
+              onChange={formInputs.handleChange}
             ></input>
-            <span className="entrance-page__error-message"></span>
+            <span
+              className={`entrance-page__error-message ${
+                formInputs.errors.name && "entrance-page__error-message_visible"
+              }`}
+            >
+              {formInputs.errors.name || ""}
+            </span>
           </div>
         )}
         <div className="entrance-page__input-container">
           <label className="entrance-page__input-name">
             E-mail
             <input
-              id="email"
+              name="email"
               type="email"
               required
-              className="entrance-page__input"
-              value={email || ""}
-              onChange={handleChange}
+              className={`entrance-page__input ${
+                formInputs.errors.email && "entrance-page__input_type_error"
+              }`}
+              value={formInputs.values.email || ""}
+              onChange={formInputs.handleChange}
             ></input>
           </label>
-          <span className="entrance-page__error-message"></span>
+          <span
+            className={`entrance-page__error-message ${
+              formInputs.errors.email && "entrance-page__error-message_visible"
+            }`}
+          >
+            {formInputs.errors.email || ""}
+          </span>
         </div>
         <div className="entrance-page__input-container">
           <label className="entrance-page__input-name">
             Пароль
             <input
-              id="password"
+              name="password"
               type="password"
               required
-              className="entrance-page__input entrance-page__input_type_error"
-              value={password || ""}
-              onChange={handleChange}
+              className={`entrance-page__input ${
+                formInputs.errors.password && "entrance-page__input_type_error"
+              }`}
+              value={formInputs.values.password || ""}
+              onChange={formInputs.handleChange}
             ></input>
           </label>
-          <span className="entrance-page__error-message entrance-page__error-message_visible">
-            Что-то пошло не так...
+          <span
+            className={`entrance-page__error-message ${
+              formInputs.errors.password &&
+              "entrance-page__error-message_visible"
+            }`}
+          >
+            {formInputs.errors.password || ""}
           </span>
         </div>
         <button
           type="submit"
+          disabled={!formInputs.isValid}
           className={`entrance-page__submit-button ${
             props.name === "login"
               ? "entrance-page__submit-button_margin_large"
               : ""
+          } ${
+            formInputs.isValid ? "" : "entrance-page__submit-button_disabled"
           }`}
         >
           {props.name === "register" ? "Зарегистрироваться" : "Войти"}

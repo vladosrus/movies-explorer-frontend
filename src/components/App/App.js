@@ -43,7 +43,6 @@ export default function App() {
     const token = localStorage.getItem("token");
     if (token) {
       setLoggedIn(true);
-      history.push("/");
     }
   }
 
@@ -69,6 +68,12 @@ export default function App() {
         console.log(err);
       });
   }
+
+  function successAuthorization() {
+    setLoggedIn(true);
+    history.push("/movies");
+  }
+
   function handleLogout() {
     MainApi.logout()
       .then(() => {
@@ -79,11 +84,6 @@ export default function App() {
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  function successAuthorization() {
-    setLoggedIn(true);
-    history.push("/movies");
   }
 
   function unsuccessAction() {
