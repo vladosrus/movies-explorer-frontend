@@ -12,6 +12,8 @@ import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import * as MainApi from "../../utils/MainApi";
+import * as MoviesApi from "../../utils/MoviesApi";
 
 export default function App() {
   // Временное решение поступающих фильмов от API
