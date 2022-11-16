@@ -1,6 +1,6 @@
 import "./App.css";
-import { Redirect, Route, Switch } from "react-router-dom";
-import { useState } from "react";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 // Импорты компонентов
 import Main from "../Main/Main";
@@ -21,11 +21,6 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [movies, setMovies] = useState([]);
 
-  const [loggedIn, setLoggedIn] = useState(true);
-  const [currentUser, setCurrentUser] = useState({
-    name: "Виталий",
-    email: "pochta@yandex.ru",
-  });
   const [isNavigationMenuOpen, setIsNavigationMenuOpen] = useState(false);
   const [isRequestStatusPopupOpen, setIsRequestStatusPopupOpen] =
     useState(false);
@@ -51,6 +46,52 @@ export default function App() {
       history.push("/");
     }
   }
+
+  function registration(name, email, password) {
+    MainApi.registration(name, email, password)
+      .then((res) => {
+        authorization(email, password);
+      })
+      .catch((err) => {
+        unsuccessAction();
+        console.log(err);
+      });
+  }
+
+  function authorization(email, password) {
+    MainApi.authorization(email, password)
+      .then((res) => {
+        localStorage.setItem("token", res.token);
+        successAuthorization();
+      })
+      .catch((err) => {
+        unsuccessAction();
+        console.log(err);
+      });
+  }
+  function handleLogout() {
+    MainApi.logout()
+      .then(() => {
+        localStorage.clear("token");
+        setLoggedIn(false);
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function successAuthorization() {
+    setLoggedIn(true);
+    history.push("/movies");
+  }
+
+  function unsuccessAction() {
+    //setRegistrationPopupImg(unSuccessImg);
+    //setRegistrationPopupText("Что-то пошло не так! Попробуйте ещё раз.");
+    setIsRequestStatusPopupOpen(true);
+  }
+
   function closeAllWindows() {
     setIsNavigationMenuOpen(false);
     setIsRequestStatusPopupOpen(false);
@@ -97,17 +138,20 @@ export default function App() {
             onClose={closeAllWindows}
             isNavigationMenuOpen={isNavigationMenuOpen}
             isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+            onLogout={handleLogout}
           />
           <Route exact path="/sign-up">
             <Register
               isRequestStatusPopupOpen={isRequestStatusPopupOpen}
               onClose={closeAllWindows}
+              onRegistration={registration}
             />
           </Route>
           <Route exact path="/sign-in">
             <Login
               isRequestStatusPopupOpen={isRequestStatusPopupOpen}
               onClose={closeAllWindows}
+              onLogin={authorization}
             />
           </Route>
           <Route path="*">

@@ -4,7 +4,7 @@ import RequestStatusPopup from "../RequestStatusPopup/RequestStatusPopup";
 export default function Login(props) {
   return (
     <main>
-      <EntrancePage name={"login"} />
+      <EntrancePage name={"login"} onLogin={props.onLogin} />
       <RequestStatusPopup
         isOpen={props.isRequestStatusPopupOpen}
         onClose={props.onClose}

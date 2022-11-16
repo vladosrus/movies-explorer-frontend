@@ -48,7 +48,7 @@ export default function Profile(props) {
               Редактировать
             </button>
           </form>
-          <button type="submit" className="profile-page__logout-button">
+          <button type="button" className="profile-page__logout-button" onClick={props.onLogout}>
             Выйти из аккаунта
           </button>
         </article>
