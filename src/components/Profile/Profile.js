@@ -8,18 +8,16 @@ import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 export default function Profile(props) {
   const currentUser = useContext(CurrentUserContext);
-  const formWithValidation = useFormWithValidation({
-    name: currentUser.name,
-    email: currentUser.email,
-  });
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation({
+      name: currentUser.name,
+      email: currentUser.email,
+    });
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    formWithValidation.resetForm();
-    props.onUpdateProfileInfo(
-      formWithValidation.values.name,
-      formWithValidation.values.email
-    );
+    resetForm();
+    props.onUpdateProfileInfo(values.name, values.email);
   }
 
   return (
@@ -46,20 +44,18 @@ export default function Profile(props) {
                   minLength="2"
                   maxLength="30"
                   className={`profile-page__input ${
-                    formWithValidation.errors.name &&
-                    "profile-page__input_type_error"
+                    errors.name && "profile-page__input_type_error"
                   }`}
-                  value={formWithValidation.values.name || ""}
-                  onChange={formWithValidation.handleChange}
+                  value={values.name || ""}
+                  onChange={handleChange}
                 />
               </label>
               <span
                 className={`profile-page__error-message ${
-                  formWithValidation.errors.name &&
-                  "profile-page__error-message_visible"
+                  errors.name && "profile-page__error-message_visible"
                 }`}
               >
-                {formWithValidation.errors.name || ""}
+                {errors.name || ""}
               </span>
             </div>
             <div className="profile-page__input-container">
@@ -70,34 +66,30 @@ export default function Profile(props) {
                   type="email"
                   required
                   className={`profile-page__input ${
-                    formWithValidation.errors.email &&
-                    "profile-page__input_type_error"
+                    errors.email && "profile-page__input_type_error"
                   }`}
-                  value={formWithValidation.values.email || ""}
-                  onChange={formWithValidation.handleChange}
+                  value={values.email || ""}
+                  onChange={handleChange}
                 />
               </label>
               <span
                 className={`profile-page__error-message ${
-                  formWithValidation.errors.name &&
-                  "profile-page__error-message_visible"
+                  errors.name && "profile-page__error-message_visible"
                 }`}
               >
-                {formWithValidation.errors.email || ""}
+                {errors.email || ""}
               </span>
             </div>
 
             <button
               type="submit"
               disabled={
-                (!formWithValidation.isValid ||
-                  currentUser.name === formWithValidation.values.name) &&
-                currentUser.email === formWithValidation.values.email
+                (!isValid || currentUser.name === values.name) &&
+                currentUser.email === values.email
               }
               className={`profile-page__submit-button ${
-                (!formWithValidation.isValid ||
-                  currentUser.name === formWithValidation.values.name) &&
-                currentUser.email === formWithValidation.values.email
+                (!isValid || currentUser.name === values.name) &&
+                currentUser.email === values.email
                   ? "profile-page__submit-button_disabled"
                   : ""
               }`}

@@ -4,20 +4,17 @@ import Logo from "../Logo/Logo";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 export default function EntrancePage(props) {
-  const formInputs = useFormWithValidation({});
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation({});
 
   function handleSubmit(evt) {
     evt.preventDefault();
     if (props.name === "register") {
-      props.onRegistration(
-        formInputs.values.name,
-        formInputs.values.email,
-        formInputs.values.password
-      );
-      formInputs.resetForm();
+      props.onRegistration(values.name, values.email, values.password);
+      resetForm();
     } else {
-      props.onLogin(formInputs.values.email, formInputs.values.password);
-      formInputs.resetForm();
+      props.onLogin(values.email, values.password);
+      resetForm();
     }
   }
 
@@ -38,17 +35,17 @@ export default function EntrancePage(props) {
               minLength="2"
               maxLength="30"
               className={`entrance-page__input ${
-                formInputs.errors.name && "entrance-page__input_type_error"
+                errors.name && "entrance-page__input_type_error"
               }`}
-              value={formInputs.values.name || ""}
-              onChange={formInputs.handleChange}
+              value={values.name || ""}
+              onChange={handleChange}
             ></input>
             <span
               className={`entrance-page__error-message ${
-                formInputs.errors.name && "entrance-page__error-message_visible"
+                errors.name && "entrance-page__error-message_visible"
               }`}
             >
-              {formInputs.errors.name || ""}
+              {errors.name || ""}
             </span>
           </div>
         )}
@@ -60,18 +57,18 @@ export default function EntrancePage(props) {
               type="email"
               required
               className={`entrance-page__input ${
-                formInputs.errors.email && "entrance-page__input_type_error"
+                errors.email && "entrance-page__input_type_error"
               }`}
-              value={formInputs.values.email || ""}
-              onChange={formInputs.handleChange}
+              value={values.email || ""}
+              onChange={handleChange}
             ></input>
           </label>
           <span
             className={`entrance-page__error-message ${
-              formInputs.errors.email && "entrance-page__error-message_visible"
+              errors.email && "entrance-page__error-message_visible"
             }`}
           >
-            {formInputs.errors.email || ""}
+            {errors.email || ""}
           </span>
         </div>
         <div className="entrance-page__input-container">
@@ -82,19 +79,18 @@ export default function EntrancePage(props) {
               type="password"
               required
               className={`entrance-page__input ${
-                formInputs.errors.password && "entrance-page__input_type_error"
+                errors.password && "entrance-page__input_type_error"
               }`}
-              value={formInputs.values.password || ""}
-              onChange={formInputs.handleChange}
+              value={values.password || ""}
+              onChange={handleChange}
             ></input>
           </label>
           <span
             className={`entrance-page__error-message ${
-              formInputs.errors.password &&
-              "entrance-page__error-message_visible"
+              errors.password && "entrance-page__error-message_visible"
             }`}
           >
-            {formInputs.errors.password || ""}
+            {errors.password || ""}
           </span>
         </div>
         <button
@@ -104,9 +100,7 @@ export default function EntrancePage(props) {
             props.name === "login"
               ? "entrance-page__submit-button_margin_large"
               : ""
-          } ${
-            formInputs.isValid ? "" : "entrance-page__submit-button_disabled"
-          }`}
+          } ${isValid ? "" : "entrance-page__submit-button_disabled"}`}
         >
           {props.name === "register" ? "Зарегистрироваться" : "Войти"}
         </button>
