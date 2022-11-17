@@ -115,7 +115,12 @@ export default function App() {
       <div className="page">
         <Switch>
           <Route exact path="/">
-            <Main loggedIn={loggedIn} />
+            <Main
+              loggedIn={loggedIn}
+              onNavigationBottomClick={handleNavigationBottomClick}
+              onClose={closeAllWindows}
+              isNavigationMenuOpen={isNavigationMenuOpen}
+            />
           </Route>
           <ProtectedRoute
             exact
