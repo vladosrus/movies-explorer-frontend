@@ -17,7 +17,7 @@
   border: none;
   border-bottom: 1px solid #424242;
   margin: 0px;
-  padding: 0px 0px 15px 0px;
+  padding: 0px 0px 15px;
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -39,6 +39,12 @@
   border: 1px solid #424242;
   border-radius: 48px;
   margin-left: 6px;
+}
+
+.search-form__input-container {
+  width: 100%;
+  position: relative;
+  display: flex;
 }
 
 .search-form__film-name-input {
@@ -81,6 +87,21 @@
   opacity: 0.8;
 }
 
+.search-form__error-message {
+  position: absolute;
+  top: 31px;
+  width: 100%;
+  text-align: center;
+  display: none;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ee3465;
+}
+.search-form__error-message_visible {
+  display: block;
+}
+
 @media (max-width: 1200px) {
   .search-form {
     margin: 0px 30px 132px;
@@ -102,6 +123,10 @@
     text-align: left;
     font-size: 18px;
     line-height: 22px;
+  }
+  .search-form__error-message {
+    text-align: left;
+    top: 26px;
   }
   .search-form__film-name {
     padding-bottom: 9px;

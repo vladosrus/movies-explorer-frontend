@@ -20,6 +20,7 @@ export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [movies, setMovies] = useState([]);
+  const [searchOptions, setSearchOptions] = useState({});
 
   const [isNavigationMenuOpen, setIsNavigationMenuOpen] = useState(false);
   const [isRequestStatusPopupOpen, setIsRequestStatusPopupOpen] =
@@ -28,10 +29,9 @@ export default function App() {
   useEffect(() => {
     tokenCheck();
     if (loggedIn) {
-      Promise.all([MainApi.getProfileInfo(), MoviesApi.getInitialMovies()])
-        .then(([currentUserInfo, initialMovies]) => {
+      MainApi.getProfileInfo()
+        .then((currentUserInfo) => {
           setCurrentUser(currentUserInfo);
-          setMovies(initialMovies);
         })
         .catch((error) => {
           console.log(error);
@@ -43,7 +43,7 @@ export default function App() {
     const token = localStorage.getItem("token");
     if (token) {
       setLoggedIn(true);
-      history.push("/movies")
+      history.push("/movies");
     }
   }
 
@@ -76,6 +76,16 @@ export default function App() {
       })
       .catch((err) => {
         console.log(err);
+      });
+  }
+  function handleFindMovies(shortMovies, movieName) {
+    setSearchOptions({ shortMovies: shortMovies, movieName: movieName });
+    MoviesApi.getMovies()
+      .then((movies) => {
+        setMovies(movies);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -132,6 +142,10 @@ export default function App() {
             onClose={closeAllWindows}
             isNavigationMenuOpen={isNavigationMenuOpen}
             isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+            isResultBlockOpen={isResultBlockOpen}
+            onSubmitSearchForm={handleFindMovies}
+            searchFormInputValue={searchOptions.movieName}
+            checkboxStatus={searchOptions.shortMovies}
           />
           <ProtectedRoute
             exact

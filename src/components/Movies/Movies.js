@@ -9,10 +9,17 @@ import Footer from "../Footer/Footer";
 export default function Movies(props) {
   return (
     <>
-      <Header onNavigationBottomClick={props.onNavBottonClick} loggedIn={props.loggedIn} />
+      <Header
+        onNavigationBottomClick={props.onNavBottonClick}
+        loggedIn={props.loggedIn}
+      />
       <main>
         <article className="movies-page">
-          <SearchForm />
+          <SearchForm
+            onSubmitSearchForm={props.onSubmitSearchForm}
+            searchFormInputValue={props.searchFormInputValue}
+            checkboxStatus={props.checkboxStatus}
+          />
           <MoviesCardList movies={props.movies} />
           <Preloader />
         </article>

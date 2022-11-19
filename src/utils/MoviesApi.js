@@ -8,7 +8,7 @@ function checkResponse(res) {
   }
 }
 
-export function getInitialMovies() {
+export function getMovies() {
   return fetch(moviesApiUrl, {
     method: "GET",
   }).then(checkResponse);

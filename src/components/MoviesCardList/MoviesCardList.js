@@ -3,7 +3,7 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 
 export default function MoviesCardList(props) {
   return (
-    <section className="movies-cards">
+    <section className="movies-cards ">
       <ul className="movies-cards__list">
         {props.movies?.map((newMovie) => {
           return (
