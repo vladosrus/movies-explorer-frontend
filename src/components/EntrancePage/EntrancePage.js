@@ -1,19 +1,25 @@
 import "./EntrancePage.css";
 import Logo from "../Logo/Logo";
-//import { useState } from "react";
+import { useState } from "react";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 export default function EntrancePage(props) {
+  const [isFormDisabled, setIsFormDisabled] = useState(false);
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation({});
 
   function handleSubmit(evt) {
     evt.preventDefault();
     if (props.name === "register") {
-      props.onRegistration(values.name, values.email, values.password);
+      props.onRegistration(
+        values.name,
+        values.email,
+        values.password,
+        setIsFormDisabled
+      );
       resetForm();
     } else {
-      props.onLogin(values.email, values.password);
+      props.onLogin(values.email, values.password, setIsFormDisabled);
       resetForm();
     }
   }
@@ -39,6 +45,7 @@ export default function EntrancePage(props) {
               }`}
               value={values.name || ""}
               onChange={handleChange}
+              disabled={isFormDisabled}
             ></input>
             <span
               className={`entrance-page__error-message ${
@@ -61,6 +68,7 @@ export default function EntrancePage(props) {
               }`}
               value={values.email || ""}
               onChange={handleChange}
+              disabled={isFormDisabled}
             ></input>
           </label>
           <span
@@ -83,6 +91,7 @@ export default function EntrancePage(props) {
               }`}
               value={values.password || ""}
               onChange={handleChange}
+              disabled={isFormDisabled}
             ></input>
           </label>
           <span

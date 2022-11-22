@@ -7,6 +7,7 @@ export default function SearchForm(props) {
   const { values, handleChange, setValues } = useForm();
   const [isErrorMessageVisible, setIsErrorMessageVisible] = useState(false);
   const [isInputFocus, setIsInputFocus] = useState(false);
+  const [isFormDisabled, setIsFormDisabled] = useState(false);
 
   useEffect(() => {
     setValues({ filmName: props.movieName });
@@ -24,7 +25,11 @@ export default function SearchForm(props) {
     evt.preventDefault();
 
     values.filmName
-      ? props.onSubmitSearchForm(isSelectedShortMovie, values.filmName)
+      ? props.onSubmitSearchForm(
+          isSelectedShortMovie,
+          values.filmName,
+          setIsFormDisabled
+        )
       : setIsErrorMessageVisible(true);
   }
 
@@ -53,6 +58,7 @@ export default function SearchForm(props) {
               onClick={() => setIsErrorMessageVisible(false)}
               onFocus={handleChangeFocus}
               onBlur={handleChangeFocus}
+              disabled={isFormDisabled}
             />
             <span
               className={`search-form__error-message ${
@@ -63,7 +69,11 @@ export default function SearchForm(props) {
             </span>
           </div>
 
-          <button type="submit" className="search-form__submit-button" />
+          <button
+            type="submit"
+            className="search-form__submit-button"
+            disabled={isFormDisabled}
+          />
         </fieldset>
 
         <fieldset className="search-form__short-film">

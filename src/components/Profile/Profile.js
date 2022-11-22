@@ -2,12 +2,13 @@ import "./Profile.css";
 import Header from "../Header/Header";
 import Navigation from "../Navigation/Navigation";
 import RequestStatusPopup from "../RequestStatusPopup/RequestStatusPopup";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 export default function Profile(props) {
   const currentUser = useContext(CurrentUserContext);
+  const [isFormDisabled, setIsFormDisabled] = useState(false);
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation({
       name: currentUser.name,
@@ -17,7 +18,7 @@ export default function Profile(props) {
   function handleSubmit(evt) {
     evt.preventDefault();
     resetForm();
-    props.onUpdateProfileInfo(values.name, values.email);
+    props.onUpdateProfileInfo(values.name, values.email, setIsFormDisabled);
   }
 
   return (
@@ -48,6 +49,7 @@ export default function Profile(props) {
                   }`}
                   value={values.name || ""}
                   onChange={handleChange}
+                  disabled={isFormDisabled}
                 />
               </label>
               <span
@@ -70,6 +72,7 @@ export default function Profile(props) {
                   }`}
                   value={values.email || ""}
                   onChange={handleChange}
+                  disabled={isFormDisabled}
                 />
               </label>
               <span

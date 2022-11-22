@@ -1,7 +1,7 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import useWindowSize from "../../hooks/useWindowSize";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 let arrayForHoldingMovies = [];
 let slicedMovies = [];

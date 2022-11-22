@@ -75,7 +75,8 @@ export default function App() {
     }
   }
 
-  function registration(name, email, password) {
+  function registration(name, email, password, setIsFormDisabled) {
+    setIsFormDisabled(true);
     MainApi.registration(name, email, password)
       .then((res) => {
         authorization(email, password);
@@ -83,10 +84,12 @@ export default function App() {
       .catch((err) => {
         unsuccessAction();
         console.log(err);
-      });
+      })
+      .finally(() => setIsFormDisabled(false));
   }
 
-  function authorization(email, password) {
+  function authorization(email, password, setIsFormDisabled) {
+    setIsFormDisabled(true);
     MainApi.authorization(email, password)
       .then((res) => {
         localStorage.setItem("token", res.token);
@@ -95,15 +98,20 @@ export default function App() {
       .catch((err) => {
         unsuccessAction();
         console.log(err);
-      });
+      })
+      .finally(() => setIsFormDisabled(false));
   }
-  function updateProfileInfo(name, email) {
+  function updateProfileInfo(name, email, setIsFormDisabled) {
+    setIsFormDisabled(true);
     MainApi.updateProfileInfo(name, email)
       .then((res) => {
         setCurrentUser(res);
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsFormDisabled(false);
       });
   }
 
@@ -131,7 +139,12 @@ export default function App() {
     }
   }
 
-  function handleFindMovies(isSelectedShortMovies, movieName) {
+  function handleFindMovies(
+    isSelectedShortMovies,
+    movieName,
+    setIsFormDisabled
+  ) {
+    setIsFormDisabled(true);
     setIsSelectedShortMovies(isSelectedShortMovies);
     setMovieName(movieName);
     setIsMoviesResultBlockOpen(false);
@@ -154,11 +167,15 @@ export default function App() {
       })
       .catch(() => {
         setIsMoviesErrorMessageVisible(true);
+      })
+      .finally(() => {
+        setIsFormDisabled(false);
       });
   }
   function handleFindSavedMovies(isSelectedShortSavedMovies, savedMovieName) {
     setIsSelectedShortSavedMovies(isSelectedShortSavedMovies);
     setSavedMovieName(savedMovieName);
+    setIsSavedMoviesResultBlockOpen(false);
     setIsSavedMoviesErrorMessageVisible(false);
     setIsSavedMoviesNotFoundErrorMessageVisible(false);
     const filterMoviesArray = filterMovies(
