@@ -40,6 +40,7 @@ export default function EntrancePage(props) {
               required
               minLength="2"
               maxLength="30"
+              pattern="/[A-Za-z0-9А-Яа-я\-\ ]{2,30}/i"
               className={`entrance-page__input ${
                 errors.name && "entrance-page__input_type_error"
               }`}

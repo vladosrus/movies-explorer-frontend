@@ -11,11 +11,6 @@ export default function SavedMoviesCardList(props) {
       ? "Ничего не найдено"
       : "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
   }`;
-  const moreMoviesButtonClassname = `movies-cards__more-movies-card-button ${
-    props.isResultBlockOpen &&
-    props.foundMovies?.length > 0 &&
-    "movies-cards__more-movies-card-button_visible"
-  }`;
   
   return (
     <section className="movies-cards ">
@@ -65,9 +60,6 @@ export default function SavedMoviesCardList(props) {
           {notFoundErrorMessage}
         </h2>
       )}
-      <button type="button" className={moreMoviesButtonClassname}>
-        Ещё
-      </button>
     </section>
   );
 }
