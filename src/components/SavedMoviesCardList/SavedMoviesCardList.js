@@ -1,10 +1,8 @@
 import "./SavedMoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import useWindowSize from "../../hooks/useWindowSize";
+
 
 export default function SavedMoviesCardList(props) {
-  const { width } = useWindowSize();
-
   const moviesResultBlockClassname = `movies-cards__result-block ${
     props.isResultBlockOpen && "movies-cards__result-block_visible"
   }`;

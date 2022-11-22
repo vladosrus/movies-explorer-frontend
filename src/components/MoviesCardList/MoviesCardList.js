@@ -1,48 +1,9 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import useWindowSize from "../../hooks/useWindowSize";
-import { useEffect, useState } from "react";
-
-let arrayForHoldingMovies = [];
-let slicedMovies = [];
+import useMoreMoviesButton from "../../hooks/useMoreMoviesButton";
 
 export default function MoviesCardList(props) {
-  const { width } = useWindowSize();
-
-  const [moviesToShow, setMoviesToShow] = useState([]);
-  const [next, setNext] = useState(4);
-  const [moviesPerPage, setMoviesPerPage] = useState(4);
-
-  const loopWithSlice = (start, end) => {
-    const slice = props.foundMovies.slice(start, end);
-    slicedMovies = [...slice];
-    arrayForHoldingMovies = [...arrayForHoldingMovies, ...slicedMovies];
-    setMoviesToShow(arrayForHoldingMovies);
-  };
-
-  const moviesToShowAmong = () => {
-    if (width <= 1200 && width >= 1118) {
-      setMoviesPerPage(3);
-      setNext(3);
-    } else if (width <= 1117 && width >= 691) {
-      setMoviesPerPage(2);
-      setNext(2);
-    } else {
-      setMoviesPerPage(5);
-      setNext(5);
-    }
-  };
-
-  useEffect(() => {
-    moviesToShowAmong();
-    arrayForHoldingMovies = [];
-    loopWithSlice(0, moviesPerPage);
-  }, [props.foundMovies, width]);
-
-  const handleShowMoreMovies = () => {
-    loopWithSlice(next, next + moviesPerPage);
-    setNext(next + moviesPerPage);
-  };
+  const {handleShowMoreMovies, slicedMovies, moviesToShow, moviesPerPage} = useMoreMoviesButton(props.foundMovies)
 
   const moviesResultBlockClassname = `movies-cards__result-block ${
     props.isResultBlockOpen && "movies-cards__result-block_visible"
