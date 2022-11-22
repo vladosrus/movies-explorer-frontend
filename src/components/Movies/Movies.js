@@ -30,6 +30,7 @@ export default function Movies(props) {
             }
             isErrorMessageVisible={props.isErrorMessageVisible}
             onMovieLike={props.onMovieLike}
+            isPreloaderOpen={props.isPreloaderOpen}
           />
           <Preloader />
         </article>

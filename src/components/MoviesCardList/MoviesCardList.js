@@ -1,9 +1,11 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
+import Preloader from "../Preloader/Preloader";
 import useMoreMoviesButton from "../../hooks/useMoreMoviesButton";
 
 export default function MoviesCardList(props) {
-  const {handleShowMoreMovies, slicedMovies, moviesToShow, moviesPerPage} = useMoreMoviesButton(props.foundMovies)
+  const { handleShowMoreMovies, slicedMovies, moviesToShow, moviesPerPage } =
+    useMoreMoviesButton(props.foundMovies);
 
   const moviesResultBlockClassname = `movies-cards__result-block ${
     props.isResultBlockOpen && "movies-cards__result-block_visible"
@@ -46,6 +48,7 @@ export default function MoviesCardList(props) {
           {notFoundErrorMessage}
         </h2>
       )}
+      <Preloader isOpen={props.isPreloaderOpen} />
       <button
         type="button"
         className={moreMoviesButtonClassname}

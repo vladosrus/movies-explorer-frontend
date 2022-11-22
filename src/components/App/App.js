@@ -21,6 +21,8 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [beatfilmMovies, setBeatfilmMovies] = useState([]);
 
+  const [isPreloaderOpen, setIsPreloaderOpen] = useState(false);
+
   const [isSelectedShortMovies, setIsSelectedShortMovies] = useState(false);
   const [movieName, setMovieName] = useState("");
   const [foundMovies, setFoundMovies] = useState([]);
@@ -153,6 +155,7 @@ export default function App() {
     setIsMoviesNotFoundErrorMessageVisible(false);
 
     if (beatfilmMovies.length === 0) {
+      setIsPreloaderOpen(true);
       MoviesApi.getMovies()
       .then((movies) => {
         setBeatfilmMovies(movies);
@@ -174,6 +177,7 @@ export default function App() {
       })
       .finally(() => {
         setIsFormDisabled(false);
+        setIsPreloaderOpen(false)
       });
     } else {
       const filterMoviesArray = filterMovies(
@@ -310,6 +314,7 @@ export default function App() {
             savedMovies={savedMovies}
             foundMovies={foundMovies}
             onMovieLike={handleLikeMovie}
+            isPreloaderOpen={isPreloaderOpen}
           />
           <ProtectedRoute
             exact
