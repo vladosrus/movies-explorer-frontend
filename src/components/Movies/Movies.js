@@ -17,10 +17,20 @@ export default function Movies(props) {
         <article className="movies-page">
           <SearchForm
             onSubmitSearchForm={props.onSubmitSearchForm}
-            searchFormInputValue={props.searchFormInputValue}
-            checkboxStatus={props.checkboxStatus}
+            isSelectedShortMovies={props.isSelectedShortMovies}
+            movieName={props.movieName}
+            foundMovies={props.foundMovies}
           />
-          <MoviesCardList movies={props.movies} />
+          <MoviesCardList
+            savedMovies={props.savedMovies}
+            foundMovies={props.foundMovies}
+            isResultBlockOpen={props.isResultBlockOpen}
+            isNotFoundErrorMessageVisible={
+              props.isNotFoundErrorMessageVisible
+            }
+            isErrorMessageVisible={props.isErrorMessageVisible}
+            onMovieLike={props.onMovieLike}
+          />
           <Preloader />
         </article>
         <Navigation

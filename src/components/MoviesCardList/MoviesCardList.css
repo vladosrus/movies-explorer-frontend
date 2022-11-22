@@ -1,12 +1,13 @@
 .movies-cards {
   max-width: 1140px;
+  min-height: 175px;
   margin: 0px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.movies-cards__list {
+.movies-cards__result-block {
   margin: 0px 0px 80px;
   padding: 0px;
   display: grid;
@@ -16,14 +17,27 @@
   row-gap: 32px;
   column-gap: 20px;
   justify-content: center;
+  display: none;
+}
+.movies-cards__result-block_visible {
+  display: grid;
 }
 
-.movies-cards__list-item {
+.movies-cards__result-block-item {
   list-style: none;
   background: #222222;
   border-radius: 10px;
   box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+}
+
+.movies-cards__error-message {
+  width: 100%;
+  margin: 0px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
 }
 
 .movies-cards__more-movies-card-button {
@@ -39,6 +53,10 @@
   line-height: 15px;
   color: #fff;
   cursor: pointer;
+  display: none;
+}
+.movies-cards__more-movies-card-button_visible {
+  display: block;
 }
 
 .movies-cards__more-movies-card-button:hover {
@@ -49,31 +67,40 @@
   .movies-cards {
     margin: 0px 30px;
   }
-  .movies-cards__list {
+  .movies-cards__result-block {
     grid-template-columns: repeat(3, 339px);
     grid-template-rows: repeat(1, 257px);
     grid-auto-rows: 257px;
   }
 }
 @media (max-width: 1117px) {
-  .movies-cards__list {
+  .movies-cards__result-block {
     grid-template-columns: repeat(2, 339px);
     row-gap: 36px;
     column-gap: 30px;
   }
 }
 @media (max-width: 767px) {
-  .movies-cards__list {
+  .movies-cards__result-block {
     grid-template-columns: repeat(2, 300px);
     grid-template-rows: repeat(1, 235px);
     grid-auto-rows: 235px;
   }
 }
 @media (max-width: 690px) {
-  .movies-cards__list {
+  .movies-cards__result-block {
     grid-template-columns: repeat(1, 300px);
     column-gap: 0px;
     row-gap: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .movies-cards {
+    min-height: 204px;
+  }
+  .movies-cards__error-message {
+    font-size: 15px;
+    line-height: 17px;
   }
 }
 @media (max-width: 380px) {
@@ -85,9 +112,13 @@
   .movies-cards {
     margin: 0px auto;
   }
+  .movies-cards__error-message {
+    width: 80%;
+  }
 }
 @media (max-width: 320px) {
   .movies-cards {
     margin: 0px 10px;
+    min-height: 123px;
   }
 }

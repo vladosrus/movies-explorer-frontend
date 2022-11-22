@@ -19,19 +19,47 @@ export default function App() {
   const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [movies, setMovies] = useState([]);
-  const [searchOptions, setSearchOptions] = useState({});
+
+  const [isSelectedShortMovies, setIsSelectedShortMovies] = useState(false);
+  const [movieName, setMovieName] = useState("");
+  const [foundMovies, setFoundMovies] = useState([]);
+
+  const [isSelectedShortSavedMovies, setIsSelectedShortSavedMovies] =
+    useState(false);
+  const [savedMovieName, setSavedMovieName] = useState("");
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [isFiltered, setIsFiltered] = useState();
 
   const [isNavigationMenuOpen, setIsNavigationMenuOpen] = useState(false);
   const [isRequestStatusPopupOpen, setIsRequestStatusPopupOpen] =
     useState(false);
 
+  const [isMoviesResultBlockOpen, setIsMoviesResultBlockOpen] = useState(false);
+  const [
+    isMoviesNotFoundErrorMessageVisible,
+    setIsMoviesNotFoundErrorMessageVisible,
+  ] = useState(false);
+  const [isMoviesErrorMessageVisible, setIsMoviesErrorMessageVisible] =
+    useState(false);
+  const [isSavedMoviesResultBlockOpen, setIsSavedMoviesResultBlockOpen] =
+    useState(true);
+  const [
+    isSavedMoviesNotFoundErrorMessageVisible,
+    setIsSavedMoviesNotFoundErrorMessageVisible,
+  ] = useState(false);
+  const [
+    isSavedMoviesErrorMessageVisible,
+    setIsSavedMoviesErrorMessageVisible,
+  ] = useState(false);
+
   useEffect(() => {
     tokenCheck();
     if (loggedIn) {
-      MainApi.getProfileInfo()
-        .then((currentUserInfo) => {
+      Promise.all([MainApi.getProfileInfo(), MainApi.getSavedMovies()])
+        .then(([currentUserInfo, savedMovies]) => {
           setCurrentUser(currentUserInfo);
+          setSavedMovies(savedMovies);
         })
         .catch((error) => {
           console.log(error);
@@ -78,15 +106,109 @@ export default function App() {
         console.log(err);
       });
   }
-  function handleFindMovies(shortMovies, movieName) {
-    setSearchOptions({ shortMovies: shortMovies, movieName: movieName });
+
+  function filterMovies(allMovies, shortMovies, movieName) {
+    if (shortMovies) {
+      const filteredMovies = allMovies
+        .filter((item) => {
+          return item.duration <= 40;
+        })
+        .filter((item) => {
+          return item.nameRU
+            .toLowerCase()
+            .trim()
+            .includes(movieName.toLowerCase().trim());
+        });
+      return filteredMovies;
+    } else {
+      const filteredMovies = allMovies.filter((item) => {
+        return item.nameRU
+          .toLowerCase()
+          .trim()
+          .includes(movieName.toLowerCase().trim());
+      });
+      return filteredMovies;
+    }
+  }
+
+  function handleFindMovies(isSelectedShortMovies, movieName) {
+    setIsSelectedShortMovies(isSelectedShortMovies);
+    setMovieName(movieName);
+    setIsMoviesResultBlockOpen(false);
+    setIsMoviesErrorMessageVisible(false);
+    setIsMoviesNotFoundErrorMessageVisible(false);
     MoviesApi.getMovies()
       .then((movies) => {
-        setMovies(movies);
+        const filterMoviesArray = filterMovies(
+          movies,
+          isSelectedShortMovies,
+          movieName
+        );
+        if (filterMoviesArray.length > 0) {
+          setIsMoviesResultBlockOpen(true);
+          setFoundMovies(filterMoviesArray);
+        } else {
+          setFoundMovies(filterMoviesArray);
+          setIsMoviesNotFoundErrorMessageVisible(true);
+        }
+      })
+      .catch(() => {
+        setIsMoviesErrorMessageVisible(true);
+      });
+  }
+  function handleFindSavedMovies(isSelectedShortSavedMovies, savedMovieName) {
+    setIsSelectedShortSavedMovies(isSelectedShortSavedMovies);
+    setSavedMovieName(savedMovieName);
+    setIsSavedMoviesErrorMessageVisible(false);
+    setIsSavedMoviesNotFoundErrorMessageVisible(false);
+    const filterMoviesArray = filterMovies(
+      savedMovies,
+      isSelectedShortSavedMovies,
+      savedMovieName
+    );
+    if (filterMoviesArray.length > 0) {
+      setIsSavedMoviesResultBlockOpen(true);
+      setFilteredMovies(filterMoviesArray);
+      setIsFiltered(true);
+    } else {
+      setFilteredMovies(filterMoviesArray);
+      setIsFiltered(true);
+      setIsSavedMoviesNotFoundErrorMessageVisible(true);
+    }
+  }
+
+  function handleDeleteMovie(movieId) {
+    MainApi.deleteSavedMovie(movieId)
+      .then(() => {
+        setSavedMovies((state) => state.filter((c) => c._id !== movieId));
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+  function handleLikeMovie(movie, isFavorites) {
+    if (!isFavorites) {
+      MainApi.createSavedMovie(movie)
+        .then((savedMovie) => {
+          setSavedMovies([savedMovie, ...savedMovies]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      MainApi.deleteSavedMovie(
+        savedMovies.filter((savedMovie) => savedMovie.movieId === movie.id)[0]
+          ._id
+      )
+        .then(() => {
+          setSavedMovies((state) =>
+            state.filter((c) => c.movieId !== movie.id)
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   function successAuthorization() {
@@ -137,26 +259,41 @@ export default function App() {
             path="/movies"
             loggedIn={loggedIn}
             component={Movies}
-            movies={movies}
             onNavBottonClick={handleNavigationBottomClick}
             onClose={closeAllWindows}
             isNavigationMenuOpen={isNavigationMenuOpen}
             isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-            isResultBlockOpen={isResultBlockOpen}
+            isResultBlockOpen={isMoviesResultBlockOpen}
+            isNotFoundErrorMessageVisible={isMoviesNotFoundErrorMessageVisible}
+            isErrorMessageVisible={isMoviesErrorMessageVisible}
             onSubmitSearchForm={handleFindMovies}
-            searchFormInputValue={searchOptions.movieName}
-            checkboxStatus={searchOptions.shortMovies}
+            isSelectedShortMovies={isSelectedShortMovies}
+            movieName={movieName}
+            savedMovies={savedMovies}
+            foundMovies={foundMovies}
+            onMovieLike={handleLikeMovie}
           />
           <ProtectedRoute
             exact
             path="/saved-movies"
             loggedIn={loggedIn}
             component={SavedMovies}
-            movies={movies}
             onNavBottonClick={handleNavigationBottomClick}
             onClose={closeAllWindows}
             isNavigationMenuOpen={isNavigationMenuOpen}
             isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+            isResultBlockOpen={isSavedMoviesResultBlockOpen}
+            isNotFoundErrorMessageVisible={
+              isSavedMoviesNotFoundErrorMessageVisible
+            }
+            isErrorMessageVisible={isSavedMoviesErrorMessageVisible}
+            onSubmitSearchForm={handleFindSavedMovies}
+            isSelectedShortMovies={isSelectedShortSavedMovies}
+            movieName={savedMovieName}
+            savedMovies={savedMovies}
+            filteredMovies={filteredMovies}
+            isFiltered={isFiltered}
+            onMovieDelete={handleDeleteMovie}
           />
           <ProtectedRoute
             exact

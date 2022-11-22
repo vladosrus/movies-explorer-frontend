@@ -1,13 +1,27 @@
 import "./MoviesCard.css";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 
 export default function MoviesCard(props) {
-  const [isFavorites, setIsFavorites] = useState(false);
-  const onFavouritesButtonClick = useCallback(
-    () => setIsFavorites(!isFavorites),
-    [isFavorites]
-  );
+  const [isFavorites, setIsFavorites] = useState();
+  const onFavouritesButtonClick = useCallback(() => {
+    const { onMovieLike, movie } = props;
+    setIsFavorites(!isFavorites);
+    onMovieLike(movie, isFavorites);
+  }, [isFavorites, props]);
+
+  useEffect(() => {
+    setIsFavorites(
+      props.savedMovies?.some(
+        (savedMovie) => savedMovie.movieId === props.movie.id
+      )
+    );
+  }, [props.savedMovies, props.movie]);
+
+  function onDeleteButtonClick() {
+    props.onMovieDelete(props.movie._id);
+  }
+
   const moviesCardFavouritesButtonClassName = `movies-card__favourites-button ${
     isFavorites && "movies-card__favourites-button_active"
   }`;
@@ -49,9 +63,10 @@ export default function MoviesCard(props) {
             />
           </Route>
           <Route exact path="/saved-movies">
-          <button
+            <button
               className="movies-card__delete-button"
               type="button"
+              onClick={onDeleteButtonClick}
             />
           </Route>
         </Switch>

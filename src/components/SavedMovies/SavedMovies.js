@@ -1,19 +1,37 @@
 import Header from "../Header/Header";
 import Navigation from "../Navigation/Navigation";
 import RequestStatusPopup from "../RequestStatusPopup/RequestStatusPopup";
-import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import Footer from "../Footer/Footer";
+import SavedMoviesCardList from "../SavedMoviesCardList/SavedMoviesCardList";
 
 export default function SavedMovies(props) {
   return (
     <>
-      <Header onNavigationBottomClick={props.onNavBottonClick} loggedIn={props.loggedIn} />
+      <Header
+        onNavigationBottomClick={props.onNavBottonClick}
+        loggedIn={props.loggedIn}
+      />
       <main>
         <article className="saved-movies-page">
-          <SearchForm />
-          <MoviesCardList movies={props.movies} />
+          <SearchForm
+            onSubmitSearchForm={props.onSubmitSearchForm}
+            isSelectedShortMovies={props.isSelectedShortMovies}
+            movieName={props.movieName}
+            foundMovies={props.foundMovies}
+          />
+          <SavedMoviesCardList
+            savedMovies={props.savedMovies}
+            filteredMovies={props.filteredMovies}
+            isFiltered={props.isFiltered}
+            isResultBlockOpen={props.isResultBlockOpen}
+            isNotFoundErrorMessageVisible={
+              props.isNotFoundErrorMessageVisible
+            }
+            isErrorMessageVisible={props.isErrorMessageVisible}
+            onMovieDelete={props.onMovieDelete}
+          />
           <Preloader />
         </article>
         <Navigation

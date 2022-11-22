@@ -6,16 +6,15 @@ import { useState, useCallback, useEffect } from "react";
 export default function SearchForm(props) {
   const { values, handleChange, setValues } = useForm();
   const [isErrorMessageVisible, setIsErrorMessageVisible] = useState(false);
-  const [isInputFocus, setIsInputFocus] = useState(false)
+  const [isInputFocus, setIsInputFocus] = useState(false);
 
   useEffect(() => {
-    setValues({ filmName: props.searchFormInputValue });
-  }, [setValues, props.searchFormInputValue]);
+    setValues({ filmName: props.movieName });
+    setIsSelectedIsShortMovie(props.isSelectedShortMovies);
+  }, [setValues, props.movieName, props.isSelectedShortMovies]);
 
   // Управление состояниями чекбокса
-  const [isSelectedShortMovie, setIsSelectedIsShortMovie] = useState(
-    props.checkboxStatus
-  );
+  const [isSelectedShortMovie, setIsSelectedIsShortMovie] = useState(false);
   const onSelectShortMovie = useCallback(
     () => setIsSelectedIsShortMovie(!isSelectedShortMovie),
     [isSelectedShortMovie]
@@ -36,7 +35,11 @@ export default function SearchForm(props) {
   return (
     <section className="search-form">
       <form className="search-form__form" onSubmit={handleSubmit} noValidate>
-        <fieldset className={`search-form__film-name ${isInputFocus && "search-form__film-name_focus"}`}>
+        <fieldset
+          className={`search-form__film-name ${
+            isInputFocus && "search-form__film-name_focus"
+          }`}
+        >
           <div className="search-form__search-icon" />
           <div className="search-form__input-container">
             <input

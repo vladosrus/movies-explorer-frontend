@@ -1,0 +1,75 @@
+import "./SavedMoviesCardList.css";
+import MoviesCard from "../MoviesCard/MoviesCard";
+import useWindowSize from "../../hooks/useWindowSize";
+
+export default function SavedMoviesCardList(props) {
+  const { width } = useWindowSize();
+
+  const moviesResultBlockClassname = `movies-cards__result-block ${
+    props.isResultBlockOpen && "movies-cards__result-block_visible"
+  }`;
+  const notFoundErrorMessage = `${
+    props.isNotFoundErrorMessageVisible
+      ? "Ничего не найдено"
+      : "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+  }`;
+  const moreMoviesButtonClassname = `movies-cards__more-movies-card-button ${
+    props.isResultBlockOpen &&
+    props.foundMovies?.length > 0 &&
+    "movies-cards__more-movies-card-button_visible"
+  }`;
+  
+  return (
+    <section className="movies-cards ">
+      <ul className={moviesResultBlockClassname}>
+        {props.isFiltered
+          ? props.filteredMovies?.map((newMovie) => {
+              return (
+                <li
+                  className="movies-cards__result-block-item"
+                  key={newMovie._id}
+                >
+                  <MoviesCard
+                    movies={props.filteredMovies}
+                    movie={newMovie}
+                    imgLink={newMovie.thumbnail}
+                    trailerLink={newMovie.trailerLink}
+                    name={newMovie.nameRU}
+                    duration={newMovie.duration}
+                    onMovieLike={props.onMovieLike}
+                    onMovieDelete={props.onMovieDelete}
+                  />
+                </li>
+              );
+            })
+          : props.savedMovies?.map((newMovie) => {
+              return (
+                <li
+                  className="movies-cards__result-block-item"
+                  key={newMovie._id}
+                >
+                  <MoviesCard
+                    movies={props.savedMovies}
+                    movie={newMovie}
+                    imgLink={newMovie.thumbnail}
+                    trailerLink={newMovie.trailerLink}
+                    name={newMovie.nameRU}
+                    duration={newMovie.duration}
+                    onMovieLike={props.onMovieLike}
+                    onMovieDelete={props.onMovieDelete}
+                  />
+                </li>
+              );
+            })}
+      </ul>
+      {(props.isNotFoundErrorMessageVisible || props.isErrorMessageVisible) && (
+        <h2 className={"movies-cards__error-message"}>
+          {notFoundErrorMessage}
+        </h2>
+      )}
+      <button type="button" className={moreMoviesButtonClassname}>
+        Ещё
+      </button>
+    </section>
+  );
+}

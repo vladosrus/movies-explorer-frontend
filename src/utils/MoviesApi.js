@@ -1,4 +1,5 @@
-const moviesApiUrl = "https://api.nomoreparties.co/beatfilm-movies";
+import moviesApiUrl from "./MainApi";
+
 
 function checkResponse(res) {
   if (res.ok) {
@@ -9,7 +10,7 @@ function checkResponse(res) {
 }
 
 export function getMovies() {
-  return fetch(moviesApiUrl, {
+  return fetch(`${moviesApiUrl}/beatfilm-movies`, {
     method: "GET",
   }).then(checkResponse);
 }
