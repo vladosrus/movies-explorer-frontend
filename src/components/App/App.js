@@ -19,6 +19,7 @@ export default function App() {
   const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [beatfilmMovies, setBeatfilmMovies] = useState([]);
 
   const [isSelectedShortMovies, setIsSelectedShortMovies] = useState(false);
   const [movieName, setMovieName] = useState("");
@@ -150,8 +151,11 @@ export default function App() {
     setIsMoviesResultBlockOpen(false);
     setIsMoviesErrorMessageVisible(false);
     setIsMoviesNotFoundErrorMessageVisible(false);
-    MoviesApi.getMovies()
+
+    if (beatfilmMovies.length === 0) {
+      MoviesApi.getMovies()
       .then((movies) => {
+        setBeatfilmMovies(movies);
         const filterMoviesArray = filterMovies(
           movies,
           isSelectedShortMovies,
@@ -171,6 +175,23 @@ export default function App() {
       .finally(() => {
         setIsFormDisabled(false);
       });
+    } else {
+      const filterMoviesArray = filterMovies(
+        beatfilmMovies,
+        isSelectedShortMovies,
+        movieName
+      );
+      if (filterMoviesArray.length > 0) {
+        setIsMoviesResultBlockOpen(true);
+        setFoundMovies(filterMoviesArray);
+        setIsFormDisabled(false);
+      } else {
+        setFoundMovies(filterMoviesArray);
+        setIsMoviesNotFoundErrorMessageVisible(true);
+        setIsFormDisabled(false);
+      }
+    }
+    
   }
   function handleFindSavedMovies(isSelectedShortSavedMovies, savedMovieName) {
     setIsSelectedShortSavedMovies(isSelectedShortSavedMovies);
