@@ -1,7 +1,6 @@
 import "./SavedMoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-
 export default function SavedMoviesCardList(props) {
   const moviesResultBlockClassname = `movies-cards__result-block ${
     props.isResultBlockOpen && "movies-cards__result-block_visible"
@@ -11,7 +10,7 @@ export default function SavedMoviesCardList(props) {
       ? "Ничего не найдено"
       : "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
   }`;
-  
+
   return (
     <section className="movies-cards ">
       <ul className={moviesResultBlockClassname}>

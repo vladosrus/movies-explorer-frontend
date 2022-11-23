@@ -124,8 +124,8 @@ export default function App() {
         promise.then((err) => {
           console.log(err.message);
           err.statusCode && err.statusCode === 400
-          ? requestStatusPopupAction(err.validation.body.message, false)
-          : requestStatusPopupAction(err.message, false);
+            ? requestStatusPopupAction(err.validation.body.message, false)
+            : requestStatusPopupAction(err.message, false);
         });
       })
       .finally(() => setIsFormDisabled(false));

@@ -10,7 +10,10 @@ import Footer from "../Footer/Footer";
 export default function Main(props) {
   return (
     <>
-      <Header loggedIn={props.loggedIn} onNavigationBottomClick={props.onNavigationBottomClick} />
+      <Header
+        loggedIn={props.loggedIn}
+        onNavigationBottomClick={props.onNavigationBottomClick}
+      />
       <main>
         <article className="main-page">
           <Promo />

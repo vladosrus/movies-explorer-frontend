@@ -1,6 +1,5 @@
 import Header from "../Header/Header";
 import Navigation from "../Navigation/Navigation";
-import RequestStatusPopup from "../RequestStatusPopup/RequestStatusPopup";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
@@ -25,9 +24,7 @@ export default function Movies(props) {
             savedMovies={props.savedMovies}
             foundMovies={props.foundMovies}
             isResultBlockOpen={props.isResultBlockOpen}
-            isNotFoundErrorMessageVisible={
-              props.isNotFoundErrorMessageVisible
-            }
+            isNotFoundErrorMessageVisible={props.isNotFoundErrorMessageVisible}
             isErrorMessageVisible={props.isErrorMessageVisible}
             onMovieLike={props.onMovieLike}
             isPreloaderOpen={props.isPreloaderOpen}
@@ -38,13 +35,6 @@ export default function Movies(props) {
           isOpen={props.isNavigationMenuOpen}
           onClose={props.onClose}
           onOverlayClick={props.onClose}
-        />
-        <RequestStatusPopup
-          isOpen={props.isRequestStatusPopupOpen}
-          onClose={props.onClose}
-          onOverlayClick={props.onClose}
-          code={200}
-          message={"Фильм удалён"}
         />
       </main>
       <Footer />

@@ -114,7 +114,7 @@ export default function Profile(props) {
           onOverlayClick={props.onClose}
         />
         <RequestStatusPopup
-          place={'profile'}
+          place={"profile"}
           isOpen={props.isRequestStatusPopupOpen}
           message={props.requestStatusPopupMessage}
           isSuccess={props.isRequestPopupSuccess}

@@ -1,7 +1,6 @@
 import "./NavTab.css";
 
 export default function NavTab() {
-
   function scrollTo(element) {
     window.scroll({
       behavior: "smooth",

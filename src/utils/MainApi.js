@@ -1,9 +1,8 @@
-// const mainApiUrl = "https://movies-explorer.chikov.nomoredomains.icu/api";
+const mainApiUrl = "https://movies-explorer.chikov.nomoredomains.icu/api";
 const moviesApiUrl = "https://api.nomoreparties.co";
-const devUrl = "http://localhost:3001/api";
 const headers = {
   "Content-Type": "application/json",
-  origin: devUrl,
+  origin: mainApiUrl,
 };
 const credentials = "include";
 
@@ -17,7 +16,7 @@ function checkResponse(res) {
   }
 }
 export function registration(name, email, password) {
-  return fetch(`${devUrl}/signup`, {
+  return fetch(`${mainApiUrl}/signup`, {
     method: "POST",
     headers: headers,
     credentials: credentials,
@@ -26,7 +25,7 @@ export function registration(name, email, password) {
 }
 
 export function authorization(email, password) {
-  return fetch(`${devUrl}/signin`, {
+  return fetch(`${mainApiUrl}/signin`, {
     method: "POST",
     headers: headers,
     credentials: credentials,
@@ -34,28 +33,28 @@ export function authorization(email, password) {
   }).then(checkResponse);
 }
 export function logout() {
-  return fetch(`${devUrl}/signout`, {
+  return fetch(`${mainApiUrl}/signout`, {
     method: "POST",
     headers: headers,
     credentials: credentials,
   }).then(checkResponse);
 }
 export function getProfileInfo() {
-  return fetch(`${devUrl}/users/me`, {
+  return fetch(`${mainApiUrl}/users/me`, {
     method: "GET",
     headers: headers,
     credentials: credentials,
   }).then(checkResponse);
 }
 export function getSavedMovies() {
-  return fetch(`${devUrl}/movies`, {
+  return fetch(`${mainApiUrl}/movies`, {
     method: "GET",
     headers: headers,
     credentials: credentials,
   }).then(checkResponse);
 }
 export function updateProfileInfo(name, email) {
-  return fetch(`${devUrl}/users/me`, {
+  return fetch(`${mainApiUrl}/users/me`, {
     method: "PATCH",
     headers: headers,
     credentials: credentials,
@@ -63,7 +62,7 @@ export function updateProfileInfo(name, email) {
   }).then(checkResponse);
 }
 export function createSavedMovie(movie) {
-  return fetch(`${devUrl}/movies`, {
+  return fetch(`${mainApiUrl}/movies`, {
     method: "POST",
     headers: headers,
     credentials: credentials,
@@ -83,7 +82,7 @@ export function createSavedMovie(movie) {
   }).then(checkResponse);
 }
 export function deleteSavedMovie(movieId) {
-  return fetch(`${devUrl}/movies/${movieId}`, {
+  return fetch(`${mainApiUrl}/movies/${movieId}`, {
     method: "DELETE",
     headers: headers,
     credentials: credentials,

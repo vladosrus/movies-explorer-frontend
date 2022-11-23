@@ -37,9 +37,7 @@ export default function RequestStatusPopup(props) {
               : "request-status-popup__unsuccess-icon"
           }`}
         />
-        <p className="request-status-popup__message">
-          {props.message}
-        </p>
+        <p className="request-status-popup__message">{props.message}</p>
       </div>
     </div>
   );
