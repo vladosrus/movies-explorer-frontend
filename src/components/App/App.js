@@ -1,5 +1,5 @@
 import "./App.css";
-import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 // Импорты компонентов
@@ -14,6 +14,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import * as MainApi from "../../utils/MainApi";
 import * as MoviesApi from "../../utils/MoviesApi";
+import { useCallback } from "react";
 
 export default function App() {
   const history = useHistory();
@@ -55,6 +56,14 @@ export default function App() {
     isSavedMoviesErrorMessageVisible,
     setIsSavedMoviesErrorMessageVisible,
   ] = useState(false);
+  
+  const tokenCheck = useCallback(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        setLoggedIn(true);
+        history.push("/movies");
+      }
+    }, [history])
 
   useEffect(() => {
     tokenCheck();
@@ -68,15 +77,7 @@ export default function App() {
           console.log(error);
         });
     }
-  }, [loggedIn]);
-
-  function tokenCheck() {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setLoggedIn(true);
-      history.push("/movies");
-    }
-  }
+  }, [loggedIn, tokenCheck]);
 
   function registration(name, email, password, setIsFormDisabled) {
     setIsFormDisabled(true);
