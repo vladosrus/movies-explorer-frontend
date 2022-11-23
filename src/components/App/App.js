@@ -65,8 +65,25 @@ export default function App() {
       }
     }, [history])
 
+  const localStorageCheck = useCallback(() => {
+    localStorage.isSelectedShortMovies && setIsSelectedShortMovies(JSON.parse(localStorage.isSelectedShortMovies))
+    localStorage.movieName && setMovieName(localStorage.movieName);
+    localStorage.movies && setFoundMovies(JSON.parse(localStorage.movies));
+    localStorage.isMoviesResultBlockOpen && setIsMoviesResultBlockOpen(JSON.parse(localStorage.isMoviesResultBlockOpen));
+    localStorage.isMoviesNotFoundErrorMessageVisible && setIsMoviesNotFoundErrorMessageVisible(JSON.parse(localStorage.isMoviesNotFoundErrorMessageVisible));
+
+    localStorage.isSelectedShortSavedMovies && setIsSelectedShortSavedMovies(JSON.parse(localStorage.isSelectedShortSavedMovies));
+    localStorage.savedMovieName && setSavedMovieName(localStorage.savedMovieName);
+    localStorage.savedMovies && setFilteredMovies(JSON.parse(localStorage.savedMovies));
+    localStorage.isSavedMoviesResultBlockOpen && setIsSavedMoviesResultBlockOpen(JSON.parse(localStorage.isSavedMoviesResultBlockOpen));
+    localStorage.isSavedMoviesNotFoundErrorMessageVisible && setIsSavedMoviesNotFoundErrorMessageVisible(JSON.parse(localStorage.isSavedMoviesNotFoundErrorMessageVisible));
+    localStorage.isFiltered && setIsFiltered(JSON.parse(localStorage.isFiltered));
+
+    }, [])
+
   useEffect(() => {
     tokenCheck();
+    localStorageCheck();
     if (loggedIn) {
       Promise.all([MainApi.getProfileInfo(), MainApi.getSavedMovies()])
         .then(([currentUserInfo, savedMovies]) => {
@@ -77,7 +94,7 @@ export default function App() {
           console.log(error);
         });
     }
-  }, [loggedIn, tokenCheck]);
+  }, [loggedIn, tokenCheck, localStorageCheck]);
 
   function registration(name, email, password, setIsFormDisabled) {
     setIsFormDisabled(true);
@@ -154,6 +171,11 @@ export default function App() {
     setIsMoviesResultBlockOpen(false);
     setIsMoviesErrorMessageVisible(false);
     setIsMoviesNotFoundErrorMessageVisible(false);
+    localStorage.setItem('isSelectedShortMovies', isSelectedShortMovies)
+    localStorage.setItem('movieName', movieName);
+    localStorage.setItem('movies', JSON.stringify([]));
+    localStorage.setItem('isMoviesResultBlockOpen', false);
+    localStorage.setItem('isMoviesNotFoundErrorMessageVisible', false);
 
     if (beatfilmMovies.length === 0) {
       setIsPreloaderOpen(true);
@@ -168,9 +190,13 @@ export default function App() {
         if (filterMoviesArray.length > 0) {
           setIsMoviesResultBlockOpen(true);
           setFoundMovies(filterMoviesArray);
+          localStorage.isMoviesResultBlockOpen = true;
+          localStorage.movies = JSON.stringify(filterMoviesArray);
         } else {
           setFoundMovies(filterMoviesArray);
           setIsMoviesNotFoundErrorMessageVisible(true);
+          localStorage.movies = JSON.stringify(filterMoviesArray);
+          localStorage.isMoviesNotFoundErrorMessageVisible = true;
         }
       })
       .catch(() => {
@@ -190,10 +216,14 @@ export default function App() {
         setIsMoviesResultBlockOpen(true);
         setFoundMovies(filterMoviesArray);
         setIsFormDisabled(false);
+        localStorage.movies = JSON.stringify(filterMoviesArray);
+        localStorage.isMoviesResultBlockOpen = true;
       } else {
         setFoundMovies(filterMoviesArray);
         setIsMoviesNotFoundErrorMessageVisible(true);
         setIsFormDisabled(false);
+        localStorage.movies = JSON.stringify(filterMoviesArray);
+        localStorage.isMoviesNotFoundErrorMessageVisible = true;
       }
     }
     
@@ -204,19 +234,32 @@ export default function App() {
     setIsSavedMoviesResultBlockOpen(false);
     setIsSavedMoviesErrorMessageVisible(false);
     setIsSavedMoviesNotFoundErrorMessageVisible(false);
-    const filterMoviesArray = filterMovies(
+
+    localStorage.setItem('isSelectedShortSavedMovies', isSelectedShortSavedMovies)
+    localStorage.setItem('savedMovieName', savedMovieName);
+    localStorage.setItem('savedMovies', JSON.stringify([]));
+    localStorage.setItem('isSavedMoviesResultBlockOpen', false);
+    localStorage.setItem('isSavedMoviesNotFoundErrorMessageVisible', false);
+    localStorage.setItem('isFiltered', false);
+
+    const filterSavedMoviesArray = filterMovies(
       savedMovies,
       isSelectedShortSavedMovies,
       savedMovieName
     );
-    if (filterMoviesArray.length > 0) {
+    if (filterSavedMoviesArray.length > 0) {
       setIsSavedMoviesResultBlockOpen(true);
-      setFilteredMovies(filterMoviesArray);
+      setFilteredMovies(filterSavedMoviesArray);
       setIsFiltered(true);
+      localStorage.savedMovies = JSON.stringify(filterSavedMoviesArray);
+      localStorage.isSavedMoviesResultBlockOpen = true;
+      localStorage.isFiltered = true;
     } else {
-      setFilteredMovies(filterMoviesArray);
+      setFilteredMovies(filterSavedMoviesArray);
       setIsFiltered(true);
       setIsSavedMoviesNotFoundErrorMessageVisible(true);
+      localStorage.savedMovies = JSON.stringify(filterSavedMoviesArray);
+      localStorage.isFiltered = true;
     }
   }
 
@@ -262,7 +305,18 @@ export default function App() {
   function handleLogout() {
     MainApi.logout()
       .then(() => {
-        localStorage.clear("token");
+        localStorage.clear();
+        setIsSelectedShortMovies(false);
+        setMovieName("");
+        setFoundMovies([]);
+        setIsMoviesResultBlockOpen(false);
+        setIsMoviesNotFoundErrorMessageVisible(false);
+        setIsSelectedShortSavedMovies(false);
+        setSavedMovieName("");
+        setFilteredMovies([]);
+        setIsSavedMoviesResultBlockOpen(true);
+        setIsSavedMoviesNotFoundErrorMessageVisible(false);
+        setIsFiltered(false);
         setLoggedIn(false);
         history.push("/");
       })
