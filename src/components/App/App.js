@@ -367,9 +367,6 @@ export default function App() {
           <Route path="*">
             <NotFound />
           </Route>
-          <Route path="/">
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
-          </Route>
         </Switch>
       </div>
     </CurrentUserContext.Provider>
