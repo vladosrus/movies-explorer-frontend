@@ -6,11 +6,12 @@ export default function Login(props) {
     <main>
       <EntrancePage name={"login"} onLogin={props.onLogin} />
       <RequestStatusPopup
+        place={'login'}
         isOpen={props.isRequestStatusPopupOpen}
+        message={props.requestStatusPopupMessage}
+        isSuccess={props.isRequestPopupSuccess}
         onClose={props.onClose}
         onOverlayClick={props.onClose}
-        code={200}
-        message={"Фильм удалён"}
       />
     </main>
   );

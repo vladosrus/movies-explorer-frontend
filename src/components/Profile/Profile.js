@@ -44,7 +44,6 @@ export default function Profile(props) {
                   required
                   minLength="2"
                   maxLength="30"
-                  pattern="/[A-Za-z0-9А-Яа-я\-\ ]{2,30}/i"
                   className={`profile-page__input ${
                     errors.name && "profile-page__input_type_error"
                   }`}
@@ -115,11 +114,12 @@ export default function Profile(props) {
           onOverlayClick={props.onClose}
         />
         <RequestStatusPopup
+          place={'profile'}
           isOpen={props.isRequestStatusPopupOpen}
+          message={props.requestStatusPopupMessage}
+          isSuccess={props.isRequestPopupSuccess}
           onClose={props.onClose}
           onOverlayClick={props.onClose}
-          code={200}
-          message={"Фильм удалён"}
         />
       </main>
     </>

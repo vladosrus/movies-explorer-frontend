@@ -1,6 +1,6 @@
 import "./App.css";
 import { Route, Switch, useHistory } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 // Импорты компонентов
 import Main from "../Main/Main";
@@ -14,7 +14,6 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import * as MainApi from "../../utils/MainApi";
 import * as MoviesApi from "../../utils/MoviesApi";
-import { useCallback } from "react";
 
 export default function App() {
   const history = useHistory();
@@ -27,18 +26,6 @@ export default function App() {
   const [isSelectedShortMovies, setIsSelectedShortMovies] = useState(false);
   const [movieName, setMovieName] = useState("");
   const [foundMovies, setFoundMovies] = useState([]);
-
-  const [isSelectedShortSavedMovies, setIsSelectedShortSavedMovies] =
-    useState(false);
-  const [savedMovieName, setSavedMovieName] = useState("");
-  const [savedMovies, setSavedMovies] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState([]);
-  const [isFiltered, setIsFiltered] = useState();
-
-  const [isNavigationMenuOpen, setIsNavigationMenuOpen] = useState(false);
-  const [isRequestStatusPopupOpen, setIsRequestStatusPopupOpen] =
-    useState(false);
-
   const [isMoviesResultBlockOpen, setIsMoviesResultBlockOpen] = useState(false);
   const [
     isMoviesNotFoundErrorMessageVisible,
@@ -46,6 +33,13 @@ export default function App() {
   ] = useState(false);
   const [isMoviesErrorMessageVisible, setIsMoviesErrorMessageVisible] =
     useState(false);
+
+  const [isSelectedShortSavedMovies, setIsSelectedShortSavedMovies] =
+    useState(false);
+  const [savedMovieName, setSavedMovieName] = useState("");
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [isFiltered, setIsFiltered] = useState();
   const [isSavedMoviesResultBlockOpen, setIsSavedMoviesResultBlockOpen] =
     useState(true);
   const [
@@ -56,30 +50,54 @@ export default function App() {
     isSavedMoviesErrorMessageVisible,
     setIsSavedMoviesErrorMessageVisible,
   ] = useState(false);
-  
+
+  const [isNavigationMenuOpen, setIsNavigationMenuOpen] = useState(false);
+  const [isRequestStatusPopupOpen, setIsRequestStatusPopupOpen] =
+    useState(false);
+  const [isRequestPopupSuccess, setIsRequestPopupSuccess] = useState(false);
+  const [requestStatusPopupMessage, setRequestStatusPopupMessage] = useState();
+
   const tokenCheck = useCallback(() => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        setLoggedIn(true);
-        history.push("/movies");
-      }
-    }, [history])
+    const token = localStorage.getItem("token");
+    if (token) {
+      setLoggedIn(true);
+      history.push("/movies");
+    }
+  }, [history]);
 
   const localStorageCheck = useCallback(() => {
-    localStorage.isSelectedShortMovies && setIsSelectedShortMovies(JSON.parse(localStorage.isSelectedShortMovies))
+    localStorage.isSelectedShortMovies &&
+      setIsSelectedShortMovies(JSON.parse(localStorage.isSelectedShortMovies));
     localStorage.movieName && setMovieName(localStorage.movieName);
     localStorage.movies && setFoundMovies(JSON.parse(localStorage.movies));
-    localStorage.isMoviesResultBlockOpen && setIsMoviesResultBlockOpen(JSON.parse(localStorage.isMoviesResultBlockOpen));
-    localStorage.isMoviesNotFoundErrorMessageVisible && setIsMoviesNotFoundErrorMessageVisible(JSON.parse(localStorage.isMoviesNotFoundErrorMessageVisible));
+    localStorage.isMoviesResultBlockOpen &&
+      setIsMoviesResultBlockOpen(
+        JSON.parse(localStorage.isMoviesResultBlockOpen)
+      );
+    localStorage.isMoviesNotFoundErrorMessageVisible &&
+      setIsMoviesNotFoundErrorMessageVisible(
+        JSON.parse(localStorage.isMoviesNotFoundErrorMessageVisible)
+      );
 
-    localStorage.isSelectedShortSavedMovies && setIsSelectedShortSavedMovies(JSON.parse(localStorage.isSelectedShortSavedMovies));
-    localStorage.savedMovieName && setSavedMovieName(localStorage.savedMovieName);
-    localStorage.savedMovies && setFilteredMovies(JSON.parse(localStorage.savedMovies));
-    localStorage.isSavedMoviesResultBlockOpen && setIsSavedMoviesResultBlockOpen(JSON.parse(localStorage.isSavedMoviesResultBlockOpen));
-    localStorage.isSavedMoviesNotFoundErrorMessageVisible && setIsSavedMoviesNotFoundErrorMessageVisible(JSON.parse(localStorage.isSavedMoviesNotFoundErrorMessageVisible));
-    localStorage.isFiltered && setIsFiltered(JSON.parse(localStorage.isFiltered));
-
-    }, [])
+    localStorage.isSelectedShortSavedMovies &&
+      setIsSelectedShortSavedMovies(
+        JSON.parse(localStorage.isSelectedShortSavedMovies)
+      );
+    localStorage.savedMovieName &&
+      setSavedMovieName(localStorage.savedMovieName);
+    localStorage.savedMovies &&
+      setFilteredMovies(JSON.parse(localStorage.savedMovies));
+    localStorage.isSavedMoviesResultBlockOpen &&
+      setIsSavedMoviesResultBlockOpen(
+        JSON.parse(localStorage.isSavedMoviesResultBlockOpen)
+      );
+    localStorage.isSavedMoviesNotFoundErrorMessageVisible &&
+      setIsSavedMoviesNotFoundErrorMessageVisible(
+        JSON.parse(localStorage.isSavedMoviesNotFoundErrorMessageVisible)
+      );
+    localStorage.isFiltered &&
+      setIsFiltered(JSON.parse(localStorage.isFiltered));
+  }, []);
 
   useEffect(() => {
     tokenCheck();
@@ -99,12 +117,16 @@ export default function App() {
   function registration(name, email, password, setIsFormDisabled) {
     setIsFormDisabled(true);
     MainApi.registration(name, email, password)
-      .then((res) => {
+      .then(() => {
         authorization(email, password);
       })
-      .catch((err) => {
-        unsuccessAction();
-        console.log(err);
+      .catch((promise) => {
+        promise.then((err) => {
+          console.log(err.message);
+          err.statusCode && err.statusCode === 400
+          ? requestStatusPopupAction(err.validation.body.message, false)
+          : requestStatusPopupAction(err.message, false);
+        });
       })
       .finally(() => setIsFormDisabled(false));
   }
@@ -116,9 +138,13 @@ export default function App() {
         localStorage.setItem("token", res.token);
         successAuthorization();
       })
-      .catch((err) => {
-        unsuccessAction();
-        console.log(err);
+      .catch((promise) => {
+        promise.then((err) => {
+          console.log(err.message);
+          err.statusCode && err.statusCode === 400
+            ? requestStatusPopupAction(err.validation.body.message, false)
+            : requestStatusPopupAction(err.message, false);
+        });
       })
       .finally(() => setIsFormDisabled(false));
   }
@@ -127,9 +153,15 @@ export default function App() {
     MainApi.updateProfileInfo(name, email)
       .then((res) => {
         setCurrentUser(res);
+        requestStatusPopupAction("Данные успешно обновлены", true);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((promise) => {
+        promise.then((err) => {
+          console.log(err.message);
+          err.statusCode && err.statusCode === 400
+            ? requestStatusPopupAction(err.validation.body.message, false)
+            : requestStatusPopupAction(err.message, false);
+        });
       })
       .finally(() => {
         setIsFormDisabled(false);
@@ -171,41 +203,41 @@ export default function App() {
     setIsMoviesResultBlockOpen(false);
     setIsMoviesErrorMessageVisible(false);
     setIsMoviesNotFoundErrorMessageVisible(false);
-    localStorage.setItem('isSelectedShortMovies', isSelectedShortMovies)
-    localStorage.setItem('movieName', movieName);
-    localStorage.setItem('movies', JSON.stringify([]));
-    localStorage.setItem('isMoviesResultBlockOpen', false);
-    localStorage.setItem('isMoviesNotFoundErrorMessageVisible', false);
+    localStorage.setItem("isSelectedShortMovies", isSelectedShortMovies);
+    localStorage.setItem("movieName", movieName);
+    localStorage.setItem("movies", JSON.stringify([]));
+    localStorage.setItem("isMoviesResultBlockOpen", false);
+    localStorage.setItem("isMoviesNotFoundErrorMessageVisible", false);
 
     if (beatfilmMovies.length === 0) {
       setIsPreloaderOpen(true);
       MoviesApi.getMovies()
-      .then((movies) => {
-        setBeatfilmMovies(movies);
-        const filterMoviesArray = filterMovies(
-          movies,
-          isSelectedShortMovies,
-          movieName
-        );
-        if (filterMoviesArray.length > 0) {
-          setIsMoviesResultBlockOpen(true);
-          setFoundMovies(filterMoviesArray);
-          localStorage.isMoviesResultBlockOpen = true;
-          localStorage.movies = JSON.stringify(filterMoviesArray);
-        } else {
-          setFoundMovies(filterMoviesArray);
-          setIsMoviesNotFoundErrorMessageVisible(true);
-          localStorage.movies = JSON.stringify(filterMoviesArray);
-          localStorage.isMoviesNotFoundErrorMessageVisible = true;
-        }
-      })
-      .catch(() => {
-        setIsMoviesErrorMessageVisible(true);
-      })
-      .finally(() => {
-        setIsFormDisabled(false);
-        setIsPreloaderOpen(false)
-      });
+        .then((movies) => {
+          setBeatfilmMovies(movies);
+          const filterMoviesArray = filterMovies(
+            movies,
+            isSelectedShortMovies,
+            movieName
+          );
+          if (filterMoviesArray.length > 0) {
+            setIsMoviesResultBlockOpen(true);
+            setFoundMovies(filterMoviesArray);
+            localStorage.isMoviesResultBlockOpen = true;
+            localStorage.movies = JSON.stringify(filterMoviesArray);
+          } else {
+            setFoundMovies(filterMoviesArray);
+            setIsMoviesNotFoundErrorMessageVisible(true);
+            localStorage.movies = JSON.stringify(filterMoviesArray);
+            localStorage.isMoviesNotFoundErrorMessageVisible = true;
+          }
+        })
+        .catch(() => {
+          setIsMoviesErrorMessageVisible(true);
+        })
+        .finally(() => {
+          setIsFormDisabled(false);
+          setIsPreloaderOpen(false);
+        });
     } else {
       const filterMoviesArray = filterMovies(
         beatfilmMovies,
@@ -226,7 +258,6 @@ export default function App() {
         localStorage.isMoviesNotFoundErrorMessageVisible = true;
       }
     }
-    
   }
   function handleFindSavedMovies(isSelectedShortSavedMovies, savedMovieName) {
     setIsSelectedShortSavedMovies(isSelectedShortSavedMovies);
@@ -235,12 +266,15 @@ export default function App() {
     setIsSavedMoviesErrorMessageVisible(false);
     setIsSavedMoviesNotFoundErrorMessageVisible(false);
 
-    localStorage.setItem('isSelectedShortSavedMovies', isSelectedShortSavedMovies)
-    localStorage.setItem('savedMovieName', savedMovieName);
-    localStorage.setItem('savedMovies', JSON.stringify([]));
-    localStorage.setItem('isSavedMoviesResultBlockOpen', false);
-    localStorage.setItem('isSavedMoviesNotFoundErrorMessageVisible', false);
-    localStorage.setItem('isFiltered', false);
+    localStorage.setItem(
+      "isSelectedShortSavedMovies",
+      isSelectedShortSavedMovies
+    );
+    localStorage.setItem("savedMovieName", savedMovieName);
+    localStorage.setItem("savedMovies", JSON.stringify([]));
+    localStorage.setItem("isSavedMoviesResultBlockOpen", false);
+    localStorage.setItem("isSavedMoviesNotFoundErrorMessageVisible", false);
+    localStorage.setItem("isFiltered", false);
 
     const filterSavedMoviesArray = filterMovies(
       savedMovies,
@@ -297,11 +331,6 @@ export default function App() {
     }
   }
 
-  function successAuthorization() {
-    setLoggedIn(true);
-    history.push("/movies");
-  }
-
   function handleLogout() {
     MainApi.logout()
       .then(() => {
@@ -325,9 +354,14 @@ export default function App() {
       });
   }
 
-  function unsuccessAction() {
-    //setRegistrationPopupImg(unSuccessImg);
-    //setRegistrationPopupText("Что-то пошло не так! Попробуйте ещё раз.");
+  function successAuthorization() {
+    setLoggedIn(true);
+    history.push("/movies");
+  }
+
+  function requestStatusPopupAction(message, isSuccess) {
+    setIsRequestPopupSuccess(isSuccess);
+    setRequestStatusPopupMessage(message);
     setIsRequestStatusPopupOpen(true);
   }
 
@@ -402,12 +436,16 @@ export default function App() {
             onClose={closeAllWindows}
             isNavigationMenuOpen={isNavigationMenuOpen}
             isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+            requestStatusPopupMessage={requestStatusPopupMessage}
+            isRequestPopupSuccess={isRequestPopupSuccess}
             onLogout={handleLogout}
             onUpdateProfileInfo={updateProfileInfo}
           />
           <Route exact path="/sign-up">
             <Register
               isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+              requestStatusPopupMessage={requestStatusPopupMessage}
+              isRequestPopupSuccess={isRequestPopupSuccess}
               onClose={closeAllWindows}
               onRegistration={registration}
             />
@@ -415,6 +453,8 @@ export default function App() {
           <Route exact path="/sign-in">
             <Login
               isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+              requestStatusPopupMessage={requestStatusPopupMessage}
+              isRequestPopupSuccess={isRequestPopupSuccess}
               onClose={closeAllWindows}
               onLogin={authorization}
             />
