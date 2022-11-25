@@ -126,7 +126,8 @@ export default function App() {
           err.statusCode && err.statusCode === 400
             ? requestStatusPopupAction(err.validation.body.message, false)
             : requestStatusPopupAction(err.message, false);
-        });
+        })
+        .catch((err) => console.log(err))
       })
       .finally(() => setIsFormDisabled(false));
   }
@@ -144,7 +145,8 @@ export default function App() {
           err.statusCode && err.statusCode === 400
             ? requestStatusPopupAction(err.validation.body.message, false)
             : requestStatusPopupAction(err.message, false);
-        });
+        })
+        .catch((err) => console.log(err))
       })
       .finally(() => setIsFormDisabled(false));
   }
@@ -161,7 +163,8 @@ export default function App() {
           err.statusCode && err.statusCode === 400
             ? requestStatusPopupAction(err.validation.body.message, false)
             : requestStatusPopupAction(err.message, false);
-        });
+        })
+        .catch((err) => console.log(err))
       })
       .finally(() => {
         setIsFormDisabled(false);
