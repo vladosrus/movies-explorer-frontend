@@ -78,25 +78,6 @@ export default function App() {
       setIsMoviesNotFoundErrorMessageVisible(
         JSON.parse(localStorage.isMoviesNotFoundErrorMessageVisible)
       );
-
-    localStorage.isSelectedShortSavedMovies &&
-      setIsSelectedShortSavedMovies(
-        JSON.parse(localStorage.isSelectedShortSavedMovies)
-      );
-    localStorage.savedMovieName &&
-      setSavedMovieName(localStorage.savedMovieName);
-    localStorage.savedMovies &&
-      setFilteredMovies(JSON.parse(localStorage.savedMovies));
-    localStorage.isSavedMoviesResultBlockOpen &&
-      setIsSavedMoviesResultBlockOpen(
-        JSON.parse(localStorage.isSavedMoviesResultBlockOpen)
-      );
-    localStorage.isSavedMoviesNotFoundErrorMessageVisible &&
-      setIsSavedMoviesNotFoundErrorMessageVisible(
-        JSON.parse(localStorage.isSavedMoviesNotFoundErrorMessageVisible)
-      );
-    localStorage.isFiltered &&
-      setIsFiltered(JSON.parse(localStorage.isFiltered));
   }, []);
 
   useEffect(() => {
@@ -269,16 +250,6 @@ export default function App() {
     setIsSavedMoviesErrorMessageVisible(false);
     setIsSavedMoviesNotFoundErrorMessageVisible(false);
 
-    localStorage.setItem(
-      "isSelectedShortSavedMovies",
-      isSelectedShortSavedMovies
-    );
-    localStorage.setItem("savedMovieName", savedMovieName);
-    localStorage.setItem("savedMovies", JSON.stringify([]));
-    localStorage.setItem("isSavedMoviesResultBlockOpen", false);
-    localStorage.setItem("isSavedMoviesNotFoundErrorMessageVisible", false);
-    localStorage.setItem("isFiltered", false);
-
     const filterSavedMoviesArray = filterMovies(
       savedMovies,
       isSelectedShortSavedMovies,
@@ -288,15 +259,10 @@ export default function App() {
       setIsSavedMoviesResultBlockOpen(true);
       setFilteredMovies(filterSavedMoviesArray);
       setIsFiltered(true);
-      localStorage.savedMovies = JSON.stringify(filterSavedMoviesArray);
-      localStorage.isSavedMoviesResultBlockOpen = true;
-      localStorage.isFiltered = true;
     } else {
       setFilteredMovies(filterSavedMoviesArray);
       setIsFiltered(true);
       setIsSavedMoviesNotFoundErrorMessageVisible(true);
-      localStorage.savedMovies = JSON.stringify(filterSavedMoviesArray);
-      localStorage.isFiltered = true;
     }
   }
 
