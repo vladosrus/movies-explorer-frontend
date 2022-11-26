@@ -33,6 +33,17 @@ export default function SearchForm(props) {
       : setIsErrorMessageVisible(true);
   }
 
+  const handleChangeInputValue = useCallback(
+    (evt) => {
+      console.log(evt.target.value);
+      if (evt.target.value !== "") {
+        setIsErrorMessageVisible(false);
+      }
+      handleChange(evt);
+    },
+    [handleChange]
+  );
+
   function handleChangeFocus() {
     setIsInputFocus(!isInputFocus);
   }
@@ -54,7 +65,7 @@ export default function SearchForm(props) {
               placeholder="Фильм"
               required
               value={values.filmName || ""}
-              onChange={handleChange}
+              onChange={handleChangeInputValue}
               onClick={() => setIsErrorMessageVisible(false)}
               onFocus={handleChangeFocus}
               onBlur={handleChangeFocus}
