@@ -4,6 +4,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import Footer from "../Footer/Footer";
+import RequestStatusPopup from "../RequestStatusPopup/RequestStatusPopup";
 
 export default function Movies(props) {
   return (
@@ -33,6 +34,13 @@ export default function Movies(props) {
         </article>
         <Navigation
           isOpen={props.isNavigationMenuOpen}
+          onClose={props.onClose}
+          onOverlayClick={props.onClose}
+        />
+        <RequestStatusPopup
+          isOpen={props.isRequestStatusPopupOpen}
+          message={props.requestStatusPopupMessage}
+          isSuccess={props.isRequestPopupSuccess}
           onClose={props.onClose}
           onOverlayClick={props.onClose}
         />

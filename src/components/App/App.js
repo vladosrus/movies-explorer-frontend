@@ -14,6 +14,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import * as MainApi from "../../utils/MainApi";
 import * as MoviesApi from "../../utils/MoviesApi";
+import errorMessage from "../../utils/constants";
 
 export default function App() {
   const history = useHistory();
@@ -276,16 +277,20 @@ export default function App() {
       })
       .catch((error) => {
         console.log(error);
+        requestStatusPopupAction(errorMessage, false)
       });
   }
-  function handleLikeMovie(movie, isFavorites) {
+  function handleLikeMovie(movie, isFavorites, setIsFavorites) {
     if (!isFavorites) {
       MainApi.createSavedMovie(movie)
         .then((savedMovie) => {
+          setIsFavorites(true);
           setSavedMovies([savedMovie, ...savedMovies]);
+          setFilteredMovies([savedMovie, ...savedMovies]);
         })
         .catch((error) => {
           console.log(error);
+          requestStatusPopupAction(errorMessage, false)
         });
     } else {
       MainApi.deleteSavedMovie(
@@ -293,12 +298,17 @@ export default function App() {
           ._id
       )
         .then(() => {
+          setIsFavorites(false);
           setSavedMovies((state) =>
+            state.filter((c) => c.movieId !== movie.id)
+          );
+          setFilteredMovies((state) =>
             state.filter((c) => c.movieId !== movie.id)
           );
         })
         .catch((error) => {
           console.log(error);
+          requestStatusPopupAction(errorMessage, false)
         });
     }
   }
@@ -366,6 +376,8 @@ export default function App() {
             onClose={closeAllWindows}
             isNavigationMenuOpen={isNavigationMenuOpen}
             isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+            requestStatusPopupMessage={requestStatusPopupMessage}
+            isRequestPopupSuccess={isRequestPopupSuccess}
             isResultBlockOpen={isMoviesResultBlockOpen}
             isNotFoundErrorMessageVisible={isMoviesNotFoundErrorMessageVisible}
             isErrorMessageVisible={isMoviesErrorMessageVisible}
@@ -386,6 +398,8 @@ export default function App() {
             onClose={closeAllWindows}
             isNavigationMenuOpen={isNavigationMenuOpen}
             isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+            requestStatusPopupMessage={requestStatusPopupMessage}
+            isRequestPopupSuccess={isRequestPopupSuccess}
             isResultBlockOpen={isSavedMoviesResultBlockOpen}
             isNotFoundErrorMessageVisible={
               isSavedMoviesNotFoundErrorMessageVisible

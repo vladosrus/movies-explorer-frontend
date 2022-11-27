@@ -6,7 +6,6 @@ export default function Login(props) {
     <main>
       <EntrancePage name={"login"} onLogin={props.onLogin} />
       <RequestStatusPopup
-        place={"login"}
         isOpen={props.isRequestStatusPopupOpen}
         message={props.requestStatusPopupMessage}
         isSuccess={props.isRequestPopupSuccess}

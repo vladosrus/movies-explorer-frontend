@@ -6,8 +6,7 @@ export default function MoviesCard(props) {
   const [isFavorites, setIsFavorites] = useState();
   const onFavouritesButtonClick = useCallback(() => {
     const { onMovieLike, movie } = props;
-    setIsFavorites(!isFavorites);
-    onMovieLike(movie, isFavorites);
+    onMovieLike(movie, isFavorites, setIsFavorites);
   }, [isFavorites, props]);
 
   useEffect(() => {
