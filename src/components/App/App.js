@@ -99,16 +99,17 @@ export default function App() {
     setIsFormDisabled(true);
     MainApi.registration(name, email, password)
       .then(() => {
-        authorization(email, password);
+        authorization(email, password, setIsFormDisabled);
       })
       .catch((promise) => {
-        promise.then((err) => {
-          console.log(err.message);
-          err.statusCode && err.statusCode === 400
-            ? requestStatusPopupAction(err.validation.body.message, false)
-            : requestStatusPopupAction(err.message, false);
-        })
-        .catch((err) => console.log(err))
+        promise
+          .then((err) => {
+            console.log(err.message);
+            err.statusCode && err.statusCode === 400
+              ? requestStatusPopupAction(err.validation.body.message, false)
+              : requestStatusPopupAction(err.message, false);
+          })
+          .catch((err) => console.log(err));
       })
       .finally(() => setIsFormDisabled(false));
   }
@@ -121,13 +122,14 @@ export default function App() {
         successAuthorization();
       })
       .catch((promise) => {
-        promise.then((err) => {
-          console.log(err.message);
-          err.statusCode && err.statusCode === 400
-            ? requestStatusPopupAction(err.validation.body.message, false)
-            : requestStatusPopupAction(err.message, false);
-        })
-        .catch((err) => console.log(err))
+        promise
+          .then((err) => {
+            console.log(err.message);
+            err.statusCode && err.statusCode === 400
+              ? requestStatusPopupAction(err.validation.body.message, false)
+              : requestStatusPopupAction(err.message, false);
+          })
+          .catch((err) => console.log(err));
       })
       .finally(() => setIsFormDisabled(false));
   }
@@ -139,13 +141,14 @@ export default function App() {
         requestStatusPopupAction("Данные успешно обновлены", true);
       })
       .catch((promise) => {
-        promise.then((err) => {
-          console.log(err.message);
-          err.statusCode && err.statusCode === 400
-            ? requestStatusPopupAction(err.validation.body.message, false)
-            : requestStatusPopupAction(err.message, false);
-        })
-        .catch((err) => console.log(err))
+        promise
+          .then((err) => {
+            console.log(err.message);
+            err.statusCode && err.statusCode === 400
+              ? requestStatusPopupAction(err.validation.body.message, false)
+              : requestStatusPopupAction(err.message, false);
+          })
+          .catch((err) => console.log(err));
       })
       .finally(() => {
         setIsFormDisabled(false);
