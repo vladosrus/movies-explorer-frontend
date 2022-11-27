@@ -1,6 +1,6 @@
 import "./Header.css";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import ProfileButton from "../ProfileButton/ProfileButton";
 
@@ -12,12 +12,22 @@ export default function Header(props) {
         <>
           <nav className="header__nav-container">
             <div className="header__links-container">
-              <Link to={"/movies"} className="header__link">
+              <NavLink
+                exact
+                to="/movies"
+                className="header__link"
+                activeClassName="header__link_active"
+              >
                 Фильмы
-              </Link>
-              <Link to={"/saved-movies"} className="header__link">
+              </NavLink>
+              <NavLink
+                exact
+                to="/saved-movies"
+                className="header__link"
+                activeClassName="header__link_active"
+              >
                 Сохранённые фильмы
-              </Link>
+              </NavLink>
             </div>
             <ProfileButton />
           </nav>
