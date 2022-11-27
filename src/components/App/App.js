@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 
 // Импорты компонентов
@@ -58,13 +58,18 @@ export default function App() {
   const [isRequestPopupSuccess, setIsRequestPopupSuccess] = useState(false);
   const [requestStatusPopupMessage, setRequestStatusPopupMessage] = useState();
 
-  const tokenCheck = useCallback(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setLoggedIn(true);
-      history.push("/movies");
-    }
-  }, [history]);
+  const tokenCheck = useCallback(
+    () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        setLoggedIn(true);
+        // history.push("/movies");
+      }
+    },
+    [
+      /*history*/
+    ]
+  );
 
   const localStorageCheck = useCallback(() => {
     localStorage.isSelectedShortMovies &&
@@ -278,7 +283,7 @@ export default function App() {
       })
       .catch((error) => {
         console.log(error);
-        requestStatusPopupAction(errorMessage, false)
+        requestStatusPopupAction(errorMessage, false);
       });
   }
   function handleLikeMovie(movie, isFavorites, setIsFavorites) {
@@ -291,7 +296,7 @@ export default function App() {
         })
         .catch((error) => {
           console.log(error);
-          requestStatusPopupAction(errorMessage, false)
+          requestStatusPopupAction(errorMessage, false);
         });
     } else {
       MainApi.deleteSavedMovie(
@@ -309,7 +314,7 @@ export default function App() {
         })
         .catch((error) => {
           console.log(error);
-          requestStatusPopupAction(errorMessage, false)
+          requestStatusPopupAction(errorMessage, false);
         });
     }
   }
@@ -429,22 +434,30 @@ export default function App() {
             onUpdateProfileInfo={updateProfileInfo}
           />
           <Route exact path="/sign-up">
-            <Register
+            {loggedIn ? (
+              <Redirect to="/" />
+            ) : (
+              <Register
               isRequestStatusPopupOpen={isRequestStatusPopupOpen}
               requestStatusPopupMessage={requestStatusPopupMessage}
               isRequestPopupSuccess={isRequestPopupSuccess}
               onClose={closeAllWindows}
               onRegistration={registration}
             />
+            )}
           </Route>
           <Route exact path="/sign-in">
-            <Login
-              isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-              requestStatusPopupMessage={requestStatusPopupMessage}
-              isRequestPopupSuccess={isRequestPopupSuccess}
-              onClose={closeAllWindows}
-              onLogin={authorization}
-            />
+            {loggedIn ? (
+              <Redirect to="/" />
+            ) : (
+              <Login
+                isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+                requestStatusPopupMessage={requestStatusPopupMessage}
+                isRequestPopupSuccess={isRequestPopupSuccess}
+                onClose={closeAllWindows}
+                onLogin={authorization}
+              />
+            )}
           </Route>
           <Route path="*">
             <NotFound />
