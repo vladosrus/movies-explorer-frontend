@@ -20,7 +20,6 @@ export default function App() {
   const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [beatfilmMovies, setBeatfilmMovies] = useState([]);
 
   const [isPreloaderOpen, setIsPreloaderOpen] = useState(false);
 
@@ -58,18 +57,12 @@ export default function App() {
   const [isRequestPopupSuccess, setIsRequestPopupSuccess] = useState(false);
   const [requestStatusPopupMessage, setRequestStatusPopupMessage] = useState();
 
-  const tokenCheck = useCallback(
-    () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        setLoggedIn(true);
-        // history.push("/movies");
-      }
-    },
-    [
-      /*history*/
-    ]
-  );
+  const tokenCheck = useCallback(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setLoggedIn(true);
+    }
+  }, []);
 
   const localStorageCheck = useCallback(() => {
     localStorage.isSelectedShortMovies &&
@@ -202,11 +195,11 @@ export default function App() {
     localStorage.setItem("isMoviesResultBlockOpen", false);
     localStorage.setItem("isMoviesNotFoundErrorMessageVisible", false);
 
-    if (beatfilmMovies.length === 0) {
+    if (!localStorage.beatfilmMovies) {
       setIsPreloaderOpen(true);
       MoviesApi.getMovies()
         .then((movies) => {
-          setBeatfilmMovies(movies);
+          localStorage.setItem("beatfilmMovies", JSON.stringify(movies));
           const filterMoviesArray = filterMovies(
             movies,
             isSelectedShortMovies,
@@ -233,7 +226,7 @@ export default function App() {
         });
     } else {
       const filterMoviesArray = filterMovies(
-        beatfilmMovies,
+        JSON.parse(localStorage.beatfilmMovies),
         isSelectedShortMovies,
         movieName
       );
@@ -438,12 +431,12 @@ export default function App() {
               <Redirect to="/" />
             ) : (
               <Register
-              isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-              requestStatusPopupMessage={requestStatusPopupMessage}
-              isRequestPopupSuccess={isRequestPopupSuccess}
-              onClose={closeAllWindows}
-              onRegistration={registration}
-            />
+                isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+                requestStatusPopupMessage={requestStatusPopupMessage}
+                isRequestPopupSuccess={isRequestPopupSuccess}
+                onClose={closeAllWindows}
+                onRegistration={registration}
+              />
             )}
           </Route>
           <Route exact path="/sign-in">
