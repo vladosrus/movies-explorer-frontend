@@ -16,10 +16,14 @@ export default function SearchForm(props) {
 
   // Управление состояниями чекбокса
   const [isSelectedShortMovie, setIsSelectedIsShortMovie] = useState(false);
-  const onSelectShortMovie = useCallback(
-    () => setIsSelectedIsShortMovie(!isSelectedShortMovie),
-    [isSelectedShortMovie]
-  );
+  const onSelectShortMovie = useCallback(() => {
+    setIsSelectedIsShortMovie(!isSelectedShortMovie);
+    props.onSubmitSearchForm(
+      !isSelectedShortMovie,
+      values.filmName,
+      setIsFormDisabled
+    );
+  }, [isSelectedShortMovie, props, values.filmName]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -35,7 +39,6 @@ export default function SearchForm(props) {
 
   const handleChangeInputValue = useCallback(
     (evt) => {
-      console.log(evt.target.value);
       if (evt.target.value !== "") {
         setIsErrorMessageVisible(false);
       }
