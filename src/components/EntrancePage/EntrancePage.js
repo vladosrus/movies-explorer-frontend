@@ -66,6 +66,7 @@ export default function EntrancePage(props) {
               className={`entrance-page__input ${
                 errors.email && "entrance-page__input_type_error"
               }`}
+              pattern="^[a-z0-9-_.]+?@[a-z]+\.[a-z]+"
               value={values.email || ""}
               onChange={handleChange}
               disabled={isFormDisabled}
