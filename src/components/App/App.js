@@ -274,6 +274,7 @@ export default function App() {
     MainApi.deleteSavedMovie(movieId)
       .then(() => {
         setSavedMovies((state) => state.filter((c) => c._id !== movieId));
+        setFilteredMovies((state) => state.filter((c) => c._id !== movieId));
       })
       .catch((error) => {
         console.log(error);
