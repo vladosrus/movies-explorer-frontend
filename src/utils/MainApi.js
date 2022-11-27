@@ -12,7 +12,7 @@ function checkResponse(res) {
   if (res.ok) {
     return res.json();
   } else {
-    return Promise.reject(res.json());
+    return Promise.reject({promise: res.json(), status: res.status});
   }
 }
 export function registration(name, email, password) {

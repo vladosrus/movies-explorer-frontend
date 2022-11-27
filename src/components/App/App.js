@@ -14,7 +14,10 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import * as MainApi from "../../utils/MainApi";
 import * as MoviesApi from "../../utils/MoviesApi";
-import errorMessage from "../../utils/constants";
+import {
+  errorMessage,
+  successUpdateUserInfoMessage,
+} from "../../utils/constants";
 
 export default function App() {
   const history = useHistory();
@@ -57,13 +60,6 @@ export default function App() {
   const [isRequestPopupSuccess, setIsRequestPopupSuccess] = useState(false);
   const [requestStatusPopupMessage, setRequestStatusPopupMessage] = useState();
 
-  const tokenCheck = useCallback(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setLoggedIn(true);
-    }
-  }, []);
-
   const localStorageCheck = useCallback(() => {
     localStorage.isSelectedShortMovies &&
       setIsSelectedShortMovies(JSON.parse(localStorage.isSelectedShortMovies));
@@ -79,20 +75,51 @@ export default function App() {
       );
   }, []);
 
+  const handleLogout = useCallback(() => {
+    MainApi.logout()
+      .then(() => {
+        localStorage.clear();
+        setIsSelectedShortMovies(false);
+        setMovieName("");
+        setFoundMovies([]);
+        setIsMoviesResultBlockOpen(false);
+        setIsMoviesNotFoundErrorMessageVisible(false);
+        setIsSelectedShortSavedMovies(false);
+        setSavedMovieName("");
+        setFilteredMovies([]);
+        setIsSavedMoviesResultBlockOpen(true);
+        setIsSavedMoviesNotFoundErrorMessageVisible(false);
+        setIsFiltered(false);
+        setLoggedIn(false);
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [history]);
+
   useEffect(() => {
-    tokenCheck();
     localStorageCheck();
-    if (loggedIn) {
+    if (!loggedIn) {
       Promise.all([MainApi.getProfileInfo(), MainApi.getSavedMovies()])
         .then(([currentUserInfo, savedMovies]) => {
           setCurrentUser(currentUserInfo);
           setSavedMovies(savedMovies);
+          setLoggedIn(true);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(({ promise, status }) => {
+          if (status === 401) {
+            handleLogout();
+          } else {
+            promise.then((err) => {
+              err.message
+                ? console.log(`Ошибка ${status}: ${err.message}`)
+                : console.log(`Ошибка ${status}`);
+            });
+          }
         });
     }
-  }, [loggedIn, tokenCheck, localStorageCheck]);
+  }, [loggedIn, localStorageCheck, handleLogout]);
 
   function registration(name, email, password, setIsFormDisabled) {
     setIsFormDisabled(true);
@@ -100,11 +127,13 @@ export default function App() {
       .then(() => {
         authorization(email, password, setIsFormDisabled);
       })
-      .catch((promise) => {
+      .catch(({ promise, status }) => {
         promise
           .then((err) => {
-            console.log(err.message);
-            err.statusCode && err.statusCode === 400
+            err.message
+              ? console.log(`Ошибка ${status}: ${err.message}`)
+              : console.log(`Ошибка ${status}`);
+            err.statusCode === 400
               ? requestStatusPopupAction(err.validation.body.message, false)
               : requestStatusPopupAction(err.message, false);
           })
@@ -117,14 +146,16 @@ export default function App() {
     setIsFormDisabled(true);
     MainApi.authorization(email, password)
       .then((res) => {
-        localStorage.setItem("token", res.token);
+        setLoggedIn(true);
         successAuthorization();
       })
-      .catch((promise) => {
+      .catch(({ promise, status }) => {
         promise
           .then((err) => {
-            console.log(err.message);
-            err.statusCode && err.statusCode === 400
+            err.message
+              ? console.log(`Ошибка ${status}: ${err.message}`)
+              : console.log(`Ошибка ${status}`);
+            err.statusCode === 400
               ? requestStatusPopupAction(err.validation.body.message, false)
               : requestStatusPopupAction(err.message, false);
           })
@@ -137,17 +168,23 @@ export default function App() {
     MainApi.updateProfileInfo(name, email)
       .then((res) => {
         setCurrentUser(res);
-        requestStatusPopupAction("Данные успешно обновлены", true);
+        requestStatusPopupAction(successUpdateUserInfoMessage, true);
       })
-      .catch((promise) => {
-        promise
-          .then((err) => {
-            console.log(err.message);
-            err.statusCode && err.statusCode === 400
-              ? requestStatusPopupAction(err.validation.body.message, false)
-              : requestStatusPopupAction(err.message, false);
-          })
-          .catch((err) => console.log(err));
+      .catch(({ promise, status }) => {
+        if (status === 401) {
+          handleLogout();
+        } else {
+          promise
+            .then((err) => {
+              err.message
+                ? console.log(`Ошибка ${status}: ${err.message}`)
+                : console.log(`Ошибка ${status}`);
+              err.statusCode === 400
+                ? requestStatusPopupAction(err.validation.body.message, false)
+                : requestStatusPopupAction(err.message, false);
+            })
+            .catch((err) => console.log(err));
+        }
       })
       .finally(() => {
         setIsFormDisabled(false);
@@ -274,9 +311,19 @@ export default function App() {
         setSavedMovies((state) => state.filter((c) => c._id !== movieId));
         setFilteredMovies((state) => state.filter((c) => c._id !== movieId));
       })
-      .catch((error) => {
-        console.log(error);
-        requestStatusPopupAction(errorMessage, false);
+      .catch(({ promise, status }) => {
+        if (status === 401) {
+          handleLogout();
+        } else {
+          promise
+            .then((err) => {
+              err.message
+                ? console.log(`Ошибка ${status}: ${err.message}`)
+                : console.log(`Ошибка ${status}`);
+              requestStatusPopupAction(errorMessage, false);
+            })
+            .catch((err) => console.log(err));
+        }
       });
   }
   function handleLikeMovie(movie, isFavorites, setIsFavorites) {
@@ -287,9 +334,19 @@ export default function App() {
           setSavedMovies([savedMovie, ...savedMovies]);
           setFilteredMovies([savedMovie, ...savedMovies]);
         })
-        .catch((error) => {
-          console.log(error);
-          requestStatusPopupAction(errorMessage, false);
+        .catch(({ promise, status }) => {
+          if (status === 401) {
+            handleLogout();
+          } else {
+            promise
+              .then((err) => {
+                err.message
+                  ? console.log(`Ошибка ${status}: ${err.message}`)
+                  : console.log(`Ошибка ${status}`);
+                requestStatusPopupAction(errorMessage, false);
+              })
+              .catch((err) => console.log(err));
+          }
         });
     } else {
       MainApi.deleteSavedMovie(
@@ -305,34 +362,21 @@ export default function App() {
             state.filter((c) => c.movieId !== movie.id)
           );
         })
-        .catch((error) => {
-          console.log(error);
-          requestStatusPopupAction(errorMessage, false);
+        .catch(({ promise, status }) => {
+          if (status === 401) {
+            handleLogout();
+          } else {
+            promise
+              .then((err) => {
+                err.message
+                  ? console.log(`Ошибка ${status}: ${err.message}`)
+                  : console.log(`Ошибка ${status}`);
+                requestStatusPopupAction(errorMessage, false);
+              })
+              .catch((err) => console.log(err));
+          }
         });
     }
-  }
-
-  function handleLogout() {
-    MainApi.logout()
-      .then(() => {
-        localStorage.clear();
-        setIsSelectedShortMovies(false);
-        setMovieName("");
-        setFoundMovies([]);
-        setIsMoviesResultBlockOpen(false);
-        setIsMoviesNotFoundErrorMessageVisible(false);
-        setIsSelectedShortSavedMovies(false);
-        setSavedMovieName("");
-        setFilteredMovies([]);
-        setIsSavedMoviesResultBlockOpen(true);
-        setIsSavedMoviesNotFoundErrorMessageVisible(false);
-        setIsFiltered(false);
-        setLoggedIn(false);
-        history.push("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 
   function successAuthorization() {
