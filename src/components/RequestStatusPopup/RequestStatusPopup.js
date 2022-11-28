@@ -32,7 +32,7 @@ export default function RequestStatusPopup(props) {
         />
         <div
           className={`${
-            props.code === 200
+            props.isSuccess
               ? "request-status-popup__success-icon"
               : "request-status-popup__unsuccess-icon"
           }`}

@@ -81,6 +81,13 @@
   color: #fff;
 }
 
+.entrance-page__submit-button_disabled {
+  background-color: transparent;
+  border: 1px solid #8b8b8b;
+  cursor: default;
+  pointer-events: none;
+}
+
 .entrance-page__submit-button:hover {
   opacity: 0.8;
 }

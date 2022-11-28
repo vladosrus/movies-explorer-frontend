@@ -1,13 +1,51 @@
+import Header from "../Header/Header";
+import Navigation from "../Navigation/Navigation";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
+import Footer from "../Footer/Footer";
+import RequestStatusPopup from "../RequestStatusPopup/RequestStatusPopup";
 
 export default function Movies(props) {
   return (
-    <article className="movies-page">
-      <SearchForm />
-      <MoviesCardList movies={props.movies} />
-      <Preloader />
-    </article>
+    <>
+      <Header
+        onNavigationBottomClick={props.onNavBottonClick}
+        loggedIn={props.loggedIn}
+      />
+      <main>
+        <article className="movies-page">
+          <SearchForm
+            onSubmitSearchForm={props.onSubmitSearchForm}
+            isSelectedShortMovies={props.isSelectedShortMovies}
+            movieName={props.movieName}
+            foundMovies={props.foundMovies}
+          />
+          <MoviesCardList
+            savedMovies={props.savedMovies}
+            foundMovies={props.foundMovies}
+            isResultBlockOpen={props.isResultBlockOpen}
+            isNotFoundErrorMessageVisible={props.isNotFoundErrorMessageVisible}
+            isErrorMessageVisible={props.isErrorMessageVisible}
+            onMovieLike={props.onMovieLike}
+            isPreloaderOpen={props.isPreloaderOpen}
+          />
+          <Preloader />
+        </article>
+        <Navigation
+          isOpen={props.isNavigationMenuOpen}
+          onClose={props.onClose}
+          onOverlayClick={props.onClose}
+        />
+        <RequestStatusPopup
+          isOpen={props.isRequestStatusPopupOpen}
+          message={props.requestStatusPopupMessage}
+          isSuccess={props.isRequestPopupSuccess}
+          onClose={props.onClose}
+          onOverlayClick={props.onClose}
+        />
+      </main>
+      <Footer />
+    </>
   );
 }

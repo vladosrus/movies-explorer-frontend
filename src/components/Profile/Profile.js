@@ -1,48 +1,127 @@
 import "./Profile.css";
-import { useState } from "react";
+import Header from "../Header/Header";
+import Navigation from "../Navigation/Navigation";
+import RequestStatusPopup from "../RequestStatusPopup/RequestStatusPopup";
+import { useContext, useState } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 export default function Profile(props) {
-  const [name, setName] = useState(props.profileData.name);
-  const [email, setEmail] = useState(props.profileData.email);
+  const currentUser = useContext(CurrentUserContext);
+  const [isFormDisabled, setIsFormDisabled] = useState(false);
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation({
+      name: currentUser.name,
+      email: currentUser.email,
+    });
 
-  function handleChange(evt) {
-    if (evt.target.id === "name") {
-      setName(evt.target.value);
-    } else {
-      setEmail(evt.target.value);
-    }
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    resetForm();
+    props.onUpdateProfileInfo(values.name, values.email, setIsFormDisabled);
   }
 
   return (
-    <article className="profile-page">
-      <h2 className="profile-page__title">{`Привет, ${props.profileData.name}!`}</h2>
-      <form className="profile-page__form">
-        <div className="profile-page__input-container">
-          <p className="profile-page__input-name">Имя</p>
-          <input
-            type="text"
-            className="profile-page__input"
-            value={name || ""}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="profile-page__input-container">
-          <p className="profile-page__input-name">E-mail</p>
-          <input
-            type="email"
-            className="profile-page__input"
-            value={email || ""}
-            onChange={handleChange}
-          />
-        </div>
+    <>
+      <Header
+        onNavigationBottomClick={props.onNavBottonClick}
+        loggedIn={props.loggedIn}
+      />
+      <main>
+        <article className="profile-page">
+          <h2 className="profile-page__title">{`Привет, ${currentUser.name}!`}</h2>
+          <form
+            className="profile-page__form"
+            onSubmit={handleSubmit}
+            noValidate
+          >
+            <div className="profile-page__input-container">
+              <label className="profile-page__input-name">
+                Имя
+                <input
+                  name="name"
+                  type="text"
+                  required
+                  minLength="2"
+                  maxLength="30"
+                  className={`profile-page__input ${
+                    errors.name && "profile-page__input_type_error"
+                  }`}
+                  value={values.name || ""}
+                  onChange={handleChange}
+                  disabled={isFormDisabled}
+                />
+              </label>
+              <span
+                className={`profile-page__error-message ${
+                  errors.name && "profile-page__error-message_visible"
+                }`}
+              >
+                {errors.name || ""}
+              </span>
+            </div>
+            <div className="profile-page__input-container">
+              <label className="profile-page__input-name">
+                E-mail
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  className={`profile-page__input ${
+                    errors.email && "profile-page__input_type_error"
+                  }`}
+                  value={values.email || ""}
+                  onChange={handleChange}
+                  disabled={isFormDisabled}
+                />
+              </label>
+              <span
+                className={`profile-page__error-message ${
+                  errors.name && "profile-page__error-message_visible"
+                }`}
+              >
+                {errors.email || ""}
+              </span>
+            </div>
 
-        <button type="submit" className="profile-page__submit-button">
-          Редактировать
-        </button>
-      </form>
-      <button type="submit" className="profile-page__logout-button">
-        Выйти из аккаунта
-      </button>
-    </article>
+            <button
+              type="submit"
+              disabled={
+                (!isValid || currentUser.name === values.name) &&
+                currentUser.email === values.email
+              }
+              className={`profile-page__submit-button ${
+                (!isValid || currentUser.name === values.name) &&
+                currentUser.email === values.email
+                  ? "profile-page__submit-button_disabled"
+                  : ""
+              }`}
+            >
+              Редактировать
+            </button>
+          </form>
+          <button
+            type="button"
+            className="profile-page__logout-button"
+            onClick={props.onLogout}
+          >
+            Выйти из аккаунта
+          </button>
+        </article>
+        <Navigation
+          isOpen={props.isNavigationMenuOpen}
+          onClose={props.onClose}
+          onOverlayClick={props.onClose}
+        />
+        <RequestStatusPopup
+          place={"profile"}
+          isOpen={props.isRequestStatusPopupOpen}
+          message={props.requestStatusPopupMessage}
+          isSuccess={props.isRequestPopupSuccess}
+          onClose={props.onClose}
+          onOverlayClick={props.onClose}
+        />
+      </main>
+    </>
   );
 }

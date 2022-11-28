@@ -8,6 +8,7 @@
 `npm run build` — собирает код
 
 ### Cсылки
-- Frontend: [https://movies-explorer.chikov.nomoredomains.icu/](https://movies-explorer.chikov.nomoredomains.icu/)
-- Репозиторий проекта: [https://github.com/vladosrus/movies-explorer-frontend](https://github.com/vladosrus/movies-explorer-frontend)
+- Ссыылка на проект: [https://movies-explorer.chikov.nomoredomains.icu/...](https://movies-explorer.chikov.nomoredomains.icu/)
+- Репозиторий проекта: [https://github.com/...](https://github.com/vladosrus/movies-explorer-frontend)
 - Макет дипломной работы в Яндекс.Диске: [https://yadi.sk/...](https://yadi.sk/d/5bKxK33v5TbnHQ)
+- Ссылка на Pull Request: [https://github.com/...](https://github.com/vladosrus/movies-explorer-frontend/pull/2)
