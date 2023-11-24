@@ -55,6 +55,7 @@
   border-radius: 10px;
   min-width: 270px;
   max-height: 327px;
+  object-fit: cover;
 }
 
 @media (max-width: 1240px) {
