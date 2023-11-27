@@ -21,7 +21,7 @@
   opacity: 0.8;
 }
 
-.header__link:first-child {
+.header__link_active {
   font-weight: 500;
 }
 

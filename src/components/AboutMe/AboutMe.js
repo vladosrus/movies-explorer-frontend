@@ -1,33 +1,9 @@
 import "./AboutMe.css";
 import studentImg from "../../images/about-me__img.jpg";
 import TabTitle from "../TabTitle/TabTitle";
+import { yearsOld, years, returnNumberInArray } from "../../utils/constants";
 
 export default function AboutMe() {
-  const yearsOld = new Date().getFullYear() - 2000;
-  const returnNumberInArray = (num) =>
-    num > 19 ? returnNumberInArray(num - 10) : num > 9 ? num - 10 : num;
-  const years = [
-    "лет",
-    "год",
-    "года",
-    "года",
-    "года",
-    "лет",
-    "лет",
-    "лет",
-    "лет",
-    "лет",
-    "лет",
-    "лет",
-    "лет",
-    "лет",
-    "лет",
-    "лет",
-    "лет",
-    "лет",
-    "лет",
-  ];
-
   return (
     <section className="about-me" id="about-me">
       <TabTitle text={"Студент"} />

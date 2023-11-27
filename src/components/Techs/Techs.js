@@ -1,16 +1,6 @@
 import "./Techs.css";
 import TabTitle from "../TabTitle/TabTitle";
-
-const technologies = [
-  "HTML",
-  "CSS",
-  "JS",
-  "React",
-  "Git",
-  "Node.js",
-  "Express.js",
-  "mongoDB",
-];
+import { technologies } from "../../utils/constants";
 
 export default function Techs() {
   return (
@@ -23,8 +13,8 @@ export default function Techs() {
           дипломном проекте.
         </p>
         <ul className="techs__technologies-list">
-          {technologies.map((technologie) => (
-            <li className="techs__technologies-item">{technologie}</li>
+          {technologies.map((technologie, index) => (
+            <li key={index} className="techs__technologies-item">{technologie}</li>
           ))}
         </ul>
       </div>
