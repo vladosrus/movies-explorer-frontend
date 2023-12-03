@@ -1,6 +1,7 @@
 import "./EntrancePage.css";
 import Logo from "../Logo/Logo";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 import {
   nameValidationErrorMessage,
@@ -98,6 +99,7 @@ export default function EntrancePage(props) {
               value={values.password || ""}
               onChange={handleChange}
               disabled={isFormDisabled}
+              pattern="^(?!.*[А-Я а-я]).{8,50}"
             ></input>
           </label>
           <span
@@ -127,13 +129,13 @@ export default function EntrancePage(props) {
             : "Ещё не зарегистрированы?"}
 
           {props.name === "register" ? (
-            <a className="entrance-page__link" href="/sign-in">
+            <Link to={"/sign-in"} className="entrance-page__link">
               Войти
-            </a>
+            </Link>
           ) : (
-            <a className="entrance-page__link" href="/sign-up">
+            <Link to={"/sign-up"} className="entrance-page__link">
               Регистрация
-            </a>
+            </Link>
           )}
         </p>
       </div>
