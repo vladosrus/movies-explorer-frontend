@@ -1,4 +1,4 @@
-import moviesApiUrl from "./MainApi";
+export const moviesApiUrl = "https://api.nomoreparties.co";
 
 function checkResponse(res) {
   if (res.ok) {

@@ -1,18 +1,23 @@
-const mainApiUrl = "https://movies-explorer.chikov.nomoredomains.icu/api";
-const moviesApiUrl = "https://api.nomoreparties.co";
+import { moviesApiUrl } from "./MoviesApi.js";
+
+const mainApiUrl =
+  process.env.REACT_APP_PROCESS === "develop"
+    ? "http://localhost:3001/diploma/api"
+    : "https://vladislav-chikov-projects.ru/diploma/api";
+
+console.log(process.env.REACT_APP_PROCESS);
+
 const headers = {
   "Content-Type": "application/json",
   origin: mainApiUrl,
 };
 const credentials = "include";
 
-export default moviesApiUrl;
-
 function checkResponse(res) {
   if (res.ok) {
     return res.json();
   } else {
-    return Promise.reject({promise: res.json(), status: res.status});
+    return Promise.reject({ promise: res.json(), status: res.status });
   }
 }
 export function registration(name, email, password) {
