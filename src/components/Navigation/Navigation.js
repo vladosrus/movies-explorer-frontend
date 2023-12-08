@@ -34,28 +34,34 @@ export default function Navigation(props) {
         />
         <nav className="navigation-menu__nav-links-container">
           <NavLink
-            exact
             to="/"
-            activeClassName="navigation-menu__nav-link_active"
-            className="navigation-menu__nav-link"
+            className={({ isActive }) =>
+              isActive
+                ? "navigation-menu__nav-link navigation-menu__nav-link_active"
+                : "navigation-menu__nav-link"
+            }
             onClick={props.onClose}
           >
             Главная
           </NavLink>
           <NavLink
-            exact
             to="/movies"
-            activeClassName="navigation-menu__nav-link_active"
-            className="navigation-menu__nav-link"
+            className={({ isActive }) =>
+              isActive
+                ? "navigation-menu__nav-link navigation-menu__nav-link_active"
+                : "navigation-menu__nav-link"
+            }
             onClick={props.onClose}
           >
             Фильмы
           </NavLink>
           <NavLink
-            exact
             to="/saved-movies"
-            activeClassName="navigation-menu__nav-link_active"
-            className="navigation-menu__nav-link"
+            className={({ isActive }) =>
+              isActive
+                ? "navigation-menu__nav-link navigation-menu__nav-link_active"
+                : "navigation-menu__nav-link"
+            }
             onClick={props.onClose}
           >
             Сохранённые фильмы
