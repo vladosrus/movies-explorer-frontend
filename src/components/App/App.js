@@ -1,5 +1,5 @@
 import "./App.css";
-import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 
 // Импорты компонентов
@@ -20,7 +20,7 @@ import {
 } from "../../utils/constants";
 
 export default function App() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
 
@@ -91,12 +91,12 @@ export default function App() {
         setIsSavedMoviesNotFoundErrorMessageVisible(false);
         setIsFiltered(false);
         setLoggedIn(false);
-        history.push("/");
+        return <Navigate to="/" />
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [history]);
+  }, []);
 
   useEffect(() => {
     localStorageCheck();
@@ -381,7 +381,7 @@ export default function App() {
 
   function successAuthorization() {
     setLoggedIn(true);
-    history.push("/movies");
+    navigate("/movies");
   }
 
   function requestStatusPopupAction(message, isSuccess) {
@@ -401,105 +401,128 @@ export default function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Switch>
-          <Route exact path="/">
-            <Main
-              loggedIn={loggedIn}
-              onNavigationBottomClick={handleNavigationBottomClick}
-              onClose={closeAllWindows}
-              isNavigationMenuOpen={isNavigationMenuOpen}
-            />
-          </Route>
-          <ProtectedRoute
-            exact
-            path="/movies"
-            loggedIn={loggedIn}
-            component={Movies}
-            onNavBottonClick={handleNavigationBottomClick}
-            onClose={closeAllWindows}
-            isNavigationMenuOpen={isNavigationMenuOpen}
-            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-            requestStatusPopupMessage={requestStatusPopupMessage}
-            isRequestPopupSuccess={isRequestPopupSuccess}
-            isResultBlockOpen={isMoviesResultBlockOpen}
-            isNotFoundErrorMessageVisible={isMoviesNotFoundErrorMessageVisible}
-            isErrorMessageVisible={isMoviesErrorMessageVisible}
-            onSubmitSearchForm={handleFindMovies}
-            isSelectedShortMovies={isSelectedShortMovies}
-            movieName={movieName}
-            savedMovies={savedMovies}
-            foundMovies={foundMovies}
-            onMovieLike={handleLikeMovie}
-            isPreloaderOpen={isPreloaderOpen}
-          />
-          <ProtectedRoute
-            exact
-            path="/saved-movies"
-            loggedIn={loggedIn}
-            component={SavedMovies}
-            onNavBottonClick={handleNavigationBottomClick}
-            onClose={closeAllWindows}
-            isNavigationMenuOpen={isNavigationMenuOpen}
-            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-            requestStatusPopupMessage={requestStatusPopupMessage}
-            isRequestPopupSuccess={isRequestPopupSuccess}
-            isResultBlockOpen={isSavedMoviesResultBlockOpen}
-            isNotFoundErrorMessageVisible={
-              isSavedMoviesNotFoundErrorMessageVisible
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Main
+                loggedIn={loggedIn}
+                onNavigationBottomClick={handleNavigationBottomClick}
+                onClose={closeAllWindows}
+                isNavigationMenuOpen={isNavigationMenuOpen}
+              />
             }
-            isErrorMessageVisible={isSavedMoviesErrorMessageVisible}
-            onSubmitSearchForm={handleFindSavedMovies}
-            isSelectedShortMovies={isSelectedShortSavedMovies}
-            movieName={savedMovieName}
-            savedMovies={savedMovies}
-            filteredMovies={filteredMovies}
-            isFiltered={isFiltered}
-            onMovieDelete={handleDeleteMovie}
           />
-          <ProtectedRoute
-            exact
+          <Route
+            path="/movies"
+            element={
+              <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
+                <Movies
+                  loggedIn={loggedIn}
+                  onNavBottonClick={handleNavigationBottomClick}
+                  onClose={closeAllWindows}
+                  isNavigationMenuOpen={isNavigationMenuOpen}
+                  isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+                  requestStatusPopupMessage={requestStatusPopupMessage}
+                  isRequestPopupSuccess={isRequestPopupSuccess}
+                  isResultBlockOpen={isMoviesResultBlockOpen}
+                  isNotFoundErrorMessageVisible={
+                    isMoviesNotFoundErrorMessageVisible
+                  }
+                  isErrorMessageVisible={isMoviesErrorMessageVisible}
+                  onSubmitSearchForm={handleFindMovies}
+                  isSelectedShortMovies={isSelectedShortMovies}
+                  movieName={movieName}
+                  savedMovies={savedMovies}
+                  foundMovies={foundMovies}
+                  onMovieLike={handleLikeMovie}
+                  isPreloaderOpen={isPreloaderOpen}
+                />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/saved-movies"
+            element={
+              <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
+                <SavedMovies
+                  loggedIn={loggedIn}
+                  onNavBottonClick={handleNavigationBottomClick}
+                  onClose={closeAllWindows}
+                  isNavigationMenuOpen={isNavigationMenuOpen}
+                  isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+                  requestStatusPopupMessage={requestStatusPopupMessage}
+                  isRequestPopupSuccess={isRequestPopupSuccess}
+                  isResultBlockOpen={isSavedMoviesResultBlockOpen}
+                  isNotFoundErrorMessageVisible={
+                    isSavedMoviesNotFoundErrorMessageVisible
+                  }
+                  isErrorMessageVisible={isSavedMoviesErrorMessageVisible}
+                  onSubmitSearchForm={handleFindSavedMovies}
+                  isSelectedShortMovies={isSelectedShortSavedMovies}
+                  movieName={savedMovieName}
+                  savedMovies={savedMovies}
+                  filteredMovies={filteredMovies}
+                  isFiltered={isFiltered}
+                  onMovieDelete={handleDeleteMovie}
+                />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/profile"
-            loggedIn={loggedIn}
-            component={Profile}
-            onNavBottonClick={handleNavigationBottomClick}
-            onClose={closeAllWindows}
-            isNavigationMenuOpen={isNavigationMenuOpen}
-            isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-            requestStatusPopupMessage={requestStatusPopupMessage}
-            isRequestPopupSuccess={isRequestPopupSuccess}
-            onLogout={handleLogout}
-            onUpdateProfileInfo={updateProfileInfo}
+            element={
+              <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
+                <Profile
+                  loggedIn={loggedIn}
+                  onNavBottonClick={handleNavigationBottomClick}
+                  onClose={closeAllWindows}
+                  isNavigationMenuOpen={isNavigationMenuOpen}
+                  isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+                  requestStatusPopupMessage={requestStatusPopupMessage}
+                  isRequestPopupSuccess={isRequestPopupSuccess}
+                  onLogout={handleLogout}
+                  onUpdateProfileInfo={updateProfileInfo}
+                />
+              </ProtectedRoute>
+            }
           />
-          <Route exact path="/sign-up">
-            {loggedIn ? (
-              <Redirect to="/" />
-            ) : (
-              <Register
-                isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-                requestStatusPopupMessage={requestStatusPopupMessage}
-                isRequestPopupSuccess={isRequestPopupSuccess}
-                onClose={closeAllWindows}
-                onRegistration={registration}
-              />
-            )}
-          </Route>
-          <Route exact path="/sign-in">
-            {loggedIn ? (
-              <Redirect to="/" />
-            ) : (
-              <Login
-                isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-                requestStatusPopupMessage={requestStatusPopupMessage}
-                isRequestPopupSuccess={isRequestPopupSuccess}
-                onClose={closeAllWindows}
-                onLogin={authorization}
-              />
-            )}
-          </Route>
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch>
+
+          <Route
+            path="/sign-up"
+            element={
+              loggedIn ? (
+                <Navigate to="/" />
+              ) : (
+                <Register
+                  isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+                  requestStatusPopupMessage={requestStatusPopupMessage}
+                  isRequestPopupSuccess={isRequestPopupSuccess}
+                  onClose={closeAllWindows}
+                  onRegistration={registration}
+                />
+              )
+            }
+          />
+          <Route
+            path="/sign-in"
+            element={
+              loggedIn ? (
+                <Navigate to="/" />
+              ) : (
+                <Login
+                  isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+                  requestStatusPopupMessage={requestStatusPopupMessage}
+                  isRequestPopupSuccess={isRequestPopupSuccess}
+                  onClose={closeAllWindows}
+                  onLogin={authorization}
+                />
+              )
+            }
+          />
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </div>
     </CurrentUserContext.Provider>
   );

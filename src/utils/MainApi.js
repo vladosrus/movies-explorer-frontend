@@ -5,8 +5,6 @@ const mainApiUrl =
     ? "http://localhost:3001/diploma/api"
     : "https://vladislav-chikov-projects.ru/diploma/api";
 
-console.log(process.env.REACT_APP_PROCESS);
-
 const headers = {
   "Content-Type": "application/json",
   origin: mainApiUrl,

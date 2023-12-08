@@ -13,18 +13,18 @@ export default function Header(props) {
           <nav className="header__nav-container">
             <div className="header__links-container">
               <NavLink
-                exact
                 to="/movies"
-                className="header__link"
-                activeClassName="header__link_active"
+                className={({ isActive }) =>
+                  isActive ? "header__link header__link_active" : "header__link"
+                }
               >
                 Фильмы
               </NavLink>
               <NavLink
-                exact
                 to="/saved-movies"
-                className="header__link"
-                activeClassName="header__link_active"
+                className={({ isActive }) =>
+                  isActive ? "header__link header__link_active" : "header__link"
+                }
               >
                 Сохранённые фильмы
               </NavLink>

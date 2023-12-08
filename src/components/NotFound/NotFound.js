@@ -1,8 +1,8 @@
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./NotFound.css";
 
 export default function NotFound() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <main>
@@ -12,7 +12,7 @@ export default function NotFound() {
         <button
           type="button"
           className="not-found-page__go-back-button"
-          onClick={() => history.goBack()}
+          onClick={() => navigate(-1)}
         >
           Назад
         </button>

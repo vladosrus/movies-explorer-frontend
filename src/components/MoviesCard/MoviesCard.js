@@ -1,6 +1,5 @@
 import "./MoviesCard.css";
 import { useCallback, useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom";
 
 export default function MoviesCard(props) {
   const [isFavorites, setIsFavorites] = useState();
@@ -53,22 +52,23 @@ export default function MoviesCard(props) {
             {convertMinutes(props.duration)}
           </p>
         </div>
-        <Switch>
-          <Route exact path="/movies">
-            <button
-              className={moviesCardFavouritesButtonClassName}
-              type="button"
-              onClick={onFavouritesButtonClick}
-            />
-          </Route>
-          <Route exact path="/saved-movies">
-            <button
-              className="movies-card__delete-button"
-              type="button"
-              onClick={onDeleteButtonClick}
-            />
-          </Route>
-        </Switch>
+
+        {/* временное решение, можно лучше */}
+        {window.location.pathname === "/movies" && (
+          <button
+            className={moviesCardFavouritesButtonClassName}
+            type="button"
+            onClick={onFavouritesButtonClick}
+          />
+        )}
+        {window.location.pathname === "/saved-movies" && (
+          <button
+            className="movies-card__delete-button"
+            type="button"
+            onClick={onDeleteButtonClick}
+          />
+        )}
+
       </div>
     </article>
   );
