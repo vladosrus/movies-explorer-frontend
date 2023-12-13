@@ -8,7 +8,7 @@ export default function Portfolio() {
       <ul className="portfolio__links-list">
         <li className="portfolio__links-list-item">
           <a
-            href="https://vladosrus.github.io/how-to-learn/"
+            href="https://vladislav-chikov-projects.ru/how-to-learn/"
             target="_blank"
             rel="noreferrer"
             className="portfolio__link"
@@ -19,7 +19,7 @@ export default function Portfolio() {
         </li>
         <li className="portfolio__links-list-item">
           <a
-            href="https://vladosrus.github.io/russian-travel/"
+            href="https://vladislav-chikov-projects.ru/russian-travel/"
             target="_blank"
             rel="noreferrer"
             className="portfolio__link"
@@ -30,7 +30,7 @@ export default function Portfolio() {
         </li>
         <li className="portfolio__links-list-item">
           <a
-            href="https://vladosrus.github.io/react-mesto-auth/"
+            href="https://vladislav-chikov-projects.ru/react-mesto-auth/"
             target="_blank"
             rel="noreferrer"
             className="portfolio__link"
