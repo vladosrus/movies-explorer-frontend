@@ -5,7 +5,7 @@ import profileIcon from "../../images/profile-button__profile-icon.svg";
 export default function ProfileButton(props) {
   return props.onClose ? (
     <Link
-      to={"/profile"}
+      to={"/diploma/profile"}
       className={`profile-button ${props.marginBottomClass}`}
       onClick={props.onClose}
     >
@@ -18,7 +18,7 @@ export default function ProfileButton(props) {
     </Link>
   ) : (
     <Link
-      to={"/profile"}
+      to={"/diploma/profile"}
       className={`profile-button ${props.marginBottomClass}`}
     >
       <img

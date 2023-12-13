@@ -129,11 +129,11 @@ export default function EntrancePage(props) {
             : "Ещё не зарегистрированы?"}
 
           {props.name === "register" ? (
-            <Link to={"/sign-in"} className="entrance-page__link">
+            <Link to={"/diploma/sign-in"} className="entrance-page__link">
               Войти
             </Link>
           ) : (
-            <Link to={"/sign-up"} className="entrance-page__link">
+            <Link to={"/diploma/sign-up"} className="entrance-page__link">
               Регистрация
             </Link>
           )}

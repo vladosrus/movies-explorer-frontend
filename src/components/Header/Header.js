@@ -13,7 +13,7 @@ export default function Header(props) {
           <nav className="header__nav-container">
             <div className="header__links-container">
               <NavLink
-                to="/movies"
+                to="/diploma/movies"
                 className={({ isActive }) =>
                   isActive ? "header__link header__link_active" : "header__link"
                 }
@@ -21,7 +21,7 @@ export default function Header(props) {
                 Фильмы
               </NavLink>
               <NavLink
-                to="/saved-movies"
+                to="/diploma/saved-movies"
                 className={({ isActive }) =>
                   isActive ? "header__link header__link_active" : "header__link"
                 }
@@ -40,12 +40,12 @@ export default function Header(props) {
       ) : (
         <nav className="header__nav-container header__nav-container_place_main-page">
           <div className="header__links-container">
-            <Link to={"/sign-up"} className="header__link">
+            <Link to={"sign-up"} className="header__link">
               Регистрация
             </Link>
           </div>
           <Link
-            to={"/sign-in"}
+            to={"sign-in"}
             className="header__button header__button_name_login"
           >
             Войти

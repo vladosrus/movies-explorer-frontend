@@ -34,7 +34,7 @@ export default function Navigation(props) {
         />
         <nav className="navigation-menu__nav-links-container">
           <NavLink
-            to="/"
+            to="/diploma/"
             className={({ isActive }) =>
               isActive
                 ? "navigation-menu__nav-link navigation-menu__nav-link_active"
@@ -45,7 +45,7 @@ export default function Navigation(props) {
             Главная
           </NavLink>
           <NavLink
-            to="/movies"
+            to="/diploma/movies"
             className={({ isActive }) =>
               isActive
                 ? "navigation-menu__nav-link navigation-menu__nav-link_active"
@@ -56,7 +56,7 @@ export default function Navigation(props) {
             Фильмы
           </NavLink>
           <NavLink
-            to="/saved-movies"
+            to="/diploma/saved-movies"
             className={({ isActive }) =>
               isActive
                 ? "navigation-menu__nav-link navigation-menu__nav-link_active"

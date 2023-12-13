@@ -91,7 +91,7 @@ export default function App() {
         setIsSavedMoviesNotFoundErrorMessageVisible(false);
         setIsFiltered(false);
         setLoggedIn(false);
-        return <Navigate to="/" />
+        return <Navigate to="/diploma/" />;
       })
       .catch((err) => {
         console.log(err);
@@ -381,7 +381,7 @@ export default function App() {
 
   function successAuthorization() {
     setLoggedIn(true);
-    navigate("/movies");
+    navigate("/diploma/movies");
   }
 
   function requestStatusPopupAction(message, isSuccess) {
@@ -403,7 +403,7 @@ export default function App() {
       <div className="page">
         <Routes>
           <Route
-            path="/"
+            path="/diploma/"
             element={
               <Main
                 loggedIn={loggedIn}
@@ -413,114 +413,115 @@ export default function App() {
               />
             }
           />
-          <Route
-            path="/movies"
-            element={
-              <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
-                <Movies
-                  loggedIn={loggedIn}
-                  onNavBottonClick={handleNavigationBottomClick}
-                  onClose={closeAllWindows}
-                  isNavigationMenuOpen={isNavigationMenuOpen}
-                  isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-                  requestStatusPopupMessage={requestStatusPopupMessage}
-                  isRequestPopupSuccess={isRequestPopupSuccess}
-                  isResultBlockOpen={isMoviesResultBlockOpen}
-                  isNotFoundErrorMessageVisible={
-                    isMoviesNotFoundErrorMessageVisible
-                  }
-                  isErrorMessageVisible={isMoviesErrorMessageVisible}
-                  onSubmitSearchForm={handleFindMovies}
-                  isSelectedShortMovies={isSelectedShortMovies}
-                  movieName={movieName}
-                  savedMovies={savedMovies}
-                  foundMovies={foundMovies}
-                  onMovieLike={handleLikeMovie}
-                  isPreloaderOpen={isPreloaderOpen}
-                />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/saved-movies"
-            element={
-              <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
-                <SavedMovies
-                  loggedIn={loggedIn}
-                  onNavBottonClick={handleNavigationBottomClick}
-                  onClose={closeAllWindows}
-                  isNavigationMenuOpen={isNavigationMenuOpen}
-                  isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-                  requestStatusPopupMessage={requestStatusPopupMessage}
-                  isRequestPopupSuccess={isRequestPopupSuccess}
-                  isResultBlockOpen={isSavedMoviesResultBlockOpen}
-                  isNotFoundErrorMessageVisible={
-                    isSavedMoviesNotFoundErrorMessageVisible
-                  }
-                  isErrorMessageVisible={isSavedMoviesErrorMessageVisible}
-                  onSubmitSearchForm={handleFindSavedMovies}
-                  isSelectedShortMovies={isSelectedShortSavedMovies}
-                  movieName={savedMovieName}
-                  savedMovies={savedMovies}
-                  filteredMovies={filteredMovies}
-                  isFiltered={isFiltered}
-                  onMovieDelete={handleDeleteMovie}
-                />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
-                <Profile
-                  loggedIn={loggedIn}
-                  onNavBottonClick={handleNavigationBottomClick}
-                  onClose={closeAllWindows}
-                  isNavigationMenuOpen={isNavigationMenuOpen}
-                  isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-                  requestStatusPopupMessage={requestStatusPopupMessage}
-                  isRequestPopupSuccess={isRequestPopupSuccess}
-                  onLogout={handleLogout}
-                  onUpdateProfileInfo={updateProfileInfo}
-                />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/sign-up"
-            element={
-              loggedIn ? (
-                <Navigate to="/" />
-              ) : (
-                <Register
-                  isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-                  requestStatusPopupMessage={requestStatusPopupMessage}
-                  isRequestPopupSuccess={isRequestPopupSuccess}
-                  onClose={closeAllWindows}
-                  onRegistration={registration}
-                />
-              )
-            }
-          />
-          <Route
-            path="/sign-in"
-            element={
-              loggedIn ? (
-                <Navigate to="/" />
-              ) : (
-                <Login
-                  isRequestStatusPopupOpen={isRequestStatusPopupOpen}
-                  requestStatusPopupMessage={requestStatusPopupMessage}
-                  isRequestPopupSuccess={isRequestPopupSuccess}
-                  onClose={closeAllWindows}
-                  onLogin={authorization}
-                />
-              )
-            }
-          />
-
+          <Route path="/diploma/*">
+            <Route
+              path="movies"
+              element={
+                <ProtectedRoute redirectTo="/diploma/" loggedIn={loggedIn}>
+                  <Movies
+                    loggedIn={loggedIn}
+                    onNavBottonClick={handleNavigationBottomClick}
+                    onClose={closeAllWindows}
+                    isNavigationMenuOpen={isNavigationMenuOpen}
+                    isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+                    requestStatusPopupMessage={requestStatusPopupMessage}
+                    isRequestPopupSuccess={isRequestPopupSuccess}
+                    isResultBlockOpen={isMoviesResultBlockOpen}
+                    isNotFoundErrorMessageVisible={
+                      isMoviesNotFoundErrorMessageVisible
+                    }
+                    isErrorMessageVisible={isMoviesErrorMessageVisible}
+                    onSubmitSearchForm={handleFindMovies}
+                    isSelectedShortMovies={isSelectedShortMovies}
+                    movieName={movieName}
+                    savedMovies={savedMovies}
+                    foundMovies={foundMovies}
+                    onMovieLike={handleLikeMovie}
+                    isPreloaderOpen={isPreloaderOpen}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="saved-movies"
+              element={
+                <ProtectedRoute redirectTo="/diploma/" loggedIn={loggedIn}>
+                  <SavedMovies
+                    loggedIn={loggedIn}
+                    onNavBottonClick={handleNavigationBottomClick}
+                    onClose={closeAllWindows}
+                    isNavigationMenuOpen={isNavigationMenuOpen}
+                    isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+                    requestStatusPopupMessage={requestStatusPopupMessage}
+                    isRequestPopupSuccess={isRequestPopupSuccess}
+                    isResultBlockOpen={isSavedMoviesResultBlockOpen}
+                    isNotFoundErrorMessageVisible={
+                      isSavedMoviesNotFoundErrorMessageVisible
+                    }
+                    isErrorMessageVisible={isSavedMoviesErrorMessageVisible}
+                    onSubmitSearchForm={handleFindSavedMovies}
+                    isSelectedShortMovies={isSelectedShortSavedMovies}
+                    movieName={savedMovieName}
+                    savedMovies={savedMovies}
+                    filteredMovies={filteredMovies}
+                    isFiltered={isFiltered}
+                    onMovieDelete={handleDeleteMovie}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute redirectTo="/diploma/" loggedIn={loggedIn}>
+                  <Profile
+                    loggedIn={loggedIn}
+                    onNavBottonClick={handleNavigationBottomClick}
+                    onClose={closeAllWindows}
+                    isNavigationMenuOpen={isNavigationMenuOpen}
+                    isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+                    requestStatusPopupMessage={requestStatusPopupMessage}
+                    isRequestPopupSuccess={isRequestPopupSuccess}
+                    onLogout={handleLogout}
+                    onUpdateProfileInfo={updateProfileInfo}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="sign-up"
+              element={
+                loggedIn ? (
+                  <Navigate to="/diploma/" />
+                ) : (
+                  <Register
+                    isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+                    requestStatusPopupMessage={requestStatusPopupMessage}
+                    isRequestPopupSuccess={isRequestPopupSuccess}
+                    onClose={closeAllWindows}
+                    onRegistration={registration}
+                  />
+                )
+              }
+            />
+            <Route
+              path="sign-in"
+              element={
+                loggedIn ? (
+                  <Navigate to="/diploma/" />
+                ) : (
+                  <Login
+                    isRequestStatusPopupOpen={isRequestStatusPopupOpen}
+                    requestStatusPopupMessage={requestStatusPopupMessage}
+                    isRequestPopupSuccess={isRequestPopupSuccess}
+                    onClose={closeAllWindows}
+                    onLogin={authorization}
+                  />
+                )
+              }
+            />
+            <Route path="*" element={<NotFound />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

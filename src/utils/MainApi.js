@@ -1,9 +1,9 @@
 import { moviesApiUrl } from "./MoviesApi.js";
 
 const mainApiUrl =
-  process.env.REACT_APP_PROCESS === "develop"
-    ? "http://localhost:3001/diploma/api"
-    : "https://vladislav-chikov-projects.ru/diploma/api";
+  process.env.REACT_APP_PROCESS === "production"
+    ? "https://vladislav-chikov-projects.ru/diploma-api"
+    : "http://localhost:3001/diploma-api";
 
 const headers = {
   "Content-Type": "application/json",

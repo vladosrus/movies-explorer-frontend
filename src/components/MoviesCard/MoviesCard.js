@@ -54,14 +54,14 @@ export default function MoviesCard(props) {
         </div>
 
         {/* временное решение, можно лучше */}
-        {window.location.pathname === "/movies" && (
+        {window.location.pathname === "/diploma/movies" && (
           <button
             className={moviesCardFavouritesButtonClassName}
             type="button"
             onClick={onFavouritesButtonClick}
           />
         )}
-        {window.location.pathname === "/saved-movies" && (
+        {window.location.pathname === "/diploma/saved-movies" && (
           <button
             className="movies-card__delete-button"
             type="button"
