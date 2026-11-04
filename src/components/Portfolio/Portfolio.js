@@ -30,7 +30,7 @@ export default function Portfolio() {
         </li>
         <li className="portfolio__links-list-item">
           <a
-            href="https://vladislav-chikov-projects.ru/react-mesto-auth/"
+            href="https://vladislav-chikov-projects.ru/mesto/"
             target="_blank"
             rel="noreferrer"
             className="portfolio__link"

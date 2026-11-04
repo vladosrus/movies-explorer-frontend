@@ -5,9 +5,10 @@
 
 ### Скрипты
 `npm run start` — запускает код с hot-reload
+
 `npm run build` — собирает код
 
 ### Cсылки
-- Frontend: [https://movies-explorer.chikov.nomoredomains.icu/](https://movies-explorer.chikov.nomoredomains.icu/)
+- Frontend можно посмотреть [здесь](https://vladislav-chikov-projects.ru/diploma/)
 - Репозиторий проекта: [https://github.com/vladosrus/movies-explorer-frontend](https://github.com/vladosrus/movies-explorer-frontend)
 - Макет дипломной работы в Яндекс.Диске: [https://yadi.sk/...](https://yadi.sk/d/5bKxK33v5TbnHQ)
